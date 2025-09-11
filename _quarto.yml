@@ -3,20 +3,36 @@ project:
   output-dir: docs
 
 website:
-  title: "website"
+  title: "The Fire Hacker"
+  description: "Founder & AI Researcher at AIEDX | Building the future with AI"
+  favicon: "assets/favicon.ico"
   navbar:
+    background: "#1a1a2e"
+    foreground: "#ffffff"
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: blog.qmd
+        text: Blog
+      - href: til.qmd
+        text: "Today I Learned"
+      - href: about.qmd
+        text: About Me
+    right:
+      - icon: github
+        href: https://github.com/thefirehacker
+        aria-label: GitHub
+      - icon: twitter
+        href: https://x.com/thefirehacker
+        aria-label: X (Twitter)
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: cosmo
     css: styles.css
     toc: true
+    link-external-icon: true
+    link-external-newwindow: true
 
 
 

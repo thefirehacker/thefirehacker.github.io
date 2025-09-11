@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="The Fire Hacker">
+<meta name="dcterms.date" content="2025-09-07">
 
-<title>About Me – The Fire Hacker</title>
+<title>Firebase Real-time Sync Patterns – The Fire Hacker</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +22,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./assets/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-665a47377fd1fb2966ef7e6e7341ee54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-665a47377fd1fb2966ef7e6e7341ee54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,19 +108,19 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">The Fire Hacker</span>
     </a>
   </div>
@@ -94,19 +131,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../til.html"> 
 <span class="menu-text">Today I Learned</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
 </ul>
@@ -132,20 +169,50 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-pattern" id="toc-the-pattern" class="nav-link active" data-scroll-target="#the-pattern">The Pattern</a></li>
+  <li><a href="#the-setup" id="toc-the-setup" class="nav-link" data-scroll-target="#the-setup">The Setup</a></li>
+  <li><a href="#conflict-resolution-strategy" id="toc-conflict-resolution-strategy" class="nav-link" data-scroll-target="#conflict-resolution-strategy">Conflict Resolution Strategy</a></li>
+  <li><a href="#key-insights" id="toc-key-insights" class="nav-link" data-scroll-target="#key-insights">Key Insights</a></li>
+  <li><a href="#gotchas" id="toc-gotchas" class="nav-link" data-scroll-target="#gotchas">Gotchas</a></li>
+  <li><a href="#performance-win" id="toc-performance-win" class="nav-link" data-scroll-target="#performance-win">Performance Win</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About Me</h1>
-</div>
+<h1 class="title">Firebase Real-time Sync Patterns</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Firebase</div>
+    <div class="quarto-category">Backend</div>
+    <div class="quarto-category">Patterns</div>
+  </div>
+  </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>The Fire Hacker </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 7, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -155,95 +222,102 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="about-container">
-<div class="about-image">
-<p><img src="assets/firehacker-logo.jpg" class="profile-image img-fluid"></p>
-</div>
-<section id="hi-im-the-fire-hacker" class="level1 about-content">
-<h1>Hi, I’m The Fire Hacker 🔥</h1>
-<section id="founder-ai-researcher-at-aiedx" class="level2">
-<h2 class="anchored" data-anchor-id="founder-ai-researcher-at-aiedx">Founder &amp; AI Researcher at AIEDX</h2>
-<p>I’m passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.</p>
-<section id="what-im-building" class="level3">
-<h3 class="anchored" data-anchor-id="what-im-building">What I’m Building</h3>
-<section id="bubblspace" class="level4">
-<h4 class="anchored" data-anchor-id="bubblspace"><a href="https://bubblspace.com">Bubblspace</a></h4>
-<p>A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.</p>
+<section id="the-pattern" class="level2">
+<h2 class="anchored" data-anchor-id="the-pattern">The Pattern</h2>
+<p>Learned about using Firebase’s offline persistence with conflict resolution for seamless sync. This pattern has saved me countless hours!</p>
 </section>
-<section id="timecapsule-slm" class="level4">
-<h4 class="anchored" data-anchor-id="timecapsule-slm"><a href="https://timecapsule.bubblspace.com">TimeCapsule-SLM</a></h4>
-<p>Small Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.</p>
+<section id="the-setup" class="level2">
+<h2 class="anchored" data-anchor-id="the-setup">The Setup</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Enable offline persistence</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { initializeApp } <span class="im">from</span> <span class="st">'firebase/app'</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { getFirestore<span class="op">,</span> enableIndexedDbPersistence } <span class="im">from</span> <span class="st">'firebase/firestore'</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> app <span class="op">=</span> <span class="fu">initializeApp</span>(firebaseConfig)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> db <span class="op">=</span> <span class="fu">getFirestore</span>(app)<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Enable offline persistence</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">enableIndexedDbPersistence</span>(db)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">catch</span>((err) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (err<span class="op">.</span><span class="at">code</span> <span class="op">==</span> <span class="st">'failed-precondition'</span>) {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Multiple tabs open, persistence can only be enabled in one tab at a time.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Persistence failed'</span>)<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (err<span class="op">.</span><span class="at">code</span> <span class="op">==</span> <span class="st">'unimplemented'</span>) {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="co">// The current browser doesn't support persistence</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Persistence not available'</span>)<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="conflict-resolution-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="conflict-resolution-strategy">Conflict Resolution Strategy</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SyncManager {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">constructor</span>() {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">pendingWrites</span> <span class="op">=</span> <span class="kw">new</span> <span class="bu">Map</span>()<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">async</span> <span class="fu">syncDocument</span>(docRef<span class="op">,</span> data) {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> docId <span class="op">=</span> docRef<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Optimistic update</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="kw">this</span><span class="op">.</span><span class="at">pendingWrites</span><span class="op">.</span><span class="fu">set</span>(docId<span class="op">,</span> data)<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Try to sync</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">await</span> docRef<span class="op">.</span><span class="fu">set</span>({</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>data<span class="op">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">lastModified</span><span class="op">:</span> <span class="fu">serverTimestamp</span>()<span class="op">,</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">deviceId</span><span class="op">:</span> <span class="fu">getDeviceId</span>()</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span> { <span class="dt">merge</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Success - clear pending</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      <span class="kw">this</span><span class="op">.</span><span class="at">pendingWrites</span><span class="op">.</span><span class="fu">delete</span>(docId)<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">catch</span> (error) {</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Conflict detected</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (error<span class="op">.</span><span class="at">code</span> <span class="op">===</span> <span class="st">'unavailable'</span>) {</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">// We're offline, it will sync when back online</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">'Will sync when online'</span>)<span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Real conflict, need resolution</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">await</span> <span class="kw">this</span><span class="op">.</span><span class="fu">resolveConflict</span>(docRef<span class="op">,</span> data)<span class="op">;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">async</span> <span class="fu">resolveConflict</span>(docRef<span class="op">,</span> localData) {</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> serverData <span class="op">=</span> <span class="cf">await</span> docRef<span class="op">.</span><span class="fu">get</span>()<span class="op">;</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Simple last-write-wins</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (localData<span class="op">.</span><span class="at">timestamp</span> <span class="op">&gt;</span> serverData<span class="op">.</span><span class="fu">data</span>()<span class="op">.</span><span class="at">timestamp</span>) {</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>      <span class="cf">await</span> docRef<span class="op">.</span><span class="fu">set</span>(localData)<span class="op">;</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Could implement more complex strategies here</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="my-journey" class="level3">
-<h3 class="anchored" data-anchor-id="my-journey">My Journey</h3>
+<section id="key-insights" class="level2">
+<h2 class="anchored" data-anchor-id="key-insights">Key Insights</h2>
+<ol type="1">
+<li><strong>Always use <code>merge: true</code></strong> for partial updates</li>
+<li><strong>Track pending writes</strong> for UI feedback</li>
+<li><strong>Use transactions</strong> for critical updates</li>
+<li><strong>Implement retry logic</strong> with exponential backoff</li>
+</ol>
+</section>
+<section id="gotchas" class="level2">
+<h2 class="anchored" data-anchor-id="gotchas">Gotchas</h2>
 <ul>
-<li><strong>2025</strong>: Founded AIEDX, focusing on local-first AI solutions</li>
-<li><strong>2024</strong>: Led AI research initiatives in distributed systems</li>
-<li><strong>2023</strong>: Contributed to open-source LLM optimization projects</li>
-<li><strong>2022</strong>: Started exploring edge AI deployment strategies</li>
+<li>Offline persistence doesn’t work with multiple tabs</li>
+<li>Large documents (&gt;1MB) can cause sync issues</li>
+<li>Deeply nested updates might not trigger listeners</li>
 </ul>
 </section>
-<section id="technical-interests" class="level3">
-<h3 class="anchored" data-anchor-id="technical-interests">Technical Interests</h3>
-<ul>
-<li><strong>Small Language Models (SLMs)</strong>: Optimizing AI for edge devices</li>
-<li><strong>Privacy-Preserving AI</strong>: Building systems that respect user data</li>
-<li><strong>Distributed Computing</strong>: Scaling AI across multiple nodes</li>
-<li><strong>Real-time Collaboration</strong>: Synchronizing AI interactions</li>
-<li><strong>Knowledge Graphs</strong>: Connecting information meaningfully</li>
-</ul>
-</section>
-<section id="open-source-contributions" class="level3">
-<h3 class="anchored" data-anchor-id="open-source-contributions">Open Source Contributions</h3>
-<p>I believe in giving back to the community. Check out my projects:</p>
-<ul>
-<li><a href="https://github.com/aiedx/timecapsule-slm">TimeCapsule-SLM</a> - Local-first memory preservation</li>
-<li><a href="https://github.com/bubblspace/bubble-sync">Bubble-Sync</a> - Real-time collaboration engine</li>
-<li><a href="https://github.com/bubblspace/ai-orchestra">AI-Orchestra</a> - Multi-model orchestration library</li>
-</ul>
-</section>
-<section id="philosophy" class="level3">
-<h3 class="anchored" data-anchor-id="philosophy">Philosophy</h3>
-<blockquote class="blockquote">
-<p>“The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity.”</p>
-</blockquote>
-<p>I believe the future of AI is: - <strong>Local-first</strong>: Your data stays on your device - <strong>Collaborative</strong>: AI should enhance human collaboration - <strong>Accessible</strong>: Everyone should benefit from AI advances - <strong>Transparent</strong>: Understanding how AI makes decisions</p>
-</section>
-<section id="lets-connect" class="level3">
-<h3 class="anchored" data-anchor-id="lets-connect">Let’s Connect!</h3>
-<p>I love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:</p>
-<ul>
-<li><strong>GitHub</strong>: <a href="https://github.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a></li>
-<li><strong>X/Twitter</strong>: <a href="https://x.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a></li>
-<li><strong>Email</strong>: <a href="mailto:contact@thefirehacker.com">contact@thefirehacker.com</a></li>
-</ul>
-</section>
-<section id="speaking-writing" class="level3">
-<h3 class="anchored" data-anchor-id="speaking-writing">Speaking &amp; Writing</h3>
-<p>I occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:</p>
-<ul>
-<li>“Small Models, Big Impact: The Future of Edge AI”</li>
-<li>“Building Privacy-First AI Applications”</li>
-<li>“From Research to Product: Shipping AI Features Users Love”</li>
-</ul>
-</section>
-<section id="fun-facts" class="level3">
-<h3 class="anchored" data-anchor-id="fun-facts">Fun Facts</h3>
-<ul>
-<li>🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality</li>
-<li>🔥 I believe in “hacking” in its original sense: creative problem-solving</li>
-<li>🌟 My first program was a text-based adventure game</li>
-<li>🎯 Current goal: Make AI accessible to 1 million users</li>
-</ul>
-<hr>
-<p><em>Want to collaborate or just chat about AI? Drop me a message on <a href="https://x.com/thefirehacker">X/Twitter</a> or open an issue on one of my <a href="https://github.com/thefirehacker">GitHub projects</a>.</em></p>
-</section>
-</section>
-</section>
-</div>
+<section id="performance-win" class="level2">
+<h2 class="anchored" data-anchor-id="performance-win">Performance Win</h2>
+<p>Before: 300ms latency for each write After: Instant UI updates with background sync</p>
+<p>User experience improved dramatically! 🚀</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

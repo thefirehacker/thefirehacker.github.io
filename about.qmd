@@ -1,5 +1,87 @@
 ---
-title: "About"
+title: "About Me"
+page-layout: article
+toc: false
 ---
 
-About this site
+::: {.about-container}
+::: {.about-image}
+![](assets/firehacker-logo.jpg){.profile-image}
+:::
+
+::: {.about-content}
+# Hi, I'm The Fire Hacker 🔥
+
+## Founder & AI Researcher at AIEDX
+
+I'm passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.
+
+### What I'm Building
+
+#### [Bubblspace](https://bubblspace.com)
+A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.
+
+#### [TimeCapsule-SLM](https://timecapsule.bubblspace.com)
+Small Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.
+
+### My Journey
+
+- **2025**: Founded AIEDX, focusing on local-first AI solutions
+- **2024**: Led AI research initiatives in distributed systems
+- **2023**: Contributed to open-source LLM optimization projects
+- **2022**: Started exploring edge AI deployment strategies
+
+### Technical Interests
+
+- **Small Language Models (SLMs)**: Optimizing AI for edge devices
+- **Privacy-Preserving AI**: Building systems that respect user data
+- **Distributed Computing**: Scaling AI across multiple nodes
+- **Real-time Collaboration**: Synchronizing AI interactions
+- **Knowledge Graphs**: Connecting information meaningfully
+
+### Open Source Contributions
+
+I believe in giving back to the community. Check out my projects:
+
+- [TimeCapsule-SLM](https://github.com/aiedx/timecapsule-slm) - Local-first memory preservation
+- [Bubble-Sync](https://github.com/bubblspace/bubble-sync) - Real-time collaboration engine
+- [AI-Orchestra](https://github.com/bubblspace/ai-orchestra) - Multi-model orchestration library
+
+### Philosophy
+
+> "The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity."
+
+I believe the future of AI is:
+- **Local-first**: Your data stays on your device
+- **Collaborative**: AI should enhance human collaboration
+- **Accessible**: Everyone should benefit from AI advances
+- **Transparent**: Understanding how AI makes decisions
+
+### Let's Connect!
+
+I love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:
+
+- **GitHub**: [@thefirehacker](https://github.com/thefirehacker)
+- **X/Twitter**: [@thefirehacker](https://x.com/thefirehacker)
+- **Email**: [contact@thefirehacker.com](mailto:contact@thefirehacker.com)
+
+### Speaking & Writing
+
+I occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:
+
+- "Small Models, Big Impact: The Future of Edge AI"
+- "Building Privacy-First AI Applications"
+- "From Research to Product: Shipping AI Features Users Love"
+
+### Fun Facts
+
+- 🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality
+- 🔥 I believe in "hacking" in its original sense: creative problem-solving
+- 🌟 My first program was a text-based adventure game
+- 🎯 Current goal: Make AI accessible to 1 million users
+
+---
+
+*Want to collaborate or just chat about AI? Drop me a message on [X/Twitter](https://x.com/thefirehacker) or open an issue on one of my [GitHub projects](https://github.com/thefirehacker).*
+:::
+:::

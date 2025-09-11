@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="The Fire Hacker">
+<meta name="dcterms.date" content="2025-09-09">
 
-<title>About Me – The Fire Hacker</title>
+<title>Optimizing SLMs for Edge Deployment – The Fire Hacker</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +22,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./assets/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-665a47377fd1fb2966ef7e6e7341ee54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-665a47377fd1fb2966ef7e6e7341ee54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,19 +108,19 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">The Fire Hacker</span>
     </a>
   </div>
@@ -94,19 +131,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../til.html"> 
 <span class="menu-text">Today I Learned</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
 </ul>
@@ -132,20 +169,50 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-finding" id="toc-the-finding" class="nav-link active" data-scroll-target="#the-finding">The Finding</a></li>
+  <li><a href="#quick-comparison" id="toc-quick-comparison" class="nav-link" data-scroll-target="#quick-comparison">Quick Comparison</a></li>
+  <li><a href="#how-to-quantize" id="toc-how-to-quantize" class="nav-link" data-scroll-target="#how-to-quantize">How to Quantize</a></li>
+  <li><a href="#performance-tips" id="toc-performance-tips" class="nav-link" data-scroll-target="#performance-tips">Performance Tips</a></li>
+  <li><a href="#real-world-impact" id="toc-real-world-impact" class="nav-link" data-scroll-target="#real-world-impact">Real-World Impact</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About Me</h1>
-</div>
+<h1 class="title">Optimizing SLMs for Edge Deployment</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AI</div>
+    <div class="quarto-category">SLM</div>
+    <div class="quarto-category">Optimization</div>
+  </div>
+  </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>The Fire Hacker </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 9, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -155,95 +222,80 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="about-container">
-<div class="about-image">
-<p><img src="assets/firehacker-logo.jpg" class="profile-image img-fluid"></p>
-</div>
-<section id="hi-im-the-fire-hacker" class="level1 about-content">
-<h1>Hi, I’m The Fire Hacker 🔥</h1>
-<section id="founder-ai-researcher-at-aiedx" class="level2">
-<h2 class="anchored" data-anchor-id="founder-ai-researcher-at-aiedx">Founder &amp; AI Researcher at AIEDX</h2>
-<p>I’m passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.</p>
-<section id="what-im-building" class="level3">
-<h3 class="anchored" data-anchor-id="what-im-building">What I’m Building</h3>
-<section id="bubblspace" class="level4">
-<h4 class="anchored" data-anchor-id="bubblspace"><a href="https://bubblspace.com">Bubblspace</a></h4>
-<p>A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.</p>
+<section id="the-finding" class="level2">
+<h2 class="anchored" data-anchor-id="the-finding">The Finding</h2>
+<p>Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy for most tasks. This is game-changing for edge deployment!</p>
 </section>
-<section id="timecapsule-slm" class="level4">
-<h4 class="anchored" data-anchor-id="timecapsule-slm"><a href="https://timecapsule.bubblspace.com">TimeCapsule-SLM</a></h4>
-<p>Small Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.</p>
+<section id="quick-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="quick-comparison">Quick Comparison</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Original Size</th>
+<th>GGUF Q4_K_M</th>
+<th>Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Llama 3.2 3B</td>
+<td>12 GB</td>
+<td>3 GB</td>
+<td>95%</td>
+</tr>
+<tr class="even">
+<td>Phi-3 Mini</td>
+<td>7 GB</td>
+<td>1.8 GB</td>
+<td>93%</td>
+</tr>
+<tr class="odd">
+<td>Mistral 7B</td>
+<td>28 GB</td>
+<td>7 GB</td>
+<td>94%</td>
+</tr>
+</tbody>
+</table>
 </section>
+<section id="how-to-quantize" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-quantize">How to Quantize</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install llama.cpp</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/ggerganov/llama.cpp</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> llama.cpp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert model to GGUF</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> convert.py model-path <span class="at">--outtype</span> q4_k_m</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Test inference speed</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">./main</span> <span class="at">-m</span> model.gguf <span class="at">-p</span> <span class="st">"Test prompt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="my-journey" class="level3">
-<h3 class="anchored" data-anchor-id="my-journey">My Journey</h3>
+<section id="performance-tips" class="level2">
+<h2 class="anchored" data-anchor-id="performance-tips">Performance Tips</h2>
+<ol type="1">
+<li><strong>Use Q4_K_M</strong>: Best quality/size ratio</li>
+<li><strong>Enable GPU layers</strong>: <code>-ngl 32</code> for GPU acceleration</li>
+<li><strong>Adjust context</strong>: Lower context = faster inference</li>
+<li><strong>Batch processing</strong>: Process multiple inputs together</li>
+</ol>
+</section>
+<section id="real-world-impact" class="level2">
+<h2 class="anchored" data-anchor-id="real-world-impact">Real-World Impact</h2>
+<p>On M2 MacBook Air: - Before: 5 tokens/second with 7B model - After: 25 tokens/second with quantized version - RAM usage: Reduced from 14GB to 4GB</p>
+<p>This makes local AI actually usable for production apps!</p>
+</section>
+<section id="tools" class="level2">
+<h2 class="anchored" data-anchor-id="tools">Tools</h2>
 <ul>
-<li><strong>2025</strong>: Founded AIEDX, focusing on local-first AI solutions</li>
-<li><strong>2024</strong>: Led AI research initiatives in distributed systems</li>
-<li><strong>2023</strong>: Contributed to open-source LLM optimization projects</li>
-<li><strong>2022</strong>: Started exploring edge AI deployment strategies</li>
+<li><a href="https://github.com/ggerganov/llama.cpp">llama.cpp</a></li>
+<li><a href="https://ollama.ai">Ollama</a> - Easy model management</li>
+<li><a href="https://lmstudio.ai">LM Studio</a> - GUI for local models</li>
 </ul>
-</section>
-<section id="technical-interests" class="level3">
-<h3 class="anchored" data-anchor-id="technical-interests">Technical Interests</h3>
-<ul>
-<li><strong>Small Language Models (SLMs)</strong>: Optimizing AI for edge devices</li>
-<li><strong>Privacy-Preserving AI</strong>: Building systems that respect user data</li>
-<li><strong>Distributed Computing</strong>: Scaling AI across multiple nodes</li>
-<li><strong>Real-time Collaboration</strong>: Synchronizing AI interactions</li>
-<li><strong>Knowledge Graphs</strong>: Connecting information meaningfully</li>
-</ul>
-</section>
-<section id="open-source-contributions" class="level3">
-<h3 class="anchored" data-anchor-id="open-source-contributions">Open Source Contributions</h3>
-<p>I believe in giving back to the community. Check out my projects:</p>
-<ul>
-<li><a href="https://github.com/aiedx/timecapsule-slm">TimeCapsule-SLM</a> - Local-first memory preservation</li>
-<li><a href="https://github.com/bubblspace/bubble-sync">Bubble-Sync</a> - Real-time collaboration engine</li>
-<li><a href="https://github.com/bubblspace/ai-orchestra">AI-Orchestra</a> - Multi-model orchestration library</li>
-</ul>
-</section>
-<section id="philosophy" class="level3">
-<h3 class="anchored" data-anchor-id="philosophy">Philosophy</h3>
-<blockquote class="blockquote">
-<p>“The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity.”</p>
-</blockquote>
-<p>I believe the future of AI is: - <strong>Local-first</strong>: Your data stays on your device - <strong>Collaborative</strong>: AI should enhance human collaboration - <strong>Accessible</strong>: Everyone should benefit from AI advances - <strong>Transparent</strong>: Understanding how AI makes decisions</p>
-</section>
-<section id="lets-connect" class="level3">
-<h3 class="anchored" data-anchor-id="lets-connect">Let’s Connect!</h3>
-<p>I love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:</p>
-<ul>
-<li><strong>GitHub</strong>: <a href="https://github.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a></li>
-<li><strong>X/Twitter</strong>: <a href="https://x.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a></li>
-<li><strong>Email</strong>: <a href="mailto:contact@thefirehacker.com">contact@thefirehacker.com</a></li>
-</ul>
-</section>
-<section id="speaking-writing" class="level3">
-<h3 class="anchored" data-anchor-id="speaking-writing">Speaking &amp; Writing</h3>
-<p>I occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:</p>
-<ul>
-<li>“Small Models, Big Impact: The Future of Edge AI”</li>
-<li>“Building Privacy-First AI Applications”</li>
-<li>“From Research to Product: Shipping AI Features Users Love”</li>
-</ul>
-</section>
-<section id="fun-facts" class="level3">
-<h3 class="anchored" data-anchor-id="fun-facts">Fun Facts</h3>
-<ul>
-<li>🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality</li>
-<li>🔥 I believe in “hacking” in its original sense: creative problem-solving</li>
-<li>🌟 My first program was a text-based adventure game</li>
-<li>🎯 Current goal: Make AI accessible to 1 million users</li>
-</ul>
-<hr>
-<p><em>Want to collaborate or just chat about AI? Drop me a message on <a href="https://x.com/thefirehacker">X/Twitter</a> or open an issue on one of my <a href="https://github.com/thefirehacker">GitHub projects</a>.</em></p>
-</section>
-</section>
-</section>
-</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

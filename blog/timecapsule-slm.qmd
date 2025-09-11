@@ -1,0 +1,157 @@
+---
+title: "Temp Getting Started with TimeCapsule-SLM(Template Blog)"
+author: "The Fire Hacker"
+date: "2025-09-10"
+categories: [AI, SLM, Tutorial]
+image: "timecapsule-preview.jpg"
+draft: false
+---
+
+## Introduction
+
+TimeCapsule-SLM represents a breakthrough in personal AI applications, bringing the power of Small Language Models (SLMs) to memory preservation and storytelling. In this post, I'll walk you through setting up and deploying your own TimeCapsule-SLM instance.
+
+## Why Small Language Models?
+
+While Large Language Models (LLMs) have captured the world's attention, SLMs offer unique advantages for personal applications:
+
+- **Privacy-first**: Run entirely on your device
+- **Cost-effective**: No API fees or cloud dependencies
+- **Customizable**: Fine-tune for your specific use case
+- **Fast inference**: Real-time responses on consumer hardware
+
+## Getting Started
+
+### Prerequisites
+
+Before we begin, ensure you have:
+
+```bash
+# Python 3.9 or higher
+python --version
+
+# Node.js for the web interface
+node --version
+
+# Git for cloning the repository
+git --version
+```
+
+### Installation
+
+1. Clone the TimeCapsule-SLM repository:
+
+```bash
+git clone https://github.com/aiedx/timecapsule-slm
+cd timecapsule-slm
+```
+
+2. Install Python dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Download the base model:
+
+```bash
+python scripts/download_model.py --model-size small
+```
+
+## Configuration
+
+TimeCapsule-SLM uses a simple YAML configuration file. Create `config.yaml`:
+
+```yaml
+model:
+  name: "timecapsule-small"
+  quantization: "int8"
+  max_tokens: 2048
+
+memory:
+  storage_path: "./memories"
+  embedding_model: "all-MiniLM-L6-v2"
+  
+interface:
+  port: 8080
+  theme: "fire-hacker"
+```
+
+## Your First Time Capsule
+
+Let's create your first memory:
+
+```python
+from timecapsule import TimeCapsule
+
+# Initialize the capsule
+capsule = TimeCapsule(config_path="config.yaml")
+
+# Create a memory
+memory = capsule.create_memory(
+    title="Building TimeCapsule-SLM",
+    content="Today marks the beginning of something special...",
+    tags=["milestone", "ai", "personal"]
+)
+
+# Generate a narrative
+narrative = capsule.generate_narrative(
+    memories=[memory],
+    style="reflective"
+)
+
+print(narrative)
+```
+
+## Advanced Features
+
+### Memory Embeddings
+
+TimeCapsule-SLM uses semantic embeddings to connect related memories:
+
+```python
+# Find similar memories
+similar = capsule.find_similar(
+    query="first day at work",
+    limit=5
+)
+```
+
+### Temporal Awareness
+
+The model understands time relationships:
+
+```python
+# Generate a timeline
+timeline = capsule.create_timeline(
+    start_date="2024-01-01",
+    end_date="2024-12-31"
+)
+```
+
+## Performance Optimization
+
+For optimal performance on edge devices:
+
+1. **Use quantization**: Reduces model size by 75%
+2. **Enable caching**: Speeds up repeated queries
+3. **Batch processing**: Process multiple memories together
+
+## What's Next?
+
+In upcoming posts, I'll cover:
+
+- Fine-tuning TimeCapsule-SLM on your personal data
+- Building a mobile app interface
+- Integrating with photo and video memories
+- Creating shared family time capsules
+
+## Conclusion
+
+TimeCapsule-SLM demonstrates that powerful AI doesn't always require massive models. By focusing on a specific domain and optimizing for edge deployment, we can create meaningful, privacy-preserving applications that run anywhere.
+
+Try it out and let me know what memories you're preserving! Find the full code on [GitHub](https://github.com/aiedx/timecapsule-slm).
+
+---
+
+*Have questions or feedback? Reach out on [X/Twitter](https://x.com/thefirehacker) or open an issue on GitHub.*

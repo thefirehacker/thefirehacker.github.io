@@ -1,0 +1,102 @@
+---
+title: "Firebase Real-time Sync Patterns"
+date: "2025-09-07"
+author: "The Fire Hacker"
+categories: [Firebase, Backend, Patterns]
+---
+
+## The Pattern
+
+Learned about using Firebase's offline persistence with conflict resolution for seamless sync. This pattern has saved me countless hours!
+
+## The Setup
+
+```javascript
+// Enable offline persistence
+import { initializeApp } from 'firebase/app';
+import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Enable offline persistence
+enableIndexedDbPersistence(db)
+  .catch((err) => {
+    if (err.code == 'failed-precondition') {
+      // Multiple tabs open, persistence can only be enabled in one tab at a time.
+      console.log('Persistence failed');
+    } else if (err.code == 'unimplemented') {
+      // The current browser doesn't support persistence
+      console.log('Persistence not available');
+    }
+  });
+```
+
+## Conflict Resolution Strategy
+
+```javascript
+class SyncManager {
+  constructor() {
+    this.pendingWrites = new Map();
+  }
+
+  async syncDocument(docRef, data) {
+    const docId = docRef.id;
+    
+    try {
+      // Optimistic update
+      this.pendingWrites.set(docId, data);
+      
+      // Try to sync
+      await docRef.set({
+        ...data,
+        lastModified: serverTimestamp(),
+        deviceId: getDeviceId()
+      }, { merge: true });
+      
+      // Success - clear pending
+      this.pendingWrites.delete(docId);
+      
+    } catch (error) {
+      // Conflict detected
+      if (error.code === 'unavailable') {
+        // We're offline, it will sync when back online
+        console.log('Will sync when online');
+      } else {
+        // Real conflict, need resolution
+        await this.resolveConflict(docRef, data);
+      }
+    }
+  }
+  
+  async resolveConflict(docRef, localData) {
+    const serverData = await docRef.get();
+    
+    // Simple last-write-wins
+    if (localData.timestamp > serverData.data().timestamp) {
+      await docRef.set(localData);
+    }
+    // Could implement more complex strategies here
+  }
+}
+```
+
+## Key Insights
+
+1. **Always use `merge: true`** for partial updates
+2. **Track pending writes** for UI feedback
+3. **Use transactions** for critical updates
+4. **Implement retry logic** with exponential backoff
+
+## Gotchas
+
+- Offline persistence doesn't work with multiple tabs
+- Large documents (>1MB) can cause sync issues
+- Deeply nested updates might not trigger listeners
+
+## Performance Win
+
+Before: 300ms latency for each write
+After: Instant UI updates with background sync
+
+User experience improved dramatically! 🚀

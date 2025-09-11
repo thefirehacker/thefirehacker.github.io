@@ -1,16 +1,422 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
     "section": "",
-    "text": "About this site"
+    "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTemp Getting Started with TimeCapsule-SLM(Template Blog)\n\n\n\nAI\n\nSLM\n\nTutorial\n\n\n\n\n\n\n\n\n\nSep 10, 2025\n\n\nThe Fire Hacker\n\n\n\n\n\n\n\n\n\n\n\n\n(Template Blog)Building AI-Powered Time Capsules with Local Models\n\n\n\nAI\n\nArchitecture\n\nDeep-Dive\n\n\n\n\n\n\n\n\n\nSep 5, 2025\n\n\nThe Fire Hacker\n\n\n\n\n\n\n\n\n\n\n\n\n(Template Blog)The Journey of Building Bubblspace\n\n\n\nStartup\n\nProduct\n\nAI\n\n\n\n\n\n\n\n\n\nAug 28, 2025\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "website",
+    "objectID": "til/slm-optimization.html",
+    "href": "til/slm-optimization.html",
+    "title": "Optimizing SLMs for Edge Deployment",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy for most tasks. This is game-changing for edge deployment!"
+  },
+  {
+    "objectID": "til/slm-optimization.html#the-finding",
+    "href": "til/slm-optimization.html#the-finding",
+    "title": "Optimizing SLMs for Edge Deployment",
+    "section": "",
+    "text": "Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy for most tasks. This is game-changing for edge deployment!"
+  },
+  {
+    "objectID": "til/slm-optimization.html#quick-comparison",
+    "href": "til/slm-optimization.html#quick-comparison",
+    "title": "Optimizing SLMs for Edge Deployment",
+    "section": "Quick Comparison",
+    "text": "Quick Comparison\n\n\n\nModel\nOriginal Size\nGGUF Q4_K_M\nPerformance\n\n\n\n\nLlama 3.2 3B\n12 GB\n3 GB\n95%\n\n\nPhi-3 Mini\n7 GB\n1.8 GB\n93%\n\n\nMistral 7B\n28 GB\n7 GB\n94%"
+  },
+  {
+    "objectID": "til/slm-optimization.html#how-to-quantize",
+    "href": "til/slm-optimization.html#how-to-quantize",
+    "title": "Optimizing SLMs for Edge Deployment",
+    "section": "How to Quantize",
+    "text": "How to Quantize\n# Install llama.cpp\ngit clone https://github.com/ggerganov/llama.cpp\ncd llama.cpp\nmake\n\n# Convert model to GGUF\npython convert.py model-path --outtype q4_k_m\n\n# Test inference speed\n./main -m model.gguf -p \"Test prompt\""
+  },
+  {
+    "objectID": "til/slm-optimization.html#performance-tips",
+    "href": "til/slm-optimization.html#performance-tips",
+    "title": "Optimizing SLMs for Edge Deployment",
+    "section": "Performance Tips",
+    "text": "Performance Tips\n\nUse Q4_K_M: Best quality/size ratio\nEnable GPU layers: -ngl 32 for GPU acceleration\nAdjust context: Lower context = faster inference\nBatch processing: Process multiple inputs together"
+  },
+  {
+    "objectID": "til/slm-optimization.html#real-world-impact",
+    "href": "til/slm-optimization.html#real-world-impact",
+    "title": "Optimizing SLMs for Edge Deployment",
+    "section": "Real-World Impact",
+    "text": "Real-World Impact\nOn M2 MacBook Air: - Before: 5 tokens/second with 7B model - After: 25 tokens/second with quantized version - RAM usage: Reduced from 14GB to 4GB\nThis makes local AI actually usable for production apps!"
+  },
+  {
+    "objectID": "til/slm-optimization.html#tools",
+    "href": "til/slm-optimization.html#tools",
+    "title": "Optimizing SLMs for Edge Deployment",
+    "section": "Tools",
+    "text": "Tools\n\nllama.cpp\nOllama - Easy model management\nLM Studio - GUI for local models"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "I’m passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.\n\n\n\n\nA revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.\n\n\n\nSmall Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.\n\n\n\n\n\n2025: Founded AIEDX, focusing on local-first AI solutions\n2024: Led AI research initiatives in distributed systems\n2023: Contributed to open-source LLM optimization projects\n2022: Started exploring edge AI deployment strategies\n\n\n\n\n\nSmall Language Models (SLMs): Optimizing AI for edge devices\nPrivacy-Preserving AI: Building systems that respect user data\nDistributed Computing: Scaling AI across multiple nodes\nReal-time Collaboration: Synchronizing AI interactions\nKnowledge Graphs: Connecting information meaningfully\n\n\n\n\nI believe in giving back to the community. Check out my projects:\n\nTimeCapsule-SLM - Local-first memory preservation\nBubble-Sync - Real-time collaboration engine\nAI-Orchestra - Multi-model orchestration library\n\n\n\n\n\n“The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity.”\n\nI believe the future of AI is: - Local-first: Your data stays on your device - Collaborative: AI should enhance human collaboration - Accessible: Everyone should benefit from AI advances - Transparent: Understanding how AI makes decisions\n\n\n\nI love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:\n\nGitHub: @thefirehacker\nX/Twitter: @thefirehacker\nEmail: contact@thefirehacker.com\n\n\n\n\nI occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:\n\n“Small Models, Big Impact: The Future of Edge AI”\n“Building Privacy-First AI Applications”\n“From Research to Product: Shipping AI Features Users Love”\n\n\n\n\n\n🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality\n🔥 I believe in “hacking” in its original sense: creative problem-solving\n🌟 My first program was a text-based adventure game\n🎯 Current goal: Make AI accessible to 1 million users\n\n\nWant to collaborate or just chat about AI? Drop me a message on X/Twitter or open an issue on one of my GitHub projects."
+  },
+  {
+    "objectID": "about.html#founder-ai-researcher-at-aiedx",
+    "href": "about.html#founder-ai-researcher-at-aiedx",
+    "title": "About Me",
+    "section": "",
+    "text": "I’m passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.\n\n\n\n\nA revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.\n\n\n\nSmall Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.\n\n\n\n\n\n2025: Founded AIEDX, focusing on local-first AI solutions\n2024: Led AI research initiatives in distributed systems\n2023: Contributed to open-source LLM optimization projects\n2022: Started exploring edge AI deployment strategies\n\n\n\n\n\nSmall Language Models (SLMs): Optimizing AI for edge devices\nPrivacy-Preserving AI: Building systems that respect user data\nDistributed Computing: Scaling AI across multiple nodes\nReal-time Collaboration: Synchronizing AI interactions\nKnowledge Graphs: Connecting information meaningfully\n\n\n\n\nI believe in giving back to the community. Check out my projects:\n\nTimeCapsule-SLM - Local-first memory preservation\nBubble-Sync - Real-time collaboration engine\nAI-Orchestra - Multi-model orchestration library\n\n\n\n\n\n“The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity.”\n\nI believe the future of AI is: - Local-first: Your data stays on your device - Collaborative: AI should enhance human collaboration - Accessible: Everyone should benefit from AI advances - Transparent: Understanding how AI makes decisions\n\n\n\nI love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:\n\nGitHub: @thefirehacker\nX/Twitter: @thefirehacker\nEmail: contact@thefirehacker.com\n\n\n\n\nI occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:\n\n“Small Models, Big Impact: The Future of Edge AI”\n“Building Privacy-First AI Applications”\n“From Research to Product: Shipping AI Features Users Love”\n\n\n\n\n\n🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality\n🔥 I believe in “hacking” in its original sense: creative problem-solving\n🌟 My first program was a text-based adventure game\n🎯 Current goal: Make AI accessible to 1 million users\n\n\nWant to collaborate or just chat about AI? Drop me a message on X/Twitter or open an issue on one of my GitHub projects."
+  },
+  {
+    "objectID": "blog/building-bubblspace.html",
+    "href": "blog/building-bubblspace.html",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "",
+    "text": "Six months ago, Bubblspace was just a sketch in my notebook. Today, it’s a platform helping thousands create and share AI-powered experiences. This is the story of how we got here."
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#from-idea-to-reality",
+    "href": "blog/building-bubblspace.html#from-idea-to-reality",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "",
+    "text": "Six months ago, Bubblspace was just a sketch in my notebook. Today, it’s a platform helping thousands create and share AI-powered experiences. This is the story of how we got here."
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#the-problem",
+    "href": "blog/building-bubblspace.html#the-problem",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "The Problem",
+    "text": "The Problem\nModern AI tools are powerful but disconnected. You have:\n\nChatGPT for conversations\nMidJourney for images\nElevenLabs for voice\nRunway for video\n\nBut what if you want to create an integrated experience? What if you want to collaborate with others in real-time? That’s where Bubblspace comes in."
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#the-concept-collaborative-ai-spaces",
+    "href": "blog/building-bubblspace.html#the-concept-collaborative-ai-spaces",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "The Concept: Collaborative AI Spaces",
+    "text": "The Concept: Collaborative AI Spaces\nImagine Google Docs meets AI playground. That’s Bubblspace:\n// A simple Bubblspace definition\nconst mySpace = {\n  name: \"Creative Writing Hub\",\n  agents: [\n    { type: \"writer\", model: \"claude-3.5\" },\n    { type: \"editor\", model: \"gpt-4\" },\n    { type: \"illustrator\", model: \"dall-e-3\" }\n  ],\n  participants: [\"alice\", \"bob\", \"charlie\"],\n  permissions: {\n    alice: \"admin\",\n    bob: \"editor\",\n    charlie: \"viewer\"\n  }\n};"
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#technical-challenges",
+    "href": "blog/building-bubblspace.html#technical-challenges",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "Technical Challenges",
+    "text": "Technical Challenges\n\n1. Real-time Collaboration\nSynchronizing AI interactions across multiple users:\nclass BubbleSync {\n  private websocket: WebSocket;\n  private operations: OperationalTransform;\n  \n  constructor() {\n    this.websocket = new WebSocket('wss://bubblspace.com/sync');\n    this.operations = new OperationalTransform();\n  }\n  \n  async syncOperation(op: Operation) {\n    // Transform operation against concurrent edits\n    const transformed = this.operations.transform(op);\n    \n    // Broadcast to all participants\n    this.websocket.send(JSON.stringify({\n      type: 'operation',\n      data: transformed\n    }));\n  }\n}\n\n\n2. Multi-Model Orchestration\nManaging different AI models seamlessly:\nclass ModelOrchestrator:\n    def __init__(self):\n        self.models = {\n            'text': TextModel(),\n            'image': ImageModel(),\n            'code': CodeModel()\n        }\n    \n    async def process_request(self, request):\n        # Route to appropriate model\n        model = self.models[request.type]\n        \n        # Process with rate limiting\n        async with self.rate_limiter:\n            result = await model.generate(request.prompt)\n        \n        # Post-process and validate\n        validated = self.validate_output(result)\n        \n        return validated\n\n\n3. Cost Optimization\nAI API calls add up quickly. Our solution:\n\nCaching: Smart caching of common requests\nBatching: Group similar requests\nModel routing: Use cheaper models when possible\nLocal models: Offer self-hosted options"
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#the-stack",
+    "href": "blog/building-bubblspace.html#the-stack",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "The Stack",
+    "text": "The Stack\nAfter much experimentation, we settled on:\n\nFrontend\n\nNext.js 14: App router for performance\nTailwind CSS: Rapid UI development\nFramer Motion: Smooth animations\nSocket.io: Real-time updates\n\n\n\nBackend\n\nFastAPI: High-performance Python API\nPostgreSQL: Primary database\nRedis: Caching and pub/sub\nCelery: Background task processing\n\n\n\nInfrastructure\n\nVercel: Frontend hosting\nRailway: Backend deployment\nCloudflare R2: Media storage\nUpstash: Serverless Redis"
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#key-features",
+    "href": "blog/building-bubblspace.html#key-features",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "Key Features",
+    "text": "Key Features\n\n1. Bubble Templates\nPre-built spaces for common use cases:\ntemplates:\n  - name: \"Blog Post Factory\"\n    description: \"Complete blog post creation pipeline\"\n    agents:\n      - researcher: \"perplexity\"\n      - writer: \"claude\"\n      - editor: \"gpt-4\"\n      - seo: \"custom-model\"\n    \n  - name: \"Code Review Assistant\"\n    description: \"AI-powered code review\"\n    agents:\n      - reviewer: \"deepseek-coder\"\n      - security: \"snyk-ai\"\n      - performance: \"custom-analyzer\"\n\n\n2. Version Control for AI\nTrack changes in AI-generated content:\nclass AIVersionControl:\n    def commit(self, content, message):\n        version = {\n            'id': generate_id(),\n            'content': content,\n            'message': message,\n            'timestamp': datetime.now(),\n            'model_used': self.current_model,\n            'parameters': self.current_params,\n            'parent': self.head\n        }\n        \n        self.versions.append(version)\n        self.head = version['id']\n        \n        return version\n\n\n3. Privacy-First Design\n\nEnd-to-end encryption for sensitive bubbles\nSelf-destruct timers\nAnonymous collaboration modes\nGDPR compliance built-in"
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#lessons-learned",
+    "href": "blog/building-bubblspace.html#lessons-learned",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "Lessons Learned",
+    "text": "Lessons Learned\n\n1. Start with the API\nWe initially built a beautiful UI, then realized our API design was limiting. Rebuilding the API first would have saved weeks.\n\n\n2. Dogfood Early\nUsing Bubblspace to build Bubblspace revealed countless improvements:\n\nBetter keyboard shortcuts\nImproved model switching\nFaster response streaming\n\n\n\n3. Community Feedback is Gold\nOur Discord community suggested features we never imagined:\n\nAI personality persistence\nCollaborative prompt libraries\nMulti-language support"
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#growth-metrics",
+    "href": "blog/building-bubblspace.html#growth-metrics",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "Growth Metrics",
+    "text": "Growth Metrics\nIn our first 6 months:\n\n10,000+ registered users\n50,000+ bubbles created\n1M+ AI interactions\n4.8/5 average rating"
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#whats-next",
+    "href": "blog/building-bubblspace.html#whats-next",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "What’s Next?",
+    "text": "What’s Next?\n\nQ4 2025 Roadmap\n\nMobile Apps: iOS and Android native apps\nPlugin System: Third-party integrations\nLocal Deployment: Self-hosted enterprise version\nAI Training: Fine-tune models on bubble data\n\n\n\nThe Vision\nBubblspace aims to become the operating system for collaborative AI work. Just as Google Workspace transformed document collaboration, we’re transforming AI collaboration."
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#open-source-contributions",
+    "href": "blog/building-bubblspace.html#open-source-contributions",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "Open Source Contributions",
+    "text": "Open Source Contributions\nWe’re giving back to the community:\n\nbubble-sync: Our real-time sync engine\nai-orchestra: Multi-model orchestration library\nprompt-forge: Advanced prompt engineering toolkit"
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#join-us",
+    "href": "blog/building-bubblspace.html#join-us",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "Join Us!",
+    "text": "Join Us!\nWe’re hiring! Looking for:\n\nSenior Full-Stack Engineers\nAI/ML Engineers\nDeveloper Advocates\n\nCheck out our careers page or reach out directly."
+  },
+  {
+    "objectID": "blog/building-bubblspace.html#conclusion",
+    "href": "blog/building-bubblspace.html#conclusion",
+    "title": "(Template Blog)The Journey of Building Bubblspace",
+    "section": "Conclusion",
+    "text": "Conclusion\nBuilding Bubblspace has been an incredible journey. From late-night coding sessions to seeing users create amazing things with our platform—every moment has been worth it.\nThe future of AI is collaborative, and we’re just getting started.\nTry Bubblspace today at bubblspace.com and let me know what you build!\n\nWant to follow the journey? Follow me on X/Twitter for daily updates and insights."
+  },
+  {
+    "objectID": "index.html#recent-posts",
+    "href": "index.html#recent-posts",
+    "title": "The Fire Hacker",
+    "section": "Recent Posts",
+    "text": "Recent Posts\n\n\nGetting Started with TimeCapsule-SLM\nSeptember 2025 - Learn how to deploy and customize small language models for personal time capsule applications… Read more →\n\n\nBuilding AI-Powered Time Capsules\nSeptember 2025 - Explore the architecture behind creating intelligent memory preservation systems… Read more →\n\n\nThe Journey of Building Bubblspace\nAugust 2025 - From concept to reality: How we’re creating collaborative AI spaces… Read more →"
+  },
+  {
+    "objectID": "index.html#today-i-learned",
+    "href": "index.html#today-i-learned",
+    "title": "The Fire Hacker",
+    "section": "Today I Learned",
+    "text": "Today I Learned\n\n\nQuarto for Technical Blogging - Discovered that Quarto’s integration with Jupyter notebooks makes it perfect for data science blogging…\n\n\nOptimizing SLMs for Edge - Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy…\n\n\nFirebase Real-time Sync - Learned about using Firebase’s offline persistence with conflict resolution for seamless sync…"
+  },
+  {
+    "objectID": "index.html#connect",
+    "href": "index.html#connect",
+    "title": "The Fire Hacker",
+    "section": "Connect",
+    "text": "Connect\n\nGitHub X/Twitter Contact"
+  },
+  {
+    "objectID": "til.html",
+    "href": "til.html",
+    "title": "Today I Learned",
+    "section": "",
+    "text": "Quick notes and discoveries from my daily work with AI, software development, and research. These are bite-sized learnings that might save you time or spark new ideas.\n\n\n\n\n\n\n\n\n\n\n\n\nUsing Quarto for Technical Blogging\n\n\n\n\n\n\nThe Fire Hacker\n\n\nSep 11, 2025\n\n\n\n\n\n\n\n\n\n\n\nOptimizing SLMs for Edge Deployment\n\n\n\n\n\n\nThe Fire Hacker\n\n\nSep 9, 2025\n\n\n\n\n\n\n\n\n\n\n\nFirebase Real-time Sync Patterns\n\n\n\n\n\n\nThe Fire Hacker\n\n\nSep 7, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html",
+    "href": "blog/ai-time-capsules.html",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "",
+    "text": "Imagine a system that not only stores your memories but understands them, connects them, and helps you rediscover forgotten moments. That’s the promise of AI-powered time capsules, and today I’ll share the architecture that makes it possible."
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#the-vision",
+    "href": "blog/ai-time-capsules.html#the-vision",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "",
+    "text": "Imagine a system that not only stores your memories but understands them, connects them, and helps you rediscover forgotten moments. That’s the promise of AI-powered time capsules, and today I’ll share the architecture that makes it possible."
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#system-architecture",
+    "href": "blog/ai-time-capsules.html#system-architecture",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "System Architecture",
+    "text": "System Architecture\n\nCore Components\nOur time capsule system consists of four main layers:\ngraph TD\n    A[Input Layer] --&gt; B[Processing Layer]\n    B --&gt; C[Storage Layer]\n    C --&gt; D[Retrieval Layer]\n    D --&gt; E[Presentation Layer]\n\n\n1. Input Layer\nThe system accepts multiple input types:\n\nText: Journal entries, notes, messages\nImages: Photos with CLIP embeddings\nAudio: Voice memos transcribed via Whisper\nMetadata: Location, weather, mood indicators\n\n\n\n2. Processing Layer\nThis is where the magic happens:\nclass MemoryProcessor:\n    def __init__(self):\n        self.text_encoder = SentenceTransformer('all-MiniLM-L6-v2')\n        self.image_encoder = CLIPModel.from_pretrained('openai/clip-vit-base-patch32')\n        self.sentiment_analyzer = pipeline('sentiment-analysis')\n    \n    def process_memory(self, content):\n        # Extract embeddings\n        embeddings = self.text_encoder.encode(content.text)\n        \n        # Analyze sentiment\n        sentiment = self.sentiment_analyzer(content.text)\n        \n        # Extract entities\n        entities = self.extract_entities(content.text)\n        \n        return Memory(\n            content=content,\n            embeddings=embeddings,\n            sentiment=sentiment,\n            entities=entities,\n            timestamp=datetime.now()\n        )\n\n\n3. Storage Layer\nWe use a hybrid approach:\n\nSQLite: Structured metadata\nVector Database: Embeddings for similarity search\nFile System: Raw media files\n\nCREATE TABLE memories (\n    id INTEGER PRIMARY KEY,\n    content TEXT,\n    embedding BLOB,\n    sentiment REAL,\n    created_at TIMESTAMP,\n    tags TEXT\n);\n\nCREATE INDEX idx_created_at ON memories(created_at);\nCREATE INDEX idx_sentiment ON memories(sentiment);\n\n\n4. Retrieval Layer\nSmart retrieval using semantic search:\ndef find_memories(query, filters=None):\n    # Encode the query\n    query_embedding = encoder.encode(query)\n    \n    # Semantic search\n    results = vector_db.search(\n        query_embedding,\n        k=20,\n        filters=filters\n    )\n    \n    # Re-rank using cross-encoder\n    reranked = cross_encoder.rank(query, results)\n    \n    return reranked[:10]"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#the-ai-brain-small-but-mighty",
+    "href": "blog/ai-time-capsules.html#the-ai-brain-small-but-mighty",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "The AI Brain: Small but Mighty",
+    "text": "The AI Brain: Small but Mighty\n\nModel Selection\nFor local deployment, we chose:\n\nLlama 3.2 3B: Main reasoning engine\nPhi-3 Mini: Fast inference for real-time features\nAll-MiniLM-L6-v2: Semantic embeddings\nWhisper Tiny: Audio transcription\n\n\n\nQuantization Strategy\nTo run on consumer hardware:\nfrom transformers import AutoModelForCausalLM, BitsAndBytesConfig\n\nquantization_config = BitsAndBytesConfig(\n    load_in_4bit=True,\n    bnb_4bit_compute_dtype=torch.float16,\n    bnb_4bit_use_double_quant=True,\n    bnb_4bit_quant_type=\"nf4\"\n)\n\nmodel = AutoModelForCausalLM.from_pretrained(\n    \"meta-llama/Llama-3.2-3B\",\n    quantization_config=quantization_config,\n    device_map=\"auto\"\n)"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#memory-synthesis",
+    "href": "blog/ai-time-capsules.html#memory-synthesis",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "Memory Synthesis",
+    "text": "Memory Synthesis\nThe real innovation is in how memories connect:\n\nTemporal Chains\ndef create_memory_chain(start_date, end_date):\n    memories = get_memories_between(start_date, end_date)\n    \n    chain = []\n    for i, memory in enumerate(memories):\n        if i &gt; 0:\n            # Find connections to previous memories\n            connection = find_connection(memories[i-1], memory)\n            chain.append(connection)\n        chain.append(memory)\n    \n    return chain\n\n\nEmotional Arcs\nTrack emotional journeys over time:\ndef analyze_emotional_arc(memories):\n    sentiments = [m.sentiment for m in memories]\n    \n    # Detect patterns\n    peaks = find_peaks(sentiments)\n    valleys = find_valleys(sentiments)\n    \n    # Generate narrative\n    narrative = generate_emotional_narrative(peaks, valleys)\n    \n    return narrative"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#privacy-security",
+    "href": "blog/ai-time-capsules.html#privacy-security",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "Privacy & Security",
+    "text": "Privacy & Security\nEverything runs locally:\n\nNo cloud dependencies\nEncrypted storage\nOptional password protection\nExport/backup capabilities"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#real-world-performance",
+    "href": "blog/ai-time-capsules.html#real-world-performance",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "Real-World Performance",
+    "text": "Real-World Performance\nOn a MacBook M2:\n\nModel loading: 3.2 seconds\nMemory encoding: 0.1 seconds\nSemantic search: 0.05 seconds\nNarrative generation: 2.5 seconds"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#future-directions",
+    "href": "blog/ai-time-capsules.html#future-directions",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "Future Directions",
+    "text": "Future Directions\n\nMulti-modal Memories\nCombining text, image, and audio into unified memories:\nclass MultiModalMemory:\n    def __init__(self, text, image, audio):\n        self.text_features = encode_text(text)\n        self.image_features = encode_image(image)\n        self.audio_features = encode_audio(audio)\n        \n        # Fusion layer\n        self.unified_features = self.fuse_features(\n            self.text_features,\n            self.image_features,\n            self.audio_features\n        )\n\n\nCollaborative Capsules\nShared family memories with privacy controls:\n\nSelective sharing\nMerged timelines\nCollective narratives"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#try-it-yourself",
+    "href": "blog/ai-time-capsules.html#try-it-yourself",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "Try It Yourself",
+    "text": "Try It Yourself\nThe entire system is open-source. Get started:\ngit clone https://github.com/aiedx/ai-time-capsules\ncd ai-time-capsules\ndocker compose up\nVisit http://localhost:3000 and start preserving memories!"
+  },
+  {
+    "objectID": "blog/ai-time-capsules.html#conclusion",
+    "href": "blog/ai-time-capsules.html#conclusion",
+    "title": "(Template Blog)Building AI-Powered Time Capsules with Local Models",
+    "section": "Conclusion",
+    "text": "Conclusion\nAI-powered time capsules represent a new paradigm in personal data management. By running everything locally, we maintain privacy while leveraging AI to create meaningful connections between our memories.\nThe future of personal AI is not in the cloud—it’s in your pocket, on your laptop, preserving your stories for generations to come.\n\nBuilding something similar? I’d love to hear about it! Connect on GitHub or X/Twitter."
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html",
+    "href": "blog/timecapsule-slm.html",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "",
+    "text": "TimeCapsule-SLM represents a breakthrough in personal AI applications, bringing the power of Small Language Models (SLMs) to memory preservation and storytelling. In this post, I’ll walk you through setting up and deploying your own TimeCapsule-SLM instance."
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#introduction",
+    "href": "blog/timecapsule-slm.html#introduction",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "",
+    "text": "TimeCapsule-SLM represents a breakthrough in personal AI applications, bringing the power of Small Language Models (SLMs) to memory preservation and storytelling. In this post, I’ll walk you through setting up and deploying your own TimeCapsule-SLM instance."
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#why-small-language-models",
+    "href": "blog/timecapsule-slm.html#why-small-language-models",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "Why Small Language Models?",
+    "text": "Why Small Language Models?\nWhile Large Language Models (LLMs) have captured the world’s attention, SLMs offer unique advantages for personal applications:\n\nPrivacy-first: Run entirely on your device\nCost-effective: No API fees or cloud dependencies\nCustomizable: Fine-tune for your specific use case\nFast inference: Real-time responses on consumer hardware"
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#getting-started",
+    "href": "blog/timecapsule-slm.html#getting-started",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "Getting Started",
+    "text": "Getting Started\n\nPrerequisites\nBefore we begin, ensure you have:\n# Python 3.9 or higher\npython --version\n\n# Node.js for the web interface\nnode --version\n\n# Git for cloning the repository\ngit --version\n\n\nInstallation\n\nClone the TimeCapsule-SLM repository:\n\ngit clone https://github.com/aiedx/timecapsule-slm\ncd timecapsule-slm\n\nInstall Python dependencies:\n\npip install -r requirements.txt\n\nDownload the base model:\n\npython scripts/download_model.py --model-size small"
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#configuration",
+    "href": "blog/timecapsule-slm.html#configuration",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "Configuration",
+    "text": "Configuration\nTimeCapsule-SLM uses a simple YAML configuration file. Create config.yaml:\nmodel:\n  name: \"timecapsule-small\"\n  quantization: \"int8\"\n  max_tokens: 2048\n\nmemory:\n  storage_path: \"./memories\"\n  embedding_model: \"all-MiniLM-L6-v2\"\n  \ninterface:\n  port: 8080\n  theme: \"fire-hacker\""
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#your-first-time-capsule",
+    "href": "blog/timecapsule-slm.html#your-first-time-capsule",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "Your First Time Capsule",
+    "text": "Your First Time Capsule\nLet’s create your first memory:\nfrom timecapsule import TimeCapsule\n\n# Initialize the capsule\ncapsule = TimeCapsule(config_path=\"config.yaml\")\n\n# Create a memory\nmemory = capsule.create_memory(\n    title=\"Building TimeCapsule-SLM\",\n    content=\"Today marks the beginning of something special...\",\n    tags=[\"milestone\", \"ai\", \"personal\"]\n)\n\n# Generate a narrative\nnarrative = capsule.generate_narrative(\n    memories=[memory],\n    style=\"reflective\"\n)\n\nprint(narrative)"
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#advanced-features",
+    "href": "blog/timecapsule-slm.html#advanced-features",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "Advanced Features",
+    "text": "Advanced Features\n\nMemory Embeddings\nTimeCapsule-SLM uses semantic embeddings to connect related memories:\n# Find similar memories\nsimilar = capsule.find_similar(\n    query=\"first day at work\",\n    limit=5\n)\n\n\nTemporal Awareness\nThe model understands time relationships:\n# Generate a timeline\ntimeline = capsule.create_timeline(\n    start_date=\"2024-01-01\",\n    end_date=\"2024-12-31\"\n)"
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#performance-optimization",
+    "href": "blog/timecapsule-slm.html#performance-optimization",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "Performance Optimization",
+    "text": "Performance Optimization\nFor optimal performance on edge devices:\n\nUse quantization: Reduces model size by 75%\nEnable caching: Speeds up repeated queries\nBatch processing: Process multiple memories together"
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#whats-next",
+    "href": "blog/timecapsule-slm.html#whats-next",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nIn upcoming posts, I’ll cover:\n\nFine-tuning TimeCapsule-SLM on your personal data\nBuilding a mobile app interface\nIntegrating with photo and video memories\nCreating shared family time capsules"
+  },
+  {
+    "objectID": "blog/timecapsule-slm.html#conclusion",
+    "href": "blog/timecapsule-slm.html#conclusion",
+    "title": "Temp Getting Started with TimeCapsule-SLM(Template Blog)",
+    "section": "Conclusion",
+    "text": "Conclusion\nTimeCapsule-SLM demonstrates that powerful AI doesn’t always require massive models. By focusing on a specific domain and optimizing for edge deployment, we can create meaningful, privacy-preserving applications that run anywhere.\nTry it out and let me know what memories you’re preserving! Find the full code on GitHub.\n\nHave questions or feedback? Reach out on X/Twitter or open an issue on GitHub."
+  },
+  {
+    "objectID": "til/firebase-sync.html",
+    "href": "til/firebase-sync.html",
+    "title": "Firebase Real-time Sync Patterns",
+    "section": "",
+    "text": "Learned about using Firebase’s offline persistence with conflict resolution for seamless sync. This pattern has saved me countless hours!"
+  },
+  {
+    "objectID": "til/firebase-sync.html#the-pattern",
+    "href": "til/firebase-sync.html#the-pattern",
+    "title": "Firebase Real-time Sync Patterns",
+    "section": "",
+    "text": "Learned about using Firebase’s offline persistence with conflict resolution for seamless sync. This pattern has saved me countless hours!"
+  },
+  {
+    "objectID": "til/firebase-sync.html#the-setup",
+    "href": "til/firebase-sync.html#the-setup",
+    "title": "Firebase Real-time Sync Patterns",
+    "section": "The Setup",
+    "text": "The Setup\n// Enable offline persistence\nimport { initializeApp } from 'firebase/app';\nimport { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';\n\nconst app = initializeApp(firebaseConfig);\nconst db = getFirestore(app);\n\n// Enable offline persistence\nenableIndexedDbPersistence(db)\n  .catch((err) =&gt; {\n    if (err.code == 'failed-precondition') {\n      // Multiple tabs open, persistence can only be enabled in one tab at a time.\n      console.log('Persistence failed');\n    } else if (err.code == 'unimplemented') {\n      // The current browser doesn't support persistence\n      console.log('Persistence not available');\n    }\n  });"
+  },
+  {
+    "objectID": "til/firebase-sync.html#conflict-resolution-strategy",
+    "href": "til/firebase-sync.html#conflict-resolution-strategy",
+    "title": "Firebase Real-time Sync Patterns",
+    "section": "Conflict Resolution Strategy",
+    "text": "Conflict Resolution Strategy\nclass SyncManager {\n  constructor() {\n    this.pendingWrites = new Map();\n  }\n\n  async syncDocument(docRef, data) {\n    const docId = docRef.id;\n    \n    try {\n      // Optimistic update\n      this.pendingWrites.set(docId, data);\n      \n      // Try to sync\n      await docRef.set({\n        ...data,\n        lastModified: serverTimestamp(),\n        deviceId: getDeviceId()\n      }, { merge: true });\n      \n      // Success - clear pending\n      this.pendingWrites.delete(docId);\n      \n    } catch (error) {\n      // Conflict detected\n      if (error.code === 'unavailable') {\n        // We're offline, it will sync when back online\n        console.log('Will sync when online');\n      } else {\n        // Real conflict, need resolution\n        await this.resolveConflict(docRef, data);\n      }\n    }\n  }\n  \n  async resolveConflict(docRef, localData) {\n    const serverData = await docRef.get();\n    \n    // Simple last-write-wins\n    if (localData.timestamp &gt; serverData.data().timestamp) {\n      await docRef.set(localData);\n    }\n    // Could implement more complex strategies here\n  }\n}"
+  },
+  {
+    "objectID": "til/firebase-sync.html#key-insights",
+    "href": "til/firebase-sync.html#key-insights",
+    "title": "Firebase Real-time Sync Patterns",
+    "section": "Key Insights",
+    "text": "Key Insights\n\nAlways use merge: true for partial updates\nTrack pending writes for UI feedback\nUse transactions for critical updates\nImplement retry logic with exponential backoff"
+  },
+  {
+    "objectID": "til/firebase-sync.html#gotchas",
+    "href": "til/firebase-sync.html#gotchas",
+    "title": "Firebase Real-time Sync Patterns",
+    "section": "Gotchas",
+    "text": "Gotchas\n\nOffline persistence doesn’t work with multiple tabs\nLarge documents (&gt;1MB) can cause sync issues\nDeeply nested updates might not trigger listeners"
+  },
+  {
+    "objectID": "til/firebase-sync.html#performance-win",
+    "href": "til/firebase-sync.html#performance-win",
+    "title": "Firebase Real-time Sync Patterns",
+    "section": "Performance Win",
+    "text": "Performance Win\nBefore: 300ms latency for each write After: Instant UI updates with background sync\nUser experience improved dramatically! 🚀"
+  },
+  {
+    "objectID": "til/quarto-blogging.html",
+    "href": "til/quarto-blogging.html",
+    "title": "Using Quarto for Technical Blogging",
+    "section": "",
+    "text": "Just discovered that Quarto’s integration with Jupyter notebooks makes it perfect for data science blogging. You can execute code blocks during the build process!"
+  },
+  {
+    "objectID": "til/quarto-blogging.html#the-discovery",
+    "href": "til/quarto-blogging.html#the-discovery",
+    "title": "Using Quarto for Technical Blogging",
+    "section": "",
+    "text": "Just discovered that Quarto’s integration with Jupyter notebooks makes it perfect for data science blogging. You can execute code blocks during the build process!"
+  },
+  {
+    "objectID": "til/quarto-blogging.html#example",
+    "href": "til/quarto-blogging.html#example",
+    "title": "Using Quarto for Technical Blogging",
+    "section": "Example",
+    "text": "Example\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# Generate data\nx = np.linspace(0, 10, 100)\ny = np.sin(x)\n\n# Create plot\nplt.figure(figsize=(10, 6))\nplt.plot(x, y, 'b-', linewidth=2)\nplt.title('Sine Wave')\nplt.grid(True, alpha=0.3)\nplt.show()"
+  },
+  {
+    "objectID": "til/quarto-blogging.html#key-features",
+    "href": "til/quarto-blogging.html#key-features",
+    "title": "Using Quarto for Technical Blogging",
+    "section": "Key Features",
+    "text": "Key Features\n\nLive code execution: Code runs during site build\nMultiple languages: Python, R, Julia, Observable JS\nCache results: Don’t re-run expensive computations\nInteractive widgets: Embed Plotly, Bokeh, etc."
+  },
+  {
+    "objectID": "til/quarto-blogging.html#configuration-tip",
+    "href": "til/quarto-blogging.html#configuration-tip",
+    "title": "Using Quarto for Technical Blogging",
+    "section": "Configuration Tip",
+    "text": "Configuration Tip\nAdd this to your _quarto.yml for better code highlighting:\nformat:\n  html:\n    code-fold: true\n    code-tools: true\n    code-copy: true\nNow readers can toggle code visibility and copy snippets easily!"
+  },
+  {
+    "objectID": "til/quarto-blogging.html#resources",
+    "href": "til/quarto-blogging.html#resources",
+    "title": "Using Quarto for Technical Blogging",
+    "section": "Resources",
+    "text": "Resources\n\nQuarto Documentation\nQuarto Gallery"
   }
 ]

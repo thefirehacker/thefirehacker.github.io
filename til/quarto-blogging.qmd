@@ -1,0 +1,54 @@
+---
+title: "Using Quarto for Technical Blogging"
+date: "2025-09-11"
+author: "The Fire Hacker"
+categories: [Quarto, Blogging, Tools]
+---
+
+## The Discovery
+
+Just discovered that Quarto's integration with Jupyter notebooks makes it perfect for data science blogging. You can execute code blocks during the build process!
+
+## Example
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Generate data
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+# Create plot
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.title('Sine Wave')
+plt.grid(True, alpha=0.3)
+plt.show()
+```
+
+## Key Features
+
+- **Live code execution**: Code runs during site build
+- **Multiple languages**: Python, R, Julia, Observable JS
+- **Cache results**: Don't re-run expensive computations
+- **Interactive widgets**: Embed Plotly, Bokeh, etc.
+
+## Configuration Tip
+
+Add this to your `_quarto.yml` for better code highlighting:
+
+```yaml
+format:
+  html:
+    code-fold: true
+    code-tools: true
+    code-copy: true
+```
+
+Now readers can toggle code visibility and copy snippets easily!
+
+## Resources
+
+- [Quarto Documentation](https://quarto.org)
+- [Quarto Gallery](https://quarto.org/docs/gallery/)

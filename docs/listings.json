@@ -1,0 +1,18 @@
+[
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/timecapsule-slm.html",
+      "/blog/ai-time-capsules.html",
+      "/blog/building-bubblspace.html"
+    ]
+  },
+  {
+    "listing": "/til.html",
+    "items": [
+      "/til/quarto-blogging.html",
+      "/til/slm-optimization.html",
+      "/til/firebase-sync.html"
+    ]
+  }
+]

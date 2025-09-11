@@ -1,7 +1,88 @@
 ---
-title: "website"
+title: "The Fire Hacker"
+page-layout: custom
+toc: false
 ---
 
-This is a Quarto website.
+::: {.hero-section}
+::: {.container}
+::: {.hero-content}
+# Welcome to The Fire Hacker {.hero-title}
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+:::: {.hero-intro}
+I'm a **Founder & AI Researcher at AIEDX**, passionate about building the future with artificial intelligence. Currently developing innovative solutions that bridge the gap between cutting-edge AI research and practical applications.
+::::
+
+:::: {.hero-projects}
+### 🚀 Current Projects
+
+::: {.project-cards}
+::: {.project-card}
+#### [Bubblspace](https://bubblspace.com)
+A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces.
+:::
+
+::: {.project-card}
+#### [TimeCapsule-SLM](https://timecapsule.bubblspace.com)
+Small Language Models designed for preserving and sharing memories through time with AI assistance.
+:::
+:::
+::::
+
+:::: {.hero-cta}
+[Read My Blog →](blog.qmd){.btn-primary}
+[About Me →](about.qmd){.btn-secondary}
+::::
+:::
+
+::: {.hero-image}
+![](assets/firehacker-logo.jpg){.logo-image}
+:::
+:::
+:::
+
+## Recent Posts {.section-title}
+
+::: {.recent-posts}
+::: {.post-card}
+### Getting Started with TimeCapsule-SLM
+*September 2025* - Learn how to deploy and customize small language models for personal time capsule applications...
+[Read more →](blog/timecapsule-slm.qmd)
+:::
+
+::: {.post-card}
+### Building AI-Powered Time Capsules
+*September 2025* - Explore the architecture behind creating intelligent memory preservation systems...
+[Read more →](blog/ai-time-capsules.qmd)
+:::
+
+::: {.post-card}
+### The Journey of Building Bubblspace
+*August 2025* - From concept to reality: How we're creating collaborative AI spaces...
+[Read more →](blog/building-bubblspace.qmd)
+:::
+:::
+
+## Today I Learned {.section-title}
+
+::: {.til-grid}
+::: {.til-card}
+**Quarto for Technical Blogging** - Discovered that Quarto's integration with Jupyter notebooks makes it perfect for data science blogging...
+:::
+
+::: {.til-card}
+**Optimizing SLMs for Edge** - Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy...
+:::
+
+::: {.til-card}
+**Firebase Real-time Sync** - Learned about using Firebase's offline persistence with conflict resolution for seamless sync...
+:::
+:::
+
+## Connect {.section-title}
+
+::: {.social-links}
+[GitHub](https://github.com/thefirehacker){.social-link}
+[X/Twitter](https://x.com/thefirehacker){.social-link}
+[Contact](mailto:contact@thefirehacker.com){.social-link}
+:::

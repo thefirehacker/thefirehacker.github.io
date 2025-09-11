@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About Me – The Fire Hacker</title>
+<title>Blog – The Fire Hacker</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,6 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./assets/favicon.ico" rel="icon">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -69,15 +71,73 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -98,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link active" href="./blog.html" aria-current="page"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
@@ -106,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Today I Learned</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
 </ul>
@@ -129,123 +189,147 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Blog</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="QUk=">AI <span class="quarto-category-count">(3)</span></div><div class="category" data-category="QXJjaGl0ZWN0dXJl">Architecture <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGVlcC1EaXZl">Deep-Dive <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHJvZHVjdA==">Product <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U0xN">SLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U3RhcnR1cA==">Startup <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VHV0b3JpYWw=">Tutorial <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">About Me</h1>
+
+
+
+
+<p>Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.</p>
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="QUklMkNTTE0lMkNUdXRvcmlhbA==" data-listing-date-sort="1757442600000" data-listing-file-modified-sort="1757623404656" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="375">
+<div class="thumbnail"><a href="./blog/timecapsule-slm.html" class="no-external">
+
+<img loading="lazy" src="./blog/timecapsule-preview.jpg" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/timecapsule-slm.html" class="no-external">Temp Getting Started with TimeCapsule-SLM(Template Blog)</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('QUk='); return false;">AI</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U0xN'); return false;">SLM</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VHV0b3JpYWw='); return false;">Tutorial</div>
+
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div class="about-container">
-<div class="about-image">
-<p><img src="assets/firehacker-logo.jpg" class="profile-image img-fluid"></p>
+<div class="delink listing-description"><a href="./blog/timecapsule-slm.html" class="no-external">
+TimeCapsule-SLM represents a breakthrough in personal AI applications, bringing the power of Small Language Models (SLMs) to memory preservation and storytelling. In this…
+</a></div>
 </div>
-<section id="hi-im-the-fire-hacker" class="level1 about-content">
-<h1>Hi, I’m The Fire Hacker 🔥</h1>
-<section id="founder-ai-researcher-at-aiedx" class="level2">
-<h2 class="anchored" data-anchor-id="founder-ai-researcher-at-aiedx">Founder &amp; AI Researcher at AIEDX</h2>
-<p>I’m passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.</p>
-<section id="what-im-building" class="level3">
-<h3 class="anchored" data-anchor-id="what-im-building">What I’m Building</h3>
-<section id="bubblspace" class="level4">
-<h4 class="anchored" data-anchor-id="bubblspace"><a href="https://bubblspace.com">Bubblspace</a></h4>
-<p>A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.</p>
-</section>
-<section id="timecapsule-slm" class="level4">
-<h4 class="anchored" data-anchor-id="timecapsule-slm"><a href="https://timecapsule.bubblspace.com">TimeCapsule-SLM</a></h4>
-<p>Small Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.</p>
-</section>
-</section>
-<section id="my-journey" class="level3">
-<h3 class="anchored" data-anchor-id="my-journey">My Journey</h3>
-<ul>
-<li><strong>2025</strong>: Founded AIEDX, focusing on local-first AI solutions</li>
-<li><strong>2024</strong>: Led AI research initiatives in distributed systems</li>
-<li><strong>2023</strong>: Contributed to open-source LLM optimization projects</li>
-<li><strong>2022</strong>: Started exploring edge AI deployment strategies</li>
-</ul>
-</section>
-<section id="technical-interests" class="level3">
-<h3 class="anchored" data-anchor-id="technical-interests">Technical Interests</h3>
-<ul>
-<li><strong>Small Language Models (SLMs)</strong>: Optimizing AI for edge devices</li>
-<li><strong>Privacy-Preserving AI</strong>: Building systems that respect user data</li>
-<li><strong>Distributed Computing</strong>: Scaling AI across multiple nodes</li>
-<li><strong>Real-time Collaboration</strong>: Synchronizing AI interactions</li>
-<li><strong>Knowledge Graphs</strong>: Connecting information meaningfully</li>
-</ul>
-</section>
-<section id="open-source-contributions" class="level3">
-<h3 class="anchored" data-anchor-id="open-source-contributions">Open Source Contributions</h3>
-<p>I believe in giving back to the community. Check out my projects:</p>
-<ul>
-<li><a href="https://github.com/aiedx/timecapsule-slm">TimeCapsule-SLM</a> - Local-first memory preservation</li>
-<li><a href="https://github.com/bubblspace/bubble-sync">Bubble-Sync</a> - Real-time collaboration engine</li>
-<li><a href="https://github.com/bubblspace/ai-orchestra">AI-Orchestra</a> - Multi-model orchestration library</li>
-</ul>
-</section>
-<section id="philosophy" class="level3">
-<h3 class="anchored" data-anchor-id="philosophy">Philosophy</h3>
-<blockquote class="blockquote">
-<p>“The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity.”</p>
-</blockquote>
-<p>I believe the future of AI is: - <strong>Local-first</strong>: Your data stays on your device - <strong>Collaborative</strong>: AI should enhance human collaboration - <strong>Accessible</strong>: Everyone should benefit from AI advances - <strong>Transparent</strong>: Understanding how AI makes decisions</p>
-</section>
-<section id="lets-connect" class="level3">
-<h3 class="anchored" data-anchor-id="lets-connect">Let’s Connect!</h3>
-<p>I love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:</p>
-<ul>
-<li><strong>GitHub</strong>: <a href="https://github.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a></li>
-<li><strong>X/Twitter</strong>: <a href="https://x.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a></li>
-<li><strong>Email</strong>: <a href="mailto:contact@thefirehacker.com">contact@thefirehacker.com</a></li>
-</ul>
-</section>
-<section id="speaking-writing" class="level3">
-<h3 class="anchored" data-anchor-id="speaking-writing">Speaking &amp; Writing</h3>
-<p>I occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:</p>
-<ul>
-<li>“Small Models, Big Impact: The Future of Edge AI”</li>
-<li>“Building Privacy-First AI Applications”</li>
-<li>“From Research to Product: Shipping AI Features Users Love”</li>
-</ul>
-</section>
-<section id="fun-facts" class="level3">
-<h3 class="anchored" data-anchor-id="fun-facts">Fun Facts</h3>
-<ul>
-<li>🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality</li>
-<li>🔥 I believe in “hacking” in its original sense: creative problem-solving</li>
-<li>🌟 My first program was a text-based adventure game</li>
-<li>🎯 Current goal: Make AI accessible to 1 million users</li>
-</ul>
-<hr>
-<p><em>Want to collaborate or just chat about AI? Drop me a message on <a href="https://x.com/thefirehacker">X/Twitter</a> or open an issue on one of my <a href="https://github.com/thefirehacker">GitHub projects</a>.</em></p>
-</section>
-</section>
-</section>
+<div class="metadata">
+<a href="./blog/timecapsule-slm.html" class="no-external">
+<div class="listing-date">
+Sep 10, 2025
 </div>
+<div class="listing-author">
+The Fire Hacker
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="QUklMkNBcmNoaXRlY3R1cmUlMkNEZWVwLURpdmU=" data-listing-date-sort="1757010600000" data-listing-file-modified-sort="1757623411050" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="982">
+<div class="thumbnail"><a href="./blog/ai-time-capsules.html" class="no-external">
 
+<img loading="lazy" src="./blog/ai-capsules.jpg" class="thumbnail-image">
 
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/ai-time-capsules.html" class="no-external">(Template Blog)Building AI-Powered Time Capsules with Local Models</a>
+</h3>
+<div class="listing-categories">
 
-</main> <!-- /main -->
+<div class="listing-category" onclick="window.quartoListingCategory('QUk='); return false;">AI</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QXJjaGl0ZWN0dXJl'); return false;">Architecture</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RGVlcC1EaXZl'); return false;">Deep-Dive</div>
+
+</div>
+<div class="delink listing-description"><a href="./blog/ai-time-capsules.html" class="no-external">
+Imagine a system that not only stores your memories but understands them, connects them, and helps you rediscover forgotten moments. That’s the promise of AI-powered time…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./blog/ai-time-capsules.html" class="no-external">
+<div class="listing-date">
+Sep 5, 2025
+</div>
+<div class="listing-author">
+The Fire Hacker
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="U3RhcnR1cCUyQ1Byb2R1Y3QlMkNBSQ==" data-listing-date-sort="1756319400000" data-listing-file-modified-sort="1757623414933" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1067">
+<div class="thumbnail"><a href="./blog/building-bubblspace.html" class="no-external">
+
+<img loading="lazy" src="./blog/bubblspace.jpg" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/building-bubblspace.html" class="no-external">(Template Blog)The Journey of Building Bubblspace</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('U3RhcnR1cA=='); return false;">Startup</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHJvZHVjdA=='); return false;">Product</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QUk='); return false;">AI</div>
+
+</div>
+<div class="delink listing-description"><a href="./blog/building-bubblspace.html" class="no-external">
+Six months ago, Bubblspace was just a sketch in my notebook. Today, it’s a platform helping thousands create and share AI-powered experiences. This is the story of how we…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./blog/building-bubblspace.html" class="no-external">
+<div class="listing-date">
+Aug 28, 2025
+</div>
+<div class="listing-author">
+The Fire Hacker
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

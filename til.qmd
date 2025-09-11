@@ -1,0 +1,14 @@
+---
+title: "Today I Learned"
+listing:
+  contents: til
+  sort: "date desc"
+  type: grid
+  categories: false
+  feed: true
+  max-items: 20
+page-layout: full
+title-block-banner: true
+---
+
+Quick notes and discoveries from my daily work with AI, software development, and research. These are bite-sized learnings that might save you time or spark new ideas.

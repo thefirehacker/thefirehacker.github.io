@@ -1,0 +1,13 @@
+---
+title: "Blog"
+listing:
+  contents: blog
+  sort: "date desc"
+  type: default
+  categories: true
+  feed: true
+page-layout: full
+title-block-banner: true
+---
+
+Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you'll find technical deep-dives, project updates, and lessons learned along the way.
