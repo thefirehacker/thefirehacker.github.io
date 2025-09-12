@@ -46,19 +46,19 @@ Small Language Models designed for preserving and sharing memories through time 
 ::: {.recent-posts}
 ::: {.post-card}
 ### Getting Started with TimeCapsule-SLM
-*September 2025* - Learn how to deploy and customize small language models for personal time capsule applications...
+*September 2025* - Deploy and customize SLMs for time capsule apps.
 [Read more →](blog/timecapsule-slm.qmd)
 :::
 
 ::: {.post-card}
 ### Building AI-Powered Time Capsules
-*September 2025* - Explore the architecture behind creating intelligent memory preservation systems...
+*September 2025* - Architecture for intelligent memory preservation systems.
 [Read more →](blog/ai-time-capsules.qmd)
 :::
 
 ::: {.post-card}
 ### The Journey of Building Bubblspace
-*August 2025* - From concept to reality: How we're creating collaborative AI spaces...
+*August 2025* - From concept to reality: creating collaborative AI spaces.
 [Read more →](blog/building-bubblspace.qmd)
 :::
 :::
@@ -67,15 +67,15 @@ Small Language Models designed for preserving and sharing memories through time 
 
 ::: {.til-grid}
 ::: {.til-card}
-**Quarto for Technical Blogging** - Discovered that Quarto's integration with Jupyter notebooks makes it perfect for data science blogging...
+**Quarto for Technical Blogging** - Jupyter integration makes it perfect for data science blogging.
 :::
 
 ::: {.til-card}
-**Optimizing SLMs for Edge** - Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy...
+**Optimizing SLMs for Edge** - GGUF quantization reduces model size by 75% with 95% accuracy.
 :::
 
 ::: {.til-card}
-**Firebase Real-time Sync** - Learned about using Firebase's offline persistence with conflict resolution for seamless sync...
+**Firebase Real-time Sync** - Offline persistence with conflict resolution for seamless sync.
 :::
 :::
 

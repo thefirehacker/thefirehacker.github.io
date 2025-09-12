@@ -165,14 +165,14 @@
     "href": "index.html#recent-posts",
     "title": "The Fire Hacker",
     "section": "Recent Posts",
-    "text": "Recent Posts\n\n\nGetting Started with TimeCapsule-SLM\nSeptember 2025 - Learn how to deploy and customize small language models for personal time capsule applications… Read more →\n\n\nBuilding AI-Powered Time Capsules\nSeptember 2025 - Explore the architecture behind creating intelligent memory preservation systems… Read more →\n\n\nThe Journey of Building Bubblspace\nAugust 2025 - From concept to reality: How we’re creating collaborative AI spaces… Read more →"
+    "text": "Recent Posts\n\n\nGetting Started with TimeCapsule-SLM\nSeptember 2025 - Deploy and customize SLMs for time capsule apps. Read more →\n\n\nBuilding AI-Powered Time Capsules\nSeptember 2025 - Architecture for intelligent memory preservation systems. Read more →\n\n\nThe Journey of Building Bubblspace\nAugust 2025 - From concept to reality: creating collaborative AI spaces. Read more →"
   },
   {
     "objectID": "index.html#today-i-learned",
     "href": "index.html#today-i-learned",
     "title": "The Fire Hacker",
     "section": "Today I Learned",
-    "text": "Today I Learned\n\n\nQuarto for Technical Blogging - Discovered that Quarto’s integration with Jupyter notebooks makes it perfect for data science blogging…\n\n\nOptimizing SLMs for Edge - Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy…\n\n\nFirebase Real-time Sync - Learned about using Firebase’s offline persistence with conflict resolution for seamless sync…"
+    "text": "Today I Learned\n\n\nQuarto for Technical Blogging - Jupyter integration makes it perfect for data science blogging.\n\n\nOptimizing SLMs for Edge - GGUF quantization reduces model size by 75% with 95% accuracy.\n\n\nFirebase Real-time Sync - Offline persistence with conflict resolution for seamless sync."
   },
   {
     "objectID": "index.html#connect",
