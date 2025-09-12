@@ -6,6 +6,7 @@ website:
   title: "The Fire Hacker"
   description: "Founder & AI Researcher at AIEDX | Building the future with AI"
   favicon: "assets/favicon.ico"
+  google-analytics: "G-V1B8R98P79"
   navbar:
     background: "#1a1a2e"
     foreground: "#ffffff"
@@ -33,6 +34,7 @@ format:
     toc: true
     link-external-icon: true
     link-external-newwindow: true
+    include-after-body: analytics-include.html
 
 
 

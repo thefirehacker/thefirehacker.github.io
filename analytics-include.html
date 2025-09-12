@@ -1,0 +1,75 @@
+<!-- Enhanced Google Analytics 4 Implementation for The Fire Hacker -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V1B8R98P79"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  
+  // Initialize GA4 with enhanced configuration
+  gtag('js', new Date());
+  gtag('config', 'G-V1B8R98P79', {
+    // Enhanced ecommerce and engagement tracking
+    send_page_view: true,
+    page_title: document.title,
+    page_location: window.location.href,
+    
+    // Enhanced measurement features
+    enhanced_measurement: {
+      scrolls: true,
+      outbound_clicks: true,
+      site_search: true,
+      video_engagement: true,
+      file_downloads: true
+    },
+    
+    // Custom parameters for The Fire Hacker
+    custom_map: {
+      'dimension1': 'page_type',
+      'dimension2': 'content_category',
+      'dimension3': 'user_engagement_level'
+    },
+    
+    // Debug mode (remove in production if needed)
+    debug_mode: false
+  });
+
+  // Set custom dimensions based on page
+  const pageType = window.location.pathname.includes('/blog/') ? 'blog_post' :
+                   window.location.pathname.includes('/til/') ? 'til_post' :
+                   window.location.pathname === '/' || window.location.pathname === '/index.html' ? 'homepage' :
+                   window.location.pathname.includes('/about') ? 'about' :
+                   'other';
+
+  const contentCategory = window.location.pathname.includes('/blog/') ? 'blog' :
+                         window.location.pathname.includes('/til/') ? 'today_i_learned' :
+                         'main_site';
+
+  // Send custom dimensions
+  gtag('config', 'G-V1B8R98P79', {
+    'custom_map.dimension1': pageType,
+    'custom_map.dimension2': contentCategory
+  });
+
+  // Enhanced page view with custom parameters
+  gtag('event', 'page_view', {
+    'page_type': pageType,
+    'content_category': contentCategory,
+    'site_name': 'The Fire Hacker',
+    'author': 'Fire Hacker',
+    'contact_email': 'firehacker@bubblspace.com'
+  });
+
+  // Track mailto clicks to firehacker@bubblspace.com
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="mailto:firehacker@bubblspace.com"]').forEach(function(link) {
+      link.addEventListener('click', function() {
+        gtag('event', 'email_contact', {
+          'contact_email': 'firehacker@bubblspace.com',
+          'contact_method': 'mailto_link'
+        });
+      });
+    });
+  });
+</script>
+
+<!-- Load enhanced tracking script -->
+<script src="analytics.js"></script>
