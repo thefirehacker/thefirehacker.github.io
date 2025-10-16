@@ -7,55 +7,6 @@
     "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGetting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform\n\n\n\nAI\n\nResearch\n\nEducation\n\nOpen Source\n\n\n\n\n\n\n\n\n\nJan 16, 2025\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "til/slm-optimization.html",
-    "href": "til/slm-optimization.html",
-    "title": "Optimizing SLMs for Edge Deployment",
-    "section": "",
-    "text": "Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy for most tasks. This is game-changing for edge deployment!"
-  },
-  {
-    "objectID": "til/slm-optimization.html#the-finding",
-    "href": "til/slm-optimization.html#the-finding",
-    "title": "Optimizing SLMs for Edge Deployment",
-    "section": "",
-    "text": "Found that quantization with GGUF format can reduce model size by 75% while maintaining 95% accuracy for most tasks. This is game-changing for edge deployment!"
-  },
-  {
-    "objectID": "til/slm-optimization.html#quick-comparison",
-    "href": "til/slm-optimization.html#quick-comparison",
-    "title": "Optimizing SLMs for Edge Deployment",
-    "section": "Quick Comparison",
-    "text": "Quick Comparison\n\n\n\nModel\nOriginal Size\nGGUF Q4_K_M\nPerformance\n\n\n\n\nLlama 3.2 3B\n12 GB\n3 GB\n95%\n\n\nPhi-3 Mini\n7 GB\n1.8 GB\n93%\n\n\nMistral 7B\n28 GB\n7 GB\n94%"
-  },
-  {
-    "objectID": "til/slm-optimization.html#how-to-quantize",
-    "href": "til/slm-optimization.html#how-to-quantize",
-    "title": "Optimizing SLMs for Edge Deployment",
-    "section": "How to Quantize",
-    "text": "How to Quantize\n# Install llama.cpp\ngit clone https://github.com/ggerganov/llama.cpp\ncd llama.cpp\nmake\n\n# Convert model to GGUF\npython convert.py model-path --outtype q4_k_m\n\n# Test inference speed\n./main -m model.gguf -p \"Test prompt\""
-  },
-  {
-    "objectID": "til/slm-optimization.html#performance-tips",
-    "href": "til/slm-optimization.html#performance-tips",
-    "title": "Optimizing SLMs for Edge Deployment",
-    "section": "Performance Tips",
-    "text": "Performance Tips\n\nUse Q4_K_M: Best quality/size ratio\nEnable GPU layers: -ngl 32 for GPU acceleration\nAdjust context: Lower context = faster inference\nBatch processing: Process multiple inputs together"
-  },
-  {
-    "objectID": "til/slm-optimization.html#real-world-impact",
-    "href": "til/slm-optimization.html#real-world-impact",
-    "title": "Optimizing SLMs for Edge Deployment",
-    "section": "Real-World Impact",
-    "text": "Real-World Impact\nOn M2 MacBook Air: - Before: 5 tokens/second with 7B model - After: 25 tokens/second with quantized version - RAM usage: Reduced from 14GB to 4GB\nThis makes local AI actually usable for production apps!"
-  },
-  {
-    "objectID": "til/slm-optimization.html#tools",
-    "href": "til/slm-optimization.html#tools",
-    "title": "Optimizing SLMs for Edge Deployment",
-    "section": "Tools",
-    "text": "Tools\n\nllama.cpp\nOllama - Easy model management\nLM Studio - GUI for local models"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
@@ -81,7 +32,7 @@
     "href": "index.html#today-i-learned",
     "title": "The Fire Hacker",
     "section": "Today I Learned",
-    "text": "Today I Learned\n\n\nQuarto for Technical Blogging - Jupyter integration makes it perfect for data science blogging.\n\n\nOptimizing SLMs for Edge - GGUF quantization reduces model size by 75% with 95% accuracy.\n\n\nFirebase Real-time Sync - Offline persistence with conflict resolution for seamless sync."
+    "text": "Today I Learned\n\n\nCUDA Kernels from Scratch - Successfully compiled and ran my first GPU kernel on RTX 2050! Learned about blocks, threads, and why my 16384×16384 matrix was 17x slower. Read more →"
   },
   {
     "objectID": "index.html#connect",
@@ -95,7 +46,7 @@
     "href": "til.html",
     "title": "Today I Learned",
     "section": "",
-    "text": "Quick notes and discoveries from my daily work with AI, software development, and research. These are bite-sized learnings that might save you time or spark new ideas.\n\n\n\n\n\n\n\n\n\n\n\n\nUsing Quarto for Technical Blogging\n\n\n\n\n\n\nThe Fire Hacker\n\n\nSep 11, 2025\n\n\n\n\n\n\n\n\n\n\n\nOptimizing SLMs for Edge Deployment\n\n\n\n\n\n\nThe Fire Hacker\n\n\nSep 9, 2025\n\n\n\n\n\n\n\n\n\n\n\nFirebase Real-time Sync Patterns\n\n\n\n\n\n\nThe Fire Hacker\n\n\nSep 7, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Deep dives into technical concepts I’m learning. From GPU programming to AI systems, these are comprehensive explorations of new technologies and techniques.\n\n\n\n\n\n\n\n\n\n\n\n\nLearning CUDA Kernels: From Zero to Running Custom GPU Code\n\n\n\n\n\n\nThe Fire Hacker\n\n\nJan 16, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/timecapsule-slm.html",
@@ -203,94 +154,80 @@
     "text": "Conclusion\nTimeCapsule-SLM represents a new paradigm in AI-assisted research and learning. By combining powerful AI capabilities with privacy-first design and local-first architecture, we’re making advanced research tools accessible to everyone.\nWhether you’re a researcher pushing the boundaries of knowledge, a student seeking personalized learning, or a teacher creating engaging content, TimeCapsule-SLM empowers you to work smarter, not harder.\nStart your journey today and experience the future of AI-powered research and learning!\n\nReady to transform your research and learning workflow? Get started with TimeCapsule-SLM or visit timecapsule.bubblspace.com for more information.\nHave questions or feedback? Reach out on X/Twitter or open an issue on GitHub."
   },
   {
-    "objectID": "til/firebase-sync.html",
-    "href": "til/firebase-sync.html",
-    "title": "Firebase Real-time Sync Patterns",
+    "objectID": "til/cuda-kernels-basics.html",
+    "href": "til/cuda-kernels-basics.html",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
     "section": "",
-    "text": "Learned about using Firebase’s offline persistence with conflict resolution for seamless sync. This pattern has saved me countless hours!"
+    "text": "Today I successfully compiled and ran my first custom CUDA kernel on my RTX 2050 gaming laptop! Here’s everything I learned about GPU programming, from environment setup to understanding performance metrics."
   },
   {
-    "objectID": "til/firebase-sync.html#the-pattern",
-    "href": "til/firebase-sync.html#the-pattern",
-    "title": "Firebase Real-time Sync Patterns",
+    "objectID": "til/cuda-kernels-basics.html#the-journey-running-my-first-cuda-kernel",
+    "href": "til/cuda-kernels-basics.html#the-journey-running-my-first-cuda-kernel",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
     "section": "",
-    "text": "Learned about using Firebase’s offline persistence with conflict resolution for seamless sync. This pattern has saved me countless hours!"
+    "text": "Today I successfully compiled and ran my first custom CUDA kernel on my RTX 2050 gaming laptop! Here’s everything I learned about GPU programming, from environment setup to understanding performance metrics."
   },
   {
-    "objectID": "til/firebase-sync.html#the-setup",
-    "href": "til/firebase-sync.html#the-setup",
-    "title": "Firebase Real-time Sync Patterns",
-    "section": "The Setup",
-    "text": "The Setup\n// Enable offline persistence\nimport { initializeApp } from 'firebase/app';\nimport { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';\n\nconst app = initializeApp(firebaseConfig);\nconst db = getFirestore(app);\n\n// Enable offline persistence\nenableIndexedDbPersistence(db)\n  .catch((err) =&gt; {\n    if (err.code == 'failed-precondition') {\n      // Multiple tabs open, persistence can only be enabled in one tab at a time.\n      console.log('Persistence failed');\n    } else if (err.code == 'unimplemented') {\n      // The current browser doesn't support persistence\n      console.log('Persistence not available');\n    }\n  });"
+    "objectID": "til/cuda-kernels-basics.html#the-setup-wsl2-cuda-pytorch",
+    "href": "til/cuda-kernels-basics.html#the-setup-wsl2-cuda-pytorch",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "The Setup: WSL2 + CUDA + PyTorch",
+    "text": "The Setup: WSL2 + CUDA + PyTorch\nGetting CUDA to work on Windows through WSL2 was my first challenge. Here’s the complete path I took:\n\n1. Environment Configuration\n# Install CUDA Toolkit 12.1 (for nvcc compiler)\nwget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb\nsudo dpkg -i cuda-keyring_1.1-1_all.deb\nsudo apt-get update\nsudo apt-get install -y cuda-toolkit-12-1\n\n# Set up environment variables\nexport CUDA_HOME=/usr/local/cuda-12.1\nexport PATH=$CUDA_HOME/bin:$PATH\nexport LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH\n\n\n2. PyTorch with CUDA Support\n# Install PyTorch with CUDA 12.1 support\npip install --index-url https://download.pytorch.org/whl/cu121 torch"
   },
   {
-    "objectID": "til/firebase-sync.html#conflict-resolution-strategy",
-    "href": "til/firebase-sync.html#conflict-resolution-strategy",
-    "title": "Firebase Real-time Sync Patterns",
-    "section": "Conflict Resolution Strategy",
-    "text": "Conflict Resolution Strategy\nclass SyncManager {\n  constructor() {\n    this.pendingWrites = new Map();\n  }\n\n  async syncDocument(docRef, data) {\n    const docId = docRef.id;\n    \n    try {\n      // Optimistic update\n      this.pendingWrites.set(docId, data);\n      \n      // Try to sync\n      await docRef.set({\n        ...data,\n        lastModified: serverTimestamp(),\n        deviceId: getDeviceId()\n      }, { merge: true });\n      \n      // Success - clear pending\n      this.pendingWrites.delete(docId);\n      \n    } catch (error) {\n      // Conflict detected\n      if (error.code === 'unavailable') {\n        // We're offline, it will sync when back online\n        console.log('Will sync when online');\n      } else {\n        // Real conflict, need resolution\n        await this.resolveConflict(docRef, data);\n      }\n    }\n  }\n  \n  async resolveConflict(docRef, localData) {\n    const serverData = await docRef.get();\n    \n    // Simple last-write-wins\n    if (localData.timestamp &gt; serverData.data().timestamp) {\n      await docRef.set(localData);\n    }\n    // Could implement more complex strategies here\n  }\n}"
+    "objectID": "til/cuda-kernels-basics.html#the-project-gpu-modes-reference-kernels",
+    "href": "til/cuda-kernels-basics.html#the-project-gpu-modes-reference-kernels",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "The Project: GPU-Mode’s Reference Kernels",
+    "text": "The Project: GPU-Mode’s Reference Kernels\nI worked with the reference-kernels repository, specifically the vectoradd_py problem. This repository contains practice problems for learning GPU kernel optimization."
   },
   {
-    "objectID": "til/firebase-sync.html#key-insights",
-    "href": "til/firebase-sync.html#key-insights",
-    "title": "Firebase Real-time Sync Patterns",
-    "section": "Key Insights",
-    "text": "Key Insights\n\nAlways use merge: true for partial updates\nTrack pending writes for UI feedback\nUse transactions for critical updates\nImplement retry logic with exponential backoff"
+    "objectID": "til/cuda-kernels-basics.html#understanding-the-cuda-kernel-code",
+    "href": "til/cuda-kernels-basics.html#understanding-the-cuda-kernel-code",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "Understanding the CUDA Kernel Code",
+    "text": "Understanding the CUDA Kernel Code\nLet me break down the submission.py file that implements vector addition on the GPU:\n\nThe CUDA Kernel Function\ntemplate &lt;typename scalar_t&gt;\n__global__ void add_kernel(const scalar_t* __restrict__ A,\n                           const scalar_t* __restrict__ B,\n                           scalar_t* __restrict__ C,\n                           int N) {\n    int idx = blockIdx.x * blockDim.x + threadIdx.x;\n\n    if (idx &lt; N) {\n        C[idx] = A[idx] + B[idx];\n    }\n}\nKey Concepts I Learned:\n\n__global__: This marks a function that runs on the GPU and is called from the CPU (host)\nThread Indexing:\n\nblockIdx.x: Which block this thread belongs to\nblockDim.x: Number of threads per block\nthreadIdx.x: Thread’s position within its block\nidx = blockIdx.x * blockDim.x + threadIdx.x: Global thread index calculation\n\n__restrict__: Tells compiler these pointers don’t overlap, enabling optimizations\nBoundary Check: if (idx &lt; N) prevents out-of-bounds memory access since we might launch more threads than elements\n\n\n\nThe Host Code (CPU Side)\ntorch::Tensor add_cuda(torch::Tensor A, torch::Tensor B) {\n    int N = A.numel();  // Total number of elements\n    auto C = torch::empty_like(A);  // Allocate output tensor\n\n    const int threads = 256;  // Threads per block\n    const int blocks = (N + threads - 1) / threads;  // Number of blocks needed\n\n    AT_DISPATCH_FLOATING_TYPES_AND_HALF(A.scalar_type(), \"add_kernel\", ([&] {\n        add_kernel&lt;scalar_t&gt;&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;(\n            A.data_ptr&lt;scalar_t&gt;(),\n            B.data_ptr&lt;scalar_t&gt;(),\n            C.data_ptr&lt;scalar_t&gt;(),\n            N\n        );\n    }));\n}\nWhat I Learned Here:\n\nBlock and Thread Configuration:\n\n256 threads per block is a common choice (multiple of 32, the warp size)\nCalculate blocks needed: (N + threads - 1) / threads (ceiling division)\n\nKernel Launch Syntax: &lt;&lt;&lt;blocks, threads&gt;&gt;&gt; is CUDA’s special syntax for launching kernels\nType Dispatching: AT_DISPATCH_FLOATING_TYPES_AND_HALF handles different data types (float32, float64, float16)\n\n\n\nPyTorch Integration\nThe really cool part is using PyTorch’s load_inline to compile CUDA code on-the-fly:\nadd_module = load_inline(\n    name='add_cuda',\n    cpp_sources=add_cpp_source,\n    cuda_sources=add_cuda_source,\n    functions=['add_cuda'],\n    verbose=True,\n)\nThis compiles the CUDA code using nvcc behind the scenes and creates a Python module!"
   },
   {
-    "objectID": "til/firebase-sync.html#gotchas",
-    "href": "til/firebase-sync.html#gotchas",
-    "title": "Firebase Real-time Sync Patterns",
-    "section": "Gotchas",
-    "text": "Gotchas\n\nOffline persistence doesn’t work with multiple tabs\nLarge documents (&gt;1MB) can cause sync issues\nDeeply nested updates might not trigger listeners"
+    "objectID": "til/cuda-kernels-basics.html#understanding-the-benchmarking-script",
+    "href": "til/cuda-kernels-basics.html#understanding-the-benchmarking-script",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "Understanding the Benchmarking Script",
+    "text": "Understanding the Benchmarking Script\nThe run_local.py script taught me about proper GPU performance measurement:\n\nKey Components:\n\nAutomatic Size Detection:\n\n# Pick sizes that fit in VRAM (80% of available)\nfree_bytes, _ = torch.cuda.mem_get_info()\nbudget = int(free_bytes * 0.8)\n\nif dims == 2:\n    # For 2D tensors (matrices)\n    s_max = int(math.sqrt(budget / (3 * bytes_per_elem)))\nThis prevents out-of-memory errors by choosing appropriate test sizes based on available VRAM.\n\nCUDA Event Timing:\n\nt0 = torch.cuda.Event(enable_timing=True)\nt1 = torch.cuda.Event(enable_timing=True)\nt0.record()\ncustom_kernel(case)  # Run the kernel\nt1.record()\ntorch.cuda.synchronize()\nelapsed = t0.elapsed_time(t1)  # Time in milliseconds\nWhy CUDA Events? Regular Python timing wouldn’t work because CUDA operations are asynchronous. CUDA events measure time on the GPU itself.\n\nWarmup Runs: The script does 10 warmup iterations before timing. This is crucial because:\n\nFirst kernel launch includes JIT compilation overhead\nGPU needs to “warm up” to reach peak performance clocks"
   },
   {
-    "objectID": "til/firebase-sync.html#performance-win",
-    "href": "til/firebase-sync.html#performance-win",
-    "title": "Firebase Real-time Sync Patterns",
-    "section": "Performance Win",
-    "text": "Performance Win\nBefore: 300ms latency for each write After: Instant UI updates with background sync\nUser experience improved dramatically! 🚀"
+    "objectID": "til/cuda-kernels-basics.html#my-results-on-rtx-2050",
+    "href": "til/cuda-kernels-basics.html#my-results-on-rtx-2050",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "My Results on RTX 2050",
+    "text": "My Results on RTX 2050\nDetected dims=2, free≈3.47 GB, using sizes=[4096, 8192, 12288, 16384]\nsize=4096:  mean=0.9877 ms, best=0.9461 ms, worst=1.2061 ms\nsize=8192:  mean=3.8027 ms, best=3.7571 ms, worst=3.9188 ms\nsize=12288: mean=8.5460 ms, best=8.4602 ms, worst=8.8747 ms\nsize=16384: mean=150.3063 ms, best=144.3062 ms, worst=169.5191 ms\n\nPerformance Analysis:\n\nLinear Scaling (mostly): 4096→8192 (4x elements) took ~4x time, which is expected\nThe 16384 Anomaly: Suddenly 17x slower! This taught me about:\n\nBlock Scheduling Overhead: With 256 threads/block, 16384×16384 elements need 1,048,576 blocks!\nSolution: Use grid-stride loops where each thread processes multiple elements\n\nMemory Bandwidth: For simple operations like addition, we’re memory-bound:\n\n8192×8192 elements × 2 bytes × 3 tensors = 402 MB\n3.76 ms → ~107 GB/s effective bandwidth"
   },
   {
-    "objectID": "til/quarto-blogging.html",
-    "href": "til/quarto-blogging.html",
-    "title": "Using Quarto for Technical Blogging",
-    "section": "",
-    "text": "Just discovered that Quarto’s integration with Jupyter notebooks makes it perfect for data science blogging. You can execute code blocks during the build process!"
+    "objectID": "til/cuda-kernels-basics.html#key-lessons-learned",
+    "href": "til/cuda-kernels-basics.html#key-lessons-learned",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "Key Lessons Learned",
+    "text": "Key Lessons Learned\n\nGPU Programming is Different: You think in terms of thousands of parallel threads, not sequential loops\nMemory is King: Most simple kernels are limited by memory bandwidth, not compute\nLaunch Configuration Matters: Too many blocks can cause scheduling overhead\nMeasure Correctly: Always use CUDA events for timing, not CPU timers\nCheck Boundaries: GPU won’t stop you from accessing invalid memory - it’ll just crash!\nStart Simple: Vector addition is perfect for learning because it’s simple enough to understand but shows all core concepts"
   },
   {
-    "objectID": "til/quarto-blogging.html#the-discovery",
-    "href": "til/quarto-blogging.html#the-discovery",
-    "title": "Using Quarto for Technical Blogging",
-    "section": "",
-    "text": "Just discovered that Quarto’s integration with Jupyter notebooks makes it perfect for data science blogging. You can execute code blocks during the build process!"
+    "objectID": "til/cuda-kernels-basics.html#next-steps",
+    "href": "til/cuda-kernels-basics.html#next-steps",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow that I understand the basics, I want to explore: - Shared memory optimization - Warp-level primitives - More complex kernels (matrix multiplication, reductions) - Performance profiling with Nsight"
   },
   {
-    "objectID": "til/quarto-blogging.html#example",
-    "href": "til/quarto-blogging.html#example",
-    "title": "Using Quarto for Technical Blogging",
-    "section": "Example",
-    "text": "Example\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# Generate data\nx = np.linspace(0, 10, 100)\ny = np.sin(x)\n\n# Create plot\nplt.figure(figsize=(10, 6))\nplt.plot(x, y, 'b-', linewidth=2)\nplt.title('Sine Wave')\nplt.grid(True, alpha=0.3)\nplt.show()"
+    "objectID": "til/cuda-kernels-basics.html#resources-for-beginners",
+    "href": "til/cuda-kernels-basics.html#resources-for-beginners",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "Resources for Beginners",
+    "text": "Resources for Beginners\n\nRepository: reference-kernels - Great practice problems\nPMPP Book: “Programming Massively Parallel Processors” - The theory behind these kernels\nCUDA Documentation: docs.nvidia.com/cuda - Official reference\nGPU Mode Discord: Community of learners working through these problems together"
   },
   {
-    "objectID": "til/quarto-blogging.html#key-features",
-    "href": "til/quarto-blogging.html#key-features",
-    "title": "Using Quarto for Technical Blogging",
-    "section": "Key Features",
-    "text": "Key Features\n\nLive code execution: Code runs during site build\nMultiple languages: Python, R, Julia, Observable JS\nCache results: Don’t re-run expensive computations\nInteractive widgets: Embed Plotly, Bokeh, etc."
-  },
-  {
-    "objectID": "til/quarto-blogging.html#configuration-tip",
-    "href": "til/quarto-blogging.html#configuration-tip",
-    "title": "Using Quarto for Technical Blogging",
-    "section": "Configuration Tip",
-    "text": "Configuration Tip\nAdd this to your _quarto.yml for better code highlighting:\nformat:\n  html:\n    code-fold: true\n    code-tools: true\n    code-copy: true\nNow readers can toggle code visibility and copy snippets easily!"
-  },
-  {
-    "objectID": "til/quarto-blogging.html#resources",
-    "href": "til/quarto-blogging.html#resources",
-    "title": "Using Quarto for Technical Blogging",
-    "section": "Resources",
-    "text": "Resources\n\nQuarto Documentation\nQuarto Gallery"
+    "objectID": "til/cuda-kernels-basics.html#the-aha-moment",
+    "href": "til/cuda-kernels-basics.html#the-aha-moment",
+    "title": "Learning CUDA Kernels: From Zero to Running Custom GPU Code",
+    "section": "The “Aha!” Moment",
+    "text": "The “Aha!” Moment\nThe biggest realization: A GPU is not just a fast CPU. It’s a completely different architecture that requires rethinking how we approach problems. Instead of “do this step by step,” we think “do this everywhere at once.”\nWhen that mental shift clicked, suddenly the weird syntax and concepts started making sense. Every thread knows its identity (index) and does its small part of the work. Together, thousands of threads solve the problem in parallel.\n\nThis learning journey continues! Follow along as I tackle more complex kernels and optimization techniques."
   }
 ]

@@ -1,0 +1,217 @@
+---
+title: "Learning CUDA Kernels: From Zero to Running Custom GPU Code"
+author: "The Fire Hacker"
+date: "2025-01-16"
+---
+
+## The Journey: Running My First CUDA Kernel
+
+Today I successfully compiled and ran my first custom CUDA kernel on my RTX 2050 gaming laptop! Here's everything I learned about GPU programming, from environment setup to understanding performance metrics.
+
+## The Setup: WSL2 + CUDA + PyTorch
+
+Getting CUDA to work on Windows through WSL2 was my first challenge. Here's the complete path I took:
+
+### 1. Environment Configuration
+
+```bash
+# Install CUDA Toolkit 12.1 (for nvcc compiler)
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt-get update
+sudo apt-get install -y cuda-toolkit-12-1
+
+# Set up environment variables
+export CUDA_HOME=/usr/local/cuda-12.1
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+```
+
+### 2. PyTorch with CUDA Support
+
+```bash
+# Install PyTorch with CUDA 12.1 support
+pip install --index-url https://download.pytorch.org/whl/cu121 torch
+```
+
+## The Project: GPU-Mode's Reference Kernels
+
+I worked with the [reference-kernels](https://github.com/thefirehacker/reference-kernels) repository, specifically the `vectoradd_py` problem. This repository contains practice problems for learning GPU kernel optimization.
+
+## Understanding the CUDA Kernel Code
+
+Let me break down the `submission.py` file that implements vector addition on the GPU:
+
+### The CUDA Kernel Function
+
+```cpp
+template <typename scalar_t>
+__global__ void add_kernel(const scalar_t* __restrict__ A,
+                           const scalar_t* __restrict__ B,
+                           scalar_t* __restrict__ C,
+                           int N) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (idx < N) {
+        C[idx] = A[idx] + B[idx];
+    }
+}
+```
+
+**Key Concepts I Learned:**
+
+1. **`__global__`**: This marks a function that runs on the GPU and is called from the CPU (host)
+
+2. **Thread Indexing**:
+   - `blockIdx.x`: Which block this thread belongs to
+   - `blockDim.x`: Number of threads per block
+   - `threadIdx.x`: Thread's position within its block
+   - `idx = blockIdx.x * blockDim.x + threadIdx.x`: Global thread index calculation
+
+3. **`__restrict__`**: Tells compiler these pointers don't overlap, enabling optimizations
+
+4. **Boundary Check**: `if (idx < N)` prevents out-of-bounds memory access since we might launch more threads than elements
+
+### The Host Code (CPU Side)
+
+```cpp
+torch::Tensor add_cuda(torch::Tensor A, torch::Tensor B) {
+    int N = A.numel();  // Total number of elements
+    auto C = torch::empty_like(A);  // Allocate output tensor
+
+    const int threads = 256;  // Threads per block
+    const int blocks = (N + threads - 1) / threads;  // Number of blocks needed
+
+    AT_DISPATCH_FLOATING_TYPES_AND_HALF(A.scalar_type(), "add_kernel", ([&] {
+        add_kernel<scalar_t><<<blocks, threads>>>(
+            A.data_ptr<scalar_t>(),
+            B.data_ptr<scalar_t>(),
+            C.data_ptr<scalar_t>(),
+            N
+        );
+    }));
+}
+```
+
+**What I Learned Here:**
+
+1. **Block and Thread Configuration**:
+   - 256 threads per block is a common choice (multiple of 32, the warp size)
+   - Calculate blocks needed: `(N + threads - 1) / threads` (ceiling division)
+
+2. **Kernel Launch Syntax**: `<<<blocks, threads>>>` is CUDA's special syntax for launching kernels
+
+3. **Type Dispatching**: `AT_DISPATCH_FLOATING_TYPES_AND_HALF` handles different data types (float32, float64, float16)
+
+### PyTorch Integration
+
+The really cool part is using PyTorch's `load_inline` to compile CUDA code on-the-fly:
+
+```python
+add_module = load_inline(
+    name='add_cuda',
+    cpp_sources=add_cpp_source,
+    cuda_sources=add_cuda_source,
+    functions=['add_cuda'],
+    verbose=True,
+)
+```
+
+This compiles the CUDA code using `nvcc` behind the scenes and creates a Python module!
+
+## Understanding the Benchmarking Script
+
+The `run_local.py` script taught me about proper GPU performance measurement:
+
+### Key Components:
+
+1. **Automatic Size Detection**:
+```python
+# Pick sizes that fit in VRAM (80% of available)
+free_bytes, _ = torch.cuda.mem_get_info()
+budget = int(free_bytes * 0.8)
+
+if dims == 2:
+    # For 2D tensors (matrices)
+    s_max = int(math.sqrt(budget / (3 * bytes_per_elem)))
+```
+
+This prevents out-of-memory errors by choosing appropriate test sizes based on available VRAM.
+
+2. **CUDA Event Timing**:
+```python
+t0 = torch.cuda.Event(enable_timing=True)
+t1 = torch.cuda.Event(enable_timing=True)
+t0.record()
+custom_kernel(case)  # Run the kernel
+t1.record()
+torch.cuda.synchronize()
+elapsed = t0.elapsed_time(t1)  # Time in milliseconds
+```
+
+**Why CUDA Events?** Regular Python timing wouldn't work because CUDA operations are asynchronous. CUDA events measure time on the GPU itself.
+
+3. **Warmup Runs**: The script does 10 warmup iterations before timing. This is crucial because:
+   - First kernel launch includes JIT compilation overhead
+   - GPU needs to "warm up" to reach peak performance clocks
+
+## My Results on RTX 2050
+
+```
+Detected dims=2, free≈3.47 GB, using sizes=[4096, 8192, 12288, 16384]
+size=4096:  mean=0.9877 ms, best=0.9461 ms, worst=1.2061 ms
+size=8192:  mean=3.8027 ms, best=3.7571 ms, worst=3.9188 ms
+size=12288: mean=8.5460 ms, best=8.4602 ms, worst=8.8747 ms
+size=16384: mean=150.3063 ms, best=144.3062 ms, worst=169.5191 ms
+```
+
+### Performance Analysis:
+
+1. **Linear Scaling (mostly)**: 4096→8192 (4x elements) took ~4x time, which is expected
+
+2. **The 16384 Anomaly**: Suddenly 17x slower! This taught me about:
+   - **Block Scheduling Overhead**: With 256 threads/block, 16384×16384 elements need 1,048,576 blocks!
+   - **Solution**: Use grid-stride loops where each thread processes multiple elements
+
+3. **Memory Bandwidth**: For simple operations like addition, we're memory-bound:
+   - 8192×8192 elements × 2 bytes × 3 tensors = 402 MB
+   - 3.76 ms → ~107 GB/s effective bandwidth
+
+## Key Lessons Learned
+
+1. **GPU Programming is Different**: You think in terms of thousands of parallel threads, not sequential loops
+
+2. **Memory is King**: Most simple kernels are limited by memory bandwidth, not compute
+
+3. **Launch Configuration Matters**: Too many blocks can cause scheduling overhead
+
+4. **Measure Correctly**: Always use CUDA events for timing, not CPU timers
+
+5. **Check Boundaries**: GPU won't stop you from accessing invalid memory - it'll just crash!
+
+6. **Start Simple**: Vector addition is perfect for learning because it's simple enough to understand but shows all core concepts
+
+## Next Steps
+
+Now that I understand the basics, I want to explore:
+- Shared memory optimization
+- Warp-level primitives
+- More complex kernels (matrix multiplication, reductions)
+- Performance profiling with Nsight
+
+## Resources for Beginners
+
+- **Repository**: [reference-kernels](https://github.com/thefirehacker/reference-kernels) - Great practice problems
+- **PMPP Book**: "Programming Massively Parallel Processors" - The theory behind these kernels
+- **CUDA Documentation**: [docs.nvidia.com/cuda](https://docs.nvidia.com/cuda) - Official reference
+- **GPU Mode Discord**: Community of learners working through these problems together
+
+## The "Aha!" Moment
+
+The biggest realization: **A GPU is not just a fast CPU**. It's a completely different architecture that requires rethinking how we approach problems. Instead of "do this step by step," we think "do this everywhere at once."
+
+When that mental shift clicked, suddenly the weird syntax and concepts started making sense. Every thread knows its identity (index) and does its small part of the work. Together, thousands of threads solve the problem in parallel.
+
+---
+
+*This learning journey continues! Follow along as I tackle more complex kernels and optimization techniques.*

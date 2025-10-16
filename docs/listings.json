@@ -8,9 +8,7 @@
   {
     "listing": "/til.html",
     "items": [
-      "/til/quarto-blogging.html",
-      "/til/slm-optimization.html",
-      "/til/firebase-sync.html"
+      "/til/cuda-kernels-basics.html"
     ]
   }
 ]

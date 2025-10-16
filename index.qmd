@@ -55,15 +55,8 @@ Small Language Models designed for preserving and sharing memories through time 
 
 ::: {.til-grid}
 ::: {.til-card}
-**Quarto for Technical Blogging** - Jupyter integration makes it perfect for data science blogging.
-:::
-
-::: {.til-card}
-**Optimizing SLMs for Edge** - GGUF quantization reduces model size by 75% with 95% accuracy.
-:::
-
-::: {.til-card}
-**Firebase Real-time Sync** - Offline persistence with conflict resolution for seamless sync.
+**CUDA Kernels from Scratch** - Successfully compiled and ran my first GPU kernel on RTX 2050! Learned about blocks, threads, and why my 16384×16384 matrix was 17x slower.
+[Read more →](til/cuda-kernels-basics.qmd)
 :::
 :::
 
