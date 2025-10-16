@@ -26,10 +26,9 @@ Small Language Models designed specifically for preserving and sharing memories 
 
 ### My Journey
 
-- **2025**: Founded AIEDX, focusing on local-first AI solutions
-- **2024**: Led AI research initiatives in distributed systems
-- **2023**: Contributed to open-source LLM optimization projects
-- **2022**: Started exploring edge AI deployment strategies
+- **2025**: Focused on  AI research initiatives in distributed systems to build Efficient small models
+- **2024**: BuildingBubblSpace: AI Pesronas with real time voice to voice capabiltiles to execute Enterprise Workflows 
+- **2022**: Founded AIEDX, focusing on local-first AI solutions
 
 ### Technical Interests
 
