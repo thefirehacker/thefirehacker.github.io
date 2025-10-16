@@ -46,20 +46,8 @@ Small Language Models designed for preserving and sharing memories through time 
 ::: {.recent-posts}
 ::: {.post-card}
 ### Getting Started with TimeCapsule-SLM
-*September 2025* - Deploy and customize SLMs for time capsule apps.
+*January 2025* - Learn how to use the AI-powered research and learning platform that democratizes knowledge discovery.
 [Read more →](blog/timecapsule-slm.qmd)
-:::
-
-::: {.post-card}
-### Building AI-Powered Time Capsules
-*September 2025* - Architecture for intelligent memory preservation systems.
-[Read more →](blog/ai-time-capsules.qmd)
-:::
-
-::: {.post-card}
-### The Journey of Building Bubblspace
-*August 2025* - From concept to reality: creating collaborative AI spaces.
-[Read more →](blog/building-bubblspace.qmd)
 :::
 :::
 

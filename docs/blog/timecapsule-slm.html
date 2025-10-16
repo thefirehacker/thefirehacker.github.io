@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="The Fire Hacker">
-<meta name="dcterms.date" content="2025-09-10">
+<meta name="dcterms.date" content="2025-01-16">
 
-<title>Temp Getting Started with TimeCapsule-SLM(Template Blog) – The Fire Hacker</title>
+<title>Getting Started with TimeCapsule-SLM: AI-Powered Research &amp; Learning Platform – The Fire Hacker</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -184,21 +184,42 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#why-small-language-models" id="toc-why-small-language-models" class="nav-link" data-scroll-target="#why-small-language-models">Why Small Language Models?</a></li>
+  <li><a href="#what-is-timecapsule-slm" id="toc-what-is-timecapsule-slm" class="nav-link" data-scroll-target="#what-is-timecapsule-slm">What is TimeCapsule-SLM?</a></li>
+  <li><a href="#core-features" id="toc-core-features" class="nav-link" data-scroll-target="#core-features">Core Features</a>
+  <ul class="collapse">
+  <li><a href="#deepresearch-timecapsule" id="toc-deepresearch-timecapsule" class="nav-link" data-scroll-target="#deepresearch-timecapsule">🧠 DeepResearch TimeCapsule</a></li>
+  <li><a href="#ai-frames-interactive-learning" id="toc-ai-frames-interactive-learning" class="nav-link" data-scroll-target="#ai-frames-interactive-learning">🎥 AI-Frames Interactive Learning</a></li>
+  <li><a href="#in-browser-rag-retrieval-augmented-generation" id="toc-in-browser-rag-retrieval-augmented-generation" class="nav-link" data-scroll-target="#in-browser-rag-retrieval-augmented-generation">📚 In-Browser RAG (Retrieval-Augmented Generation)</a></li>
+  </ul></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a>
   <ul class="collapse">
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   </ul></li>
-  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration">Configuration</a></li>
-  <li><a href="#your-first-time-capsule" id="toc-your-first-time-capsule" class="nav-link" data-scroll-target="#your-first-time-capsule">Your First Time Capsule</a></li>
-  <li><a href="#advanced-features" id="toc-advanced-features" class="nav-link" data-scroll-target="#advanced-features">Advanced Features</a>
+  <li><a href="#setting-up-local-ai-models" id="toc-setting-up-local-ai-models" class="nav-link" data-scroll-target="#setting-up-local-ai-models">Setting Up Local AI Models</a>
   <ul class="collapse">
-  <li><a href="#memory-embeddings" id="toc-memory-embeddings" class="nav-link" data-scroll-target="#memory-embeddings">Memory Embeddings</a></li>
-  <li><a href="#temporal-awareness" id="toc-temporal-awareness" class="nav-link" data-scroll-target="#temporal-awareness">Temporal Awareness</a></li>
+  <li><a href="#install-ollama" id="toc-install-ollama" class="nav-link" data-scroll-target="#install-ollama">Install Ollama</a></li>
+  <li><a href="#pull-recommended-models" id="toc-pull-recommended-models" class="nav-link" data-scroll-target="#pull-recommended-models">Pull Recommended Models</a></li>
   </ul></li>
-  <li><a href="#performance-optimization" id="toc-performance-optimization" class="nav-link" data-scroll-target="#performance-optimization">Performance Optimization</a></li>
-  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next?</a></li>
+  <li><a href="#using-timecapsule-slm" id="toc-using-timecapsule-slm" class="nav-link" data-scroll-target="#using-timecapsule-slm">Using TimeCapsule-SLM</a>
+  <ul class="collapse">
+  <li><a href="#creating-your-first-research-project" id="toc-creating-your-first-research-project" class="nav-link" data-scroll-target="#creating-your-first-research-project">Creating Your First Research Project</a></li>
+  <li><a href="#building-ai-frames-for-learning" id="toc-building-ai-frames-for-learning" class="nav-link" data-scroll-target="#building-ai-frames-for-learning">Building AI-Frames for Learning</a></li>
+  <li><a href="#collaborative-features" id="toc-collaborative-features" class="nav-link" data-scroll-target="#collaborative-features">Collaborative Features</a></li>
+  </ul></li>
+  <li><a href="#architecture-technology" id="toc-architecture-technology" class="nav-link" data-scroll-target="#architecture-technology">Architecture &amp; Technology</a></li>
+  <li><a href="#privacy-security" id="toc-privacy-security" class="nav-link" data-scroll-target="#privacy-security">Privacy &amp; Security</a></li>
+  <li><a href="#use-cases" id="toc-use-cases" class="nav-link" data-scroll-target="#use-cases">Use Cases</a>
+  <ul class="collapse">
+  <li><a href="#for-researchers" id="toc-for-researchers" class="nav-link" data-scroll-target="#for-researchers">For Researchers</a></li>
+  <li><a href="#for-students" id="toc-for-students" class="nav-link" data-scroll-target="#for-students">For Students</a></li>
+  <li><a href="#for-teachers" id="toc-for-teachers" class="nav-link" data-scroll-target="#for-teachers">For Teachers</a></li>
+  <li><a href="#for-teams" id="toc-for-teams" class="nav-link" data-scroll-target="#for-teams">For Teams</a></li>
+  </ul></li>
+  <li><a href="#performance-tips" id="toc-performance-tips" class="nav-link" data-scroll-target="#performance-tips">Performance Tips</a></li>
+  <li><a href="#roadmap-future-features" id="toc-roadmap-future-features" class="nav-link" data-scroll-target="#roadmap-future-features">Roadmap &amp; Future Features</a></li>
+  <li><a href="#contributing" id="toc-contributing" class="nav-link" data-scroll-target="#contributing">Contributing</a></li>
+  <li><a href="#community-support" id="toc-community-support" class="nav-link" data-scroll-target="#community-support">Community &amp; Support</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -208,11 +229,12 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Temp Getting Started with TimeCapsule-SLM(Template Blog)</h1>
+<h1 class="title">Getting Started with TimeCapsule-SLM: AI-Powered Research &amp; Learning Platform</h1>
   <div class="quarto-categories">
     <div class="quarto-category">AI</div>
-    <div class="quarto-category">SLM</div>
-    <div class="quarto-category">Tutorial</div>
+    <div class="quarto-category">Research</div>
+    <div class="quarto-category">Education</div>
+    <div class="quarto-category">Open Source</div>
   </div>
   </div>
 
@@ -230,7 +252,7 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 10, 2025</p>
+      <p class="date">January 16, 2025</p>
     </div>
   </div>
   
@@ -244,28 +266,62 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>TimeCapsule-SLM represents a breakthrough in personal AI applications, bringing the power of Small Language Models (SLMs) to memory preservation and storytelling. In this post, I’ll walk you through setting up and deploying your own TimeCapsule-SLM instance.</p>
+<p>TimeCapsule-SLM is an innovative AI-powered research and learning platform that’s revolutionizing how we discover knowledge and collaborate on research. Built with privacy-first principles and cutting-edge AI technology, it democratizes access to powerful research tools while keeping your data secure and local.</p>
 </section>
-<section id="why-small-language-models" class="level2">
-<h2 class="anchored" data-anchor-id="why-small-language-models">Why Small Language Models?</h2>
-<p>While Large Language Models (LLMs) have captured the world’s attention, SLMs offer unique advantages for personal applications:</p>
+<section id="what-is-timecapsule-slm" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-timecapsule-slm">What is TimeCapsule-SLM?</h2>
+<p>TimeCapsule-SLM combines the power of Small Language Models with advanced research capabilities to create a comprehensive platform for:</p>
 <ul>
-<li><strong>Privacy-first</strong>: Run entirely on your device</li>
-<li><strong>Cost-effective</strong>: No API fees or cloud dependencies</li>
-<li><strong>Customizable</strong>: Fine-tune for your specific use case</li>
-<li><strong>Fast inference</strong>: Real-time responses on consumer hardware</li>
+<li><strong>Researchers</strong> seeking AI-assisted discovery and pattern recognition</li>
+<li><strong>Students</strong> looking for adaptive, personalized learning experiences</li>
+<li><strong>Teachers</strong> creating interactive educational content</li>
+<li><strong>Teams</strong> collaborating on knowledge discovery</li>
 </ul>
+<p>The platform addresses critical challenges in modern education and research: - Research fragmentation across multiple sources - Inefficient learning workflows - Privacy concerns with cloud-based AI - Limited AI integration in educational settings - Resource constraints in low-bandwidth environments</p>
+</section>
+<section id="core-features" class="level2">
+<h2 class="anchored" data-anchor-id="core-features">Core Features</h2>
+<section id="deepresearch-timecapsule" class="level3">
+<h3 class="anchored" data-anchor-id="deepresearch-timecapsule">🧠 DeepResearch TimeCapsule</h3>
+<p>Transform your research workflow with multi-agent AI collaboration:</p>
+<ul>
+<li><strong>AI-Powered Discovery</strong>: Generate novel research ideas and hypotheses</li>
+<li><strong>Pattern Recognition</strong>: Uncover hidden connections in your data</li>
+<li><strong>Multi-Agent System</strong>: Leverage specialized AI agents for different research tasks</li>
+<li><strong>Collaborative Intelligence</strong>: Combine human expertise with AI insights</li>
+</ul>
+</section>
+<section id="ai-frames-interactive-learning" class="level3">
+<h3 class="anchored" data-anchor-id="ai-frames-interactive-learning">🎥 AI-Frames Interactive Learning</h3>
+<p>Create immersive, adaptive learning experiences:</p>
+<ul>
+<li><strong>Sequential Learning Paths</strong>: Build structured knowledge journeys</li>
+<li><strong>Multimodal Content</strong>: Integrate videos, documents, and interactive elements</li>
+<li><strong>AI-Guided Explanations</strong>: Get personalized help when you need it</li>
+<li><strong>Self-Paced Progress</strong>: Learn at your own speed with AI support</li>
+</ul>
+</section>
+<section id="in-browser-rag-retrieval-augmented-generation" class="level3">
+<h3 class="anchored" data-anchor-id="in-browser-rag-retrieval-augmented-generation">📚 In-Browser RAG (Retrieval-Augmented Generation)</h3>
+<p>Experience the power of semantic search without compromising privacy:</p>
+<ul>
+<li><strong>Local Vector Store</strong>: All processing happens in your browser</li>
+<li><strong>Offline Capability</strong>: Works without internet after initial model load</li>
+<li><strong>Semantic Understanding</strong>: Find information based on meaning, not just keywords</li>
+<li><strong>Privacy-First Design</strong>: Your documents never leave your device</li>
+</ul>
+</section>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
-<p>Before we begin, ensure you have:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python 3.9 or higher</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span>
+<p>Before installing TimeCapsule-SLM, ensure you have:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Node.js 18 or higher</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> <span class="at">--version</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Node.js for the web interface</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> <span class="at">--version</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># npm or yarn package manager</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> <span class="at">--version</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Git for cloning the repository</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -273,105 +329,232 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <ol type="1">
-<li>Clone the TimeCapsule-SLM repository:</li>
+<li><strong>Clone the Repository</strong>:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/aiedx/timecapsule-slm</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> timecapsule-slm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/thefirehacker/TimeCapsule-SLM.git</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> TimeCapsule-SLM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="2" type="1">
-<li>Install Python dependencies:</li>
+<li><strong>Install Dependencies</strong>:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">yarn</span> install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="1">
-<li>Download the base model:</li>
+<li><strong>Configure Environment</strong>:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/download_model.py <span class="at">--model-size</span> small</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> env.example .env.local</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Edit <code>.env.local</code> to configure your AI providers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: Add API keys for cloud models</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">OPENAI_API_KEY</span><span class="op">=</span>your_key_here</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Local model configuration (Ollama)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">OLLAMA_HOST</span><span class="op">=</span>http://localhost:11434</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="4" type="1">
+<li><strong>Start the Development Server</strong>:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">yarn</span> dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Visit <code>http://localhost:3000</code> to access TimeCapsule-SLM!</p>
 </section>
 </section>
-<section id="configuration" class="level2">
-<h2 class="anchored" data-anchor-id="configuration">Configuration</h2>
-<p>TimeCapsule-SLM uses a simple YAML configuration file. Create <code>config.yaml</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"timecapsule-small"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">quantization</span><span class="kw">:</span><span class="at"> </span><span class="st">"int8"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_tokens</span><span class="kw">:</span><span class="at"> </span><span class="dv">2048</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">memory</span><span class="kw">:</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">storage_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"./memories"</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">embedding_model</span><span class="kw">:</span><span class="at"> </span><span class="st">"all-MiniLM-L6-v2"</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">interface</span><span class="kw">:</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="dv">8080</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> </span><span class="st">"fire-hacker"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="setting-up-local-ai-models" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-local-ai-models">Setting Up Local AI Models</h2>
+<p>For the best privacy and offline experience, use local models with Ollama:</p>
+<section id="install-ollama" class="level3">
+<h3 class="anchored" data-anchor-id="install-ollama">Install Ollama</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS/Linux</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://ollama.ai/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows - Download from ollama.ai</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="your-first-time-capsule" class="level2">
-<h2 class="anchored" data-anchor-id="your-first-time-capsule">Your First Time Capsule</h2>
-<p>Let’s create your first memory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> timecapsule <span class="im">import</span> TimeCapsule</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the capsule</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>capsule <span class="op">=</span> TimeCapsule(config_path<span class="op">=</span><span class="st">"config.yaml"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a memory</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>memory <span class="op">=</span> capsule.create_memory(</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Building TimeCapsule-SLM"</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    content<span class="op">=</span><span class="st">"Today marks the beginning of something special..."</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    tags<span class="op">=</span>[<span class="st">"milestone"</span>, <span class="st">"ai"</span>, <span class="st">"personal"</span>]</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a narrative</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>narrative <span class="op">=</span> capsule.generate_narrative(</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    memories<span class="op">=</span>[memory],</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    style<span class="op">=</span><span class="st">"reflective"</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(narrative)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="advanced-features" class="level2">
-<h2 class="anchored" data-anchor-id="advanced-features">Advanced Features</h2>
-<section id="memory-embeddings" class="level3">
-<h3 class="anchored" data-anchor-id="memory-embeddings">Memory Embeddings</h3>
-<p>TimeCapsule-SLM uses semantic embeddings to connect related memories:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find similar memories</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>similar <span class="op">=</span> capsule.find_similar(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    query<span class="op">=</span><span class="st">"first day at work"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">5</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="temporal-awareness" class="level3">
-<h3 class="anchored" data-anchor-id="temporal-awareness">Temporal Awareness</h3>
-<p>The model understands time relationships:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a timeline</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>timeline <span class="op">=</span> capsule.create_timeline(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    start_date<span class="op">=</span><span class="st">"2024-01-01"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    end_date<span class="op">=</span><span class="st">"2024-12-31"</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="pull-recommended-models" class="level3">
+<h3 class="anchored" data-anchor-id="pull-recommended-models">Pull Recommended Models</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For research and general tasks</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull gemma:2b</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For code and technical content</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull qwen2.5:3b</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For creative writing</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull llama3.2:3b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="performance-optimization" class="level2">
-<h2 class="anchored" data-anchor-id="performance-optimization">Performance Optimization</h2>
-<p>For optimal performance on edge devices:</p>
+<section id="using-timecapsule-slm" class="level2">
+<h2 class="anchored" data-anchor-id="using-timecapsule-slm">Using TimeCapsule-SLM</h2>
+<section id="creating-your-first-research-project" class="level3">
+<h3 class="anchored" data-anchor-id="creating-your-first-research-project">Creating Your First Research Project</h3>
 <ol type="1">
-<li><strong>Use quantization</strong>: Reduces model size by 75%</li>
-<li><strong>Enable caching</strong>: Speeds up repeated queries</li>
-<li><strong>Batch processing</strong>: Process multiple memories together</li>
+<li><strong>Initialize a Knowledge Base</strong>:
+<ul>
+<li>Click “New Project”</li>
+<li>Choose your domain (Research, Education, Personal)</li>
+<li>Select your preferred AI model</li>
+</ul></li>
+<li><strong>Import Your Documents</strong>:
+<ul>
+<li>Drag and drop PDFs, Word docs, or text files</li>
+<li>The system will automatically index and embed them</li>
+<li>All processing happens locally in your browser</li>
+</ul></li>
+<li><strong>Start Researching</strong>:
+<ul>
+<li>Use natural language queries to explore your knowledge base</li>
+<li>The AI will surface relevant information and suggest connections</li>
+<li>Generate summaries, insights, and new research directions</li>
+</ul></li>
 </ol>
 </section>
-<section id="whats-next" class="level2">
-<h2 class="anchored" data-anchor-id="whats-next">What’s Next?</h2>
-<p>In upcoming posts, I’ll cover:</p>
+<section id="building-ai-frames-for-learning" class="level3">
+<h3 class="anchored" data-anchor-id="building-ai-frames-for-learning">Building AI-Frames for Learning</h3>
+<p>Create interactive learning experiences with AI-Frames:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Example AI-Frame configuration</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"title"</span><span class="op">:</span> <span class="st">"Introduction to Quantum Computing"</span><span class="op">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"modules"</span><span class="op">:</span> [</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span><span class="op">:</span> <span class="st">"video"</span><span class="op">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"content"</span><span class="op">:</span> <span class="st">"intro-video.mp4"</span><span class="op">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ai_notes"</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span><span class="op">:</span> <span class="st">"interactive"</span><span class="op">,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"content"</span><span class="op">:</span> <span class="st">"qubit-simulator"</span><span class="op">,</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ai_guidance"</span><span class="op">:</span> <span class="st">"adaptive"</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span><span class="op">:</span> <span class="st">"quiz"</span><span class="op">,</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ai_generated"</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"difficulty"</span><span class="op">:</span> <span class="st">"progressive"</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="collaborative-features" class="level3">
+<h3 class="anchored" data-anchor-id="collaborative-features">Collaborative Features</h3>
+<p>TimeCapsule-SLM supports real-time collaboration:</p>
 <ul>
-<li>Fine-tuning TimeCapsule-SLM on your personal data</li>
-<li>Building a mobile app interface</li>
-<li>Integrating with photo and video memories</li>
-<li>Creating shared family time capsules</li>
+<li><strong>Shared Workspaces</strong>: Invite team members to research projects</li>
+<li><strong>Live AI Sessions</strong>: Collaborate with AI assistance in real-time</li>
+<li><strong>Knowledge Graphs</strong>: Visualize connections discovered by your team</li>
+<li><strong>Version Control</strong>: Track changes and contributions</li>
+</ul>
+</section>
+</section>
+<section id="architecture-technology" class="level2">
+<h2 class="anchored" data-anchor-id="architecture-technology">Architecture &amp; Technology</h2>
+<p>TimeCapsule-SLM is built with modern, performant technologies:</p>
+<ul>
+<li><strong>Frontend</strong>: Next.js 15, React 19, TypeScript</li>
+<li><strong>AI Integration</strong>: Support for Ollama, OpenAI, and local models</li>
+<li><strong>Database</strong>: RxDB for offline-first data persistence</li>
+<li><strong>Vector Store</strong>: In-browser embeddings with WebAssembly</li>
+<li><strong>Authentication</strong>: NextAuth.js for secure access</li>
+</ul>
+</section>
+<section id="privacy-security" class="level2">
+<h2 class="anchored" data-anchor-id="privacy-security">Privacy &amp; Security</h2>
+<p>Your privacy is our priority:</p>
+<ul>
+<li><strong>Local-First</strong>: All sensitive processing happens on your device</li>
+<li><strong>No Telemetry</strong>: We don’t track your usage or collect data</li>
+<li><strong>Open Source</strong>: Audit the code yourself (Apache 2.0 License)</li>
+<li><strong>Encryption</strong>: Local data is encrypted at rest</li>
+<li><strong>Control</strong>: You decide what stays local vs.&nbsp;what uses cloud services</li>
+</ul>
+</section>
+<section id="use-cases" class="level2">
+<h2 class="anchored" data-anchor-id="use-cases">Use Cases</h2>
+<section id="for-researchers" class="level3">
+<h3 class="anchored" data-anchor-id="for-researchers">For Researchers</h3>
+<ul>
+<li>Literature reviews with AI-powered synthesis</li>
+<li>Pattern discovery in research data</li>
+<li>Hypothesis generation and validation</li>
+<li>Collaborative paper writing</li>
+</ul>
+</section>
+<section id="for-students" class="level3">
+<h3 class="anchored" data-anchor-id="for-students">For Students</h3>
+<ul>
+<li>Personalized study guides</li>
+<li>AI tutoring for complex topics</li>
+<li>Interactive learning paths</li>
+<li>Exam preparation with adaptive quizzes</li>
+</ul>
+</section>
+<section id="for-teachers" class="level3">
+<h3 class="anchored" data-anchor-id="for-teachers">For Teachers</h3>
+<ul>
+<li>Create engaging course content</li>
+<li>Build interactive lessons</li>
+<li>Track student progress</li>
+<li>Generate assessments automatically</li>
+</ul>
+</section>
+<section id="for-teams" class="level3">
+<h3 class="anchored" data-anchor-id="for-teams">For Teams</h3>
+<ul>
+<li>Knowledge management</li>
+<li>Collaborative research</li>
+<li>Training materials</li>
+<li>Documentation with AI assistance</li>
+</ul>
+</section>
+</section>
+<section id="performance-tips" class="level2">
+<h2 class="anchored" data-anchor-id="performance-tips">Performance Tips</h2>
+<p>Optimize TimeCapsule-SLM for your hardware:</p>
+<ol type="1">
+<li><strong>Model Selection</strong>: Choose smaller models (2-3B parameters) for faster responses</li>
+<li><strong>Caching</strong>: Enable browser caching for repeated queries</li>
+<li><strong>Batch Processing</strong>: Process multiple documents simultaneously</li>
+<li><strong>GPU Acceleration</strong>: Use WebGPU when available for faster inference</li>
+</ol>
+</section>
+<section id="roadmap-future-features" class="level2">
+<h2 class="anchored" data-anchor-id="roadmap-future-features">Roadmap &amp; Future Features</h2>
+<p>We’re constantly improving TimeCapsule-SLM:</p>
+<ul>
+<li><strong>Mobile Apps</strong>: iOS and Android applications (Q2 2025)</li>
+<li><strong>Voice Interface</strong>: Natural conversation with your knowledge base</li>
+<li><strong>Advanced Visualizations</strong>: 3D knowledge graphs and mind maps</li>
+<li><strong>Plugin System</strong>: Extend functionality with custom modules</li>
+<li><strong>Federated Learning</strong>: Collaborate without sharing raw data</li>
+</ul>
+</section>
+<section id="contributing" class="level2">
+<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
+<p>TimeCapsule-SLM is open source and welcomes contributions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fork the repository</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a feature branch</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/amazing-feature</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Make your changes</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Run tests</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> test</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Submit a pull request</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check our <a href="https://github.com/thefirehacker/TimeCapsule-SLM/blob/main/CONTRIBUTING.md">contribution guidelines</a> for more details.</p>
+</section>
+<section id="community-support" class="level2">
+<h2 class="anchored" data-anchor-id="community-support">Community &amp; Support</h2>
+<p>Join our growing community:</p>
+<ul>
+<li><strong>GitHub Discussions</strong>: Technical questions and feature requests</li>
+<li><strong>Discord Server</strong>: Real-time chat with developers and users</li>
+<li><strong>Documentation</strong>: Comprehensive guides at <a href="https://timecapsule.bubblspace.com">timecapsule.bubblspace.com</a></li>
+<li><strong>X/Twitter</strong>: Follow <a href="https://x.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a> for updates</li>
 </ul>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>TimeCapsule-SLM demonstrates that powerful AI doesn’t always require massive models. By focusing on a specific domain and optimizing for edge deployment, we can create meaningful, privacy-preserving applications that run anywhere.</p>
-<p>Try it out and let me know what memories you’re preserving! Find the full code on <a href="https://github.com/aiedx/timecapsule-slm">GitHub</a>.</p>
+<p>TimeCapsule-SLM represents a new paradigm in AI-assisted research and learning. By combining powerful AI capabilities with privacy-first design and local-first architecture, we’re making advanced research tools accessible to everyone.</p>
+<p>Whether you’re a researcher pushing the boundaries of knowledge, a student seeking personalized learning, or a teacher creating engaging content, TimeCapsule-SLM empowers you to work smarter, not harder.</p>
+<p>Start your journey today and experience the future of AI-powered research and learning!</p>
 <hr>
-<p><em>Have questions or feedback? Reach out on <a href="https://x.com/thefirehacker">X/Twitter</a> or open an issue on GitHub.</em></p>
+<p><em>Ready to transform your research and learning workflow? <a href="https://github.com/thefirehacker/TimeCapsule-SLM">Get started with TimeCapsule-SLM</a> or visit <a href="https://timecapsule.bubblspace.com">timecapsule.bubblspace.com</a> for more information.</em></p>
+<p><em>Have questions or feedback? Reach out on <a href="https://x.com/thefirehacker">X/Twitter</a> or open an issue on <a href="https://github.com/thefirehacker/TimeCapsule-SLM">GitHub</a>.</em></p>
 
 
 </section>

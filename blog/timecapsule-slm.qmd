@@ -1,37 +1,73 @@
 ---
-title: "Temp Getting Started with TimeCapsule-SLM(Template Blog)"
+title: "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform"
 author: "The Fire Hacker"
-date: "2025-09-10"
-categories: [AI, SLM, Tutorial]
+date: "2025-01-16"
+categories: [AI, Research, Education, Open Source]
 image: "timecapsule-preview.jpg"
 draft: false
 ---
 
 ## Introduction
 
-TimeCapsule-SLM represents a breakthrough in personal AI applications, bringing the power of Small Language Models (SLMs) to memory preservation and storytelling. In this post, I'll walk you through setting up and deploying your own TimeCapsule-SLM instance.
+TimeCapsule-SLM is an innovative AI-powered research and learning platform that's revolutionizing how we discover knowledge and collaborate on research. Built with privacy-first principles and cutting-edge AI technology, it democratizes access to powerful research tools while keeping your data secure and local.
 
-## Why Small Language Models?
+## What is TimeCapsule-SLM?
 
-While Large Language Models (LLMs) have captured the world's attention, SLMs offer unique advantages for personal applications:
+TimeCapsule-SLM combines the power of Small Language Models with advanced research capabilities to create a comprehensive platform for:
 
-- **Privacy-first**: Run entirely on your device
-- **Cost-effective**: No API fees or cloud dependencies
-- **Customizable**: Fine-tune for your specific use case
-- **Fast inference**: Real-time responses on consumer hardware
+- **Researchers** seeking AI-assisted discovery and pattern recognition
+- **Students** looking for adaptive, personalized learning experiences
+- **Teachers** creating interactive educational content
+- **Teams** collaborating on knowledge discovery
+
+The platform addresses critical challenges in modern education and research:
+- Research fragmentation across multiple sources
+- Inefficient learning workflows
+- Privacy concerns with cloud-based AI
+- Limited AI integration in educational settings
+- Resource constraints in low-bandwidth environments
+
+## Core Features
+
+### 🧠 DeepResearch TimeCapsule
+
+Transform your research workflow with multi-agent AI collaboration:
+
+- **AI-Powered Discovery**: Generate novel research ideas and hypotheses
+- **Pattern Recognition**: Uncover hidden connections in your data
+- **Multi-Agent System**: Leverage specialized AI agents for different research tasks
+- **Collaborative Intelligence**: Combine human expertise with AI insights
+
+### 🎥 AI-Frames Interactive Learning
+
+Create immersive, adaptive learning experiences:
+
+- **Sequential Learning Paths**: Build structured knowledge journeys
+- **Multimodal Content**: Integrate videos, documents, and interactive elements
+- **AI-Guided Explanations**: Get personalized help when you need it
+- **Self-Paced Progress**: Learn at your own speed with AI support
+
+### 📚 In-Browser RAG (Retrieval-Augmented Generation)
+
+Experience the power of semantic search without compromising privacy:
+
+- **Local Vector Store**: All processing happens in your browser
+- **Offline Capability**: Works without internet after initial model load
+- **Semantic Understanding**: Find information based on meaning, not just keywords
+- **Privacy-First Design**: Your documents never leave your device
 
 ## Getting Started
 
 ### Prerequisites
 
-Before we begin, ensure you have:
+Before installing TimeCapsule-SLM, ensure you have:
 
 ```bash
-# Python 3.9 or higher
-python --version
-
-# Node.js for the web interface
+# Node.js 18 or higher
 node --version
+
+# npm or yarn package manager
+npm --version
 
 # Git for cloning the repository
 git --version
@@ -39,119 +75,231 @@ git --version
 
 ### Installation
 
-1. Clone the TimeCapsule-SLM repository:
+1. **Clone the Repository**:
 
 ```bash
-git clone https://github.com/aiedx/timecapsule-slm
-cd timecapsule-slm
+git clone https://github.com/thefirehacker/TimeCapsule-SLM.git
+cd TimeCapsule-SLM
 ```
 
-2. Install Python dependencies:
+2. **Install Dependencies**:
 
 ```bash
-pip install -r requirements.txt
+npm install
+# or
+yarn install
 ```
 
-3. Download the base model:
+3. **Configure Environment**:
 
 ```bash
-python scripts/download_model.py --model-size small
+cp env.example .env.local
 ```
 
-## Configuration
+Edit `.env.local` to configure your AI providers:
 
-TimeCapsule-SLM uses a simple YAML configuration file. Create `config.yaml`:
+```bash
+# Optional: Add API keys for cloud models
+OPENAI_API_KEY=your_key_here
 
-```yaml
-model:
-  name: "timecapsule-small"
-  quantization: "int8"
-  max_tokens: 2048
-
-memory:
-  storage_path: "./memories"
-  embedding_model: "all-MiniLM-L6-v2"
-  
-interface:
-  port: 8080
-  theme: "fire-hacker"
+# Local model configuration (Ollama)
+OLLAMA_HOST=http://localhost:11434
 ```
 
-## Your First Time Capsule
+4. **Start the Development Server**:
 
-Let's create your first memory:
-
-```python
-from timecapsule import TimeCapsule
-
-# Initialize the capsule
-capsule = TimeCapsule(config_path="config.yaml")
-
-# Create a memory
-memory = capsule.create_memory(
-    title="Building TimeCapsule-SLM",
-    content="Today marks the beginning of something special...",
-    tags=["milestone", "ai", "personal"]
-)
-
-# Generate a narrative
-narrative = capsule.generate_narrative(
-    memories=[memory],
-    style="reflective"
-)
-
-print(narrative)
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-## Advanced Features
+Visit `http://localhost:3000` to access TimeCapsule-SLM!
 
-### Memory Embeddings
+## Setting Up Local AI Models
 
-TimeCapsule-SLM uses semantic embeddings to connect related memories:
+For the best privacy and offline experience, use local models with Ollama:
 
-```python
-# Find similar memories
-similar = capsule.find_similar(
-    query="first day at work",
-    limit=5
-)
+### Install Ollama
+
+```bash
+# macOS/Linux
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Windows - Download from ollama.ai
 ```
 
-### Temporal Awareness
+### Pull Recommended Models
 
-The model understands time relationships:
+```bash
+# For research and general tasks
+ollama pull gemma:2b
 
-```python
-# Generate a timeline
-timeline = capsule.create_timeline(
-    start_date="2024-01-01",
-    end_date="2024-12-31"
-)
+# For code and technical content
+ollama pull qwen2.5:3b
+
+# For creative writing
+ollama pull llama3.2:3b
 ```
 
-## Performance Optimization
+## Using TimeCapsule-SLM
 
-For optimal performance on edge devices:
+### Creating Your First Research Project
 
-1. **Use quantization**: Reduces model size by 75%
-2. **Enable caching**: Speeds up repeated queries
-3. **Batch processing**: Process multiple memories together
+1. **Initialize a Knowledge Base**:
+   - Click "New Project"
+   - Choose your domain (Research, Education, Personal)
+   - Select your preferred AI model
 
-## What's Next?
+2. **Import Your Documents**:
+   - Drag and drop PDFs, Word docs, or text files
+   - The system will automatically index and embed them
+   - All processing happens locally in your browser
 
-In upcoming posts, I'll cover:
+3. **Start Researching**:
+   - Use natural language queries to explore your knowledge base
+   - The AI will surface relevant information and suggest connections
+   - Generate summaries, insights, and new research directions
 
-- Fine-tuning TimeCapsule-SLM on your personal data
-- Building a mobile app interface
-- Integrating with photo and video memories
-- Creating shared family time capsules
+### Building AI-Frames for Learning
+
+Create interactive learning experiences with AI-Frames:
+
+```javascript
+// Example AI-Frame configuration
+{
+  "title": "Introduction to Quantum Computing",
+  "modules": [
+    {
+      "type": "video",
+      "content": "intro-video.mp4",
+      "ai_notes": true
+    },
+    {
+      "type": "interactive",
+      "content": "qubit-simulator",
+      "ai_guidance": "adaptive"
+    },
+    {
+      "type": "quiz",
+      "ai_generated": true,
+      "difficulty": "progressive"
+    }
+  ]
+}
+```
+
+### Collaborative Features
+
+TimeCapsule-SLM supports real-time collaboration:
+
+- **Shared Workspaces**: Invite team members to research projects
+- **Live AI Sessions**: Collaborate with AI assistance in real-time
+- **Knowledge Graphs**: Visualize connections discovered by your team
+- **Version Control**: Track changes and contributions
+
+## Architecture & Technology
+
+TimeCapsule-SLM is built with modern, performant technologies:
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **AI Integration**: Support for Ollama, OpenAI, and local models
+- **Database**: RxDB for offline-first data persistence
+- **Vector Store**: In-browser embeddings with WebAssembly
+- **Authentication**: NextAuth.js for secure access
+
+## Privacy & Security
+
+Your privacy is our priority:
+
+- **Local-First**: All sensitive processing happens on your device
+- **No Telemetry**: We don't track your usage or collect data
+- **Open Source**: Audit the code yourself (Apache 2.0 License)
+- **Encryption**: Local data is encrypted at rest
+- **Control**: You decide what stays local vs. what uses cloud services
+
+## Use Cases
+
+### For Researchers
+- Literature reviews with AI-powered synthesis
+- Pattern discovery in research data
+- Hypothesis generation and validation
+- Collaborative paper writing
+
+### For Students
+- Personalized study guides
+- AI tutoring for complex topics
+- Interactive learning paths
+- Exam preparation with adaptive quizzes
+
+### For Teachers
+- Create engaging course content
+- Build interactive lessons
+- Track student progress
+- Generate assessments automatically
+
+### For Teams
+- Knowledge management
+- Collaborative research
+- Training materials
+- Documentation with AI assistance
+
+## Performance Tips
+
+Optimize TimeCapsule-SLM for your hardware:
+
+1. **Model Selection**: Choose smaller models (2-3B parameters) for faster responses
+2. **Caching**: Enable browser caching for repeated queries
+3. **Batch Processing**: Process multiple documents simultaneously
+4. **GPU Acceleration**: Use WebGPU when available for faster inference
+
+## Roadmap & Future Features
+
+We're constantly improving TimeCapsule-SLM:
+
+- **Mobile Apps**: iOS and Android applications (Q2 2025)
+- **Voice Interface**: Natural conversation with your knowledge base
+- **Advanced Visualizations**: 3D knowledge graphs and mind maps
+- **Plugin System**: Extend functionality with custom modules
+- **Federated Learning**: Collaborate without sharing raw data
+
+## Contributing
+
+TimeCapsule-SLM is open source and welcomes contributions:
+
+```bash
+# Fork the repository
+# Create a feature branch
+git checkout -b feature/amazing-feature
+
+# Make your changes
+# Run tests
+npm test
+
+# Submit a pull request
+```
+
+Check our [contribution guidelines](https://github.com/thefirehacker/TimeCapsule-SLM/blob/main/CONTRIBUTING.md) for more details.
+
+## Community & Support
+
+Join our growing community:
+
+- **GitHub Discussions**: Technical questions and feature requests
+- **Discord Server**: Real-time chat with developers and users
+- **Documentation**: Comprehensive guides at [timecapsule.bubblspace.com](https://timecapsule.bubblspace.com)
+- **X/Twitter**: Follow [@thefirehacker](https://x.com/thefirehacker) for updates
 
 ## Conclusion
 
-TimeCapsule-SLM demonstrates that powerful AI doesn't always require massive models. By focusing on a specific domain and optimizing for edge deployment, we can create meaningful, privacy-preserving applications that run anywhere.
+TimeCapsule-SLM represents a new paradigm in AI-assisted research and learning. By combining powerful AI capabilities with privacy-first design and local-first architecture, we're making advanced research tools accessible to everyone.
 
-Try it out and let me know what memories you're preserving! Find the full code on [GitHub](https://github.com/aiedx/timecapsule-slm).
+Whether you're a researcher pushing the boundaries of knowledge, a student seeking personalized learning, or a teacher creating engaging content, TimeCapsule-SLM empowers you to work smarter, not harder.
+
+Start your journey today and experience the future of AI-powered research and learning!
 
 ---
 
-*Have questions or feedback? Reach out on [X/Twitter](https://x.com/thefirehacker) or open an issue on GitHub.*
+*Ready to transform your research and learning workflow? [Get started with TimeCapsule-SLM](https://github.com/thefirehacker/TimeCapsule-SLM) or visit [timecapsule.bubblspace.com](https://timecapsule.bubblspace.com) for more information.*
+
+*Have questions or feedback? Reach out on [X/Twitter](https://x.com/thefirehacker) or open an issue on [GitHub](https://github.com/thefirehacker/TimeCapsule-SLM).*
