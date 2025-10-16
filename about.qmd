@@ -32,19 +32,16 @@ Small Language Models designed specifically for preserving and sharing memories 
 
 ### Technical Interests
 
-- **Small Language Models (SLMs)**: Optimizing AI for edge devices
-- **Privacy-Preserving AI**: Building systems that respect user data
-- **Distributed Computing**: Scaling AI across multiple nodes
-- **Real-time Collaboration**: Synchronizing AI interactions
-- **Knowledge Graphs**: Connecting information meaningfully
+- **Small Language Models (SLMs)**: AI models that can run locally or small cluster of GPUs.
+- **Distributed Computing**: Scaling AI across multiple nodes for both training and inference.
+- **AI-Frames**: Open learning with the help of AI.
 
 ### Open Source Contributions
 
 I believe in giving back to the community. Check out my projects:
 
 - [TimeCapsule-SLM](https://github.com/aiedx/timecapsule-slm) - Local-first memory preservation
-- [Bubble-Sync](https://github.com/bubblspace/bubble-sync) - Real-time collaboration engine
-- [AI-Orchestra](https://github.com/bubblspace/ai-orchestra) - Multi-model orchestration library
+
 
 ### Philosophy
 
