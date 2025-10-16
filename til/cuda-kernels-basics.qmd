@@ -1,48 +1,128 @@
 ---
-title: "Learning CUDA Kernels: From Zero to Running Custom GPU Code"
+title: "My First CUDA Kernel: Learning GPU Programming from Scratch"
 author: "The Fire Hacker"
 date: "2025-01-16"
 ---
 
-## The Journey: Running My First CUDA Kernel
+## The Beginning: Why Learn CUDA?
 
-Today I successfully compiled and ran my first custom CUDA kernel on my RTX 2050 gaming laptop! Here's everything I learned about GPU programming, from environment setup to understanding performance metrics.
+Today I ran my first custom GPU code! Along with distributed pre-training AI models, I wanted to understand what's happening at the low level. I was looking for a good resource to learn about kernel development for both inference & training. My interests were in MoE routing kernels, however I decided to start simple: compile and run kernels on local GPUs. I have a few gaming laptops and decided to run kernels on them.
 
-## The Setup: WSL2 + CUDA + PyTorch
+I decided to start with the simplest possible program: adding two vectors together. GPU Mode's reference kernels are perfect to build a working end-to-end workflow.
 
-Getting CUDA to work on Windows through WSL2 was my first challenge. Here's the complete path I took:
+## The Program: Overall Architecture
 
-### 1. Environment Configuration
+Before diving into the details, let me explain the complete program flow. We'll be working with the [`vectoradd_py` problem](https://github.com/thefirehacker/reference-kernels/tree/main/problems/pmpp/vectoradd_py) from the reference-kernels repository.
+
+### File Structure & Purpose
+
+```
+problems/pmpp/vectoradd_py/
+├── run_local.py        # Main benchmark script
+├── submission.py       # Our custom CUDA kernel implementation
+├── reference.py        # Correctness checking
+├── task.py            # Data structure definitions
+└── README.md          # Problem description
+```
+
+**The Execution Flow:**
+
+1. **`run_local.py`** - The orchestrator that:
+   - Generates test data of various sizes
+   - Calls our custom kernel
+   - Measures performance with CUDA events
+   - Verifies correctness against reference implementation
+
+2. **`submission.py`** - Contains our CUDA kernel using PyTorch's inline compilation:
+   - CUDA C++ code written as Python strings
+   - Compiled on-the-fly using `load_inline`
+   - Creates a Python module we can call
+
+3. **The Magic: JIT Compilation Process**
+
+When we use `torch.utils.cpp_extension.load_inline`, here's what happens behind the scenes:
+
+```
+Your Python Code
+        ↓
+torch.utils.cpp_extension.load_inline
+        ↓
+Generates .cpp and .cu source files
+        ↓
+Writes build.ninja file
+        ↓
+ninja → nvcc/g++ compile → add_cuda.so
+        ↓
+dlopen() loads .so into Python process
+```
+
+This is **ahead-of-time compilation** - once compiled, your kernel is fixed machine code running directly on the GPU!
+
+## The Challenge: What Was I Trying to Achieve?
+
+My goal was simple but specific:
+1. Write actual CUDA code that runs on my RTX 2050 laptop GPU
+2. Understand how thousands of threads work together
+3. Measure real performance and understand the numbers
+4. Learn why GPUs are so powerful for AI workloads
+
+I found the perfect learning resource which I modified for my use: [GPU Mode's reference-kernels repository fork](https://github.com/thefirehacker/reference-kernels). It's a collection of progressively harder GPU programming challenges, starting with vector addition.
+
+## The Big Picture: How GPUs Think Differently
+
+Before diving into code, here's the mental shift that changed everything for me:
+
+**CPU Thinking**: "Do step 1, then step 2, then step 3..."
+**GPU Thinking**: "Do ALL the steps at once, everywhere!"
+
+Imagine you need to paint 1000 fence posts. A CPU is like one very fast painter who paints each post perfectly, one after another. A GPU is like hiring 1000 amateur painters who each paint one post simultaneously. Even if each painter is slower, getting all posts done at once is way faster!
+
+For vector addition (C = A + B), instead of:
+```
+for i in range(million):
+    C[i] = A[i] + B[i]  # One at a time
+```
+
+The GPU does:
+```
+Thread 0: C[0] = A[0] + B[0]
+Thread 1: C[1] = A[1] + B[1]
+Thread 2: C[2] = A[2] + B[2]
+... (all at the same time!)
+Thread 999999: C[999999] = A[999999] + B[999999]
+```
+
+## Setting Up: The Journey to "Hello GPU"
+
+Getting CUDA working on Windows with WSL2 was an adventure. Here's what actually worked:
+
+### Step 1: Install CUDA Toolkit
+First, I needed the CUDA compiler (`nvcc`) to turn my code into GPU instructions:
 
 ```bash
-# Install CUDA Toolkit 12.1 (for nvcc compiler)
+# Get NVIDIA's official CUDA repository
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
 sudo apt-get install -y cuda-toolkit-12-1
 
-# Set up environment variables
+# Tell the system where CUDA lives
 export CUDA_HOME=/usr/local/cuda-12.1
 export PATH=$CUDA_HOME/bin:$PATH
-export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 ```
 
-### 2. PyTorch with CUDA Support
+### Step 2: PyTorch with CUDA Support
+PyTorch makes it easy to compile CUDA code on-the-fly:
 
 ```bash
-# Install PyTorch with CUDA 12.1 support
 pip install --index-url https://download.pytorch.org/whl/cu121 torch
 ```
 
-## The Project: GPU-Mode's Reference Kernels
+## The Code: Understanding Every Line
 
-I worked with the [reference-kernels](https://github.com/thefirehacker/reference-kernels) repository, specifically the `vectoradd_py` problem. This repository contains practice problems for learning GPU kernel optimization.
+Now for the exciting part - the actual GPU code! Let me explain what each piece does and why it matters.
 
-## Understanding the CUDA Kernel Code
-
-Let me break down the `submission.py` file that implements vector addition on the GPU:
-
-### The CUDA Kernel Function
+### The GPU Kernel: Where the Magic Happens
 
 ```cpp
 template <typename scalar_t>
@@ -50,62 +130,57 @@ __global__ void add_kernel(const scalar_t* __restrict__ A,
                            const scalar_t* __restrict__ B,
                            scalar_t* __restrict__ C,
                            int N) {
+    // Who am I? Calculate my unique ID among thousands of threads
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
 
+    // Am I responsible for a valid element?
     if (idx < N) {
-        C[idx] = A[idx] + B[idx];
+        C[idx] = A[idx] + B[idx];  // Do my one simple job
     }
 }
 ```
 
-**Key Concepts I Learned:**
+**What's happening here:**
 
-1. **`__global__`**: This marks a function that runs on the GPU and is called from the CPU (host)
+- **`__global__`**: This function runs on the GPU. It's called from the CPU but executes on thousands of GPU cores simultaneously.
 
-2. **Thread Indexing**:
-   - `blockIdx.x`: Which block this thread belongs to
-   - `blockDim.x`: Number of threads per block
-   - `threadIdx.x`: Thread's position within its block
-   - `idx = blockIdx.x * blockDim.x + threadIdx.x`: Global thread index calculation
+- **Thread Identity Crisis (solved!)**: Each thread needs to know which element to process. Think of it like a massive factory where each worker needs to know which item on the conveyor belt is theirs:
+  - `threadIdx.x`: "I'm worker #5 in my team"
+  - `blockIdx.x`: "My team is team #3"
+  - `blockDim.x`: "Each team has 256 workers"
+  - So my global position is: `3 * 256 + 5 = 773` - I handle element 773!
 
-3. **`__restrict__`**: Tells compiler these pointers don't overlap, enabling optimizations
+- **`if (idx < N)`**: Safety first! We might launch more threads than we have data (for efficiency reasons), so each thread checks if it has real work to do.
 
-4. **Boundary Check**: `if (idx < N)` prevents out-of-bounds memory access since we might launch more threads than elements
-
-### The Host Code (CPU Side)
+### Launching the Kernel: Mission Control
 
 ```cpp
 torch::Tensor add_cuda(torch::Tensor A, torch::Tensor B) {
-    int N = A.numel();  // Total number of elements
-    auto C = torch::empty_like(A);  // Allocate output tensor
+    int N = A.numel();  // How many elements total?
+    auto C = torch::empty_like(A);  // Prepare output space
 
-    const int threads = 256;  // Threads per block
-    const int blocks = (N + threads - 1) / threads;  // Number of blocks needed
+    // Configure the thread army
+    const int threads = 256;  // Threads per block (team size)
+    const int blocks = (N + threads - 1) / threads;  // How many teams needed?
 
-    AT_DISPATCH_FLOATING_TYPES_AND_HALF(A.scalar_type(), "add_kernel", ([&] {
-        add_kernel<scalar_t><<<blocks, threads>>>(
-            A.data_ptr<scalar_t>(),
-            B.data_ptr<scalar_t>(),
-            C.data_ptr<scalar_t>(),
-            N
-        );
-    }));
+    // LAUNCH! Send thousands of threads to work
+    add_kernel<scalar_t><<<blocks, threads>>>(
+        A.data_ptr<scalar_t>(),
+        B.data_ptr<scalar_t>(),
+        C.data_ptr<scalar_t>(),
+        N
+    );
 }
 ```
 
-**What I Learned Here:**
+**The Strategy:**
+- We organize threads into blocks (teams) of 256 threads each
+- Why 256? It's a multiple of 32 (warp size - the GPU's natural execution unit)
+- The `<<<blocks, threads>>>` syntax is CUDA's special way to say "launch this many blocks with this many threads each"
 
-1. **Block and Thread Configuration**:
-   - 256 threads per block is a common choice (multiple of 32, the warp size)
-   - Calculate blocks needed: `(N + threads - 1) / threads` (ceiling division)
+### The Python Bridge: Making it Usable
 
-2. **Kernel Launch Syntax**: `<<<blocks, threads>>>` is CUDA's special syntax for launching kernels
-
-3. **Type Dispatching**: `AT_DISPATCH_FLOATING_TYPES_AND_HALF` handles different data types (float32, float64, float16)
-
-### PyTorch Integration
-
-The really cool part is using PyTorch's `load_inline` to compile CUDA code on-the-fly:
+PyTorch's `load_inline` is brilliant - it compiles CUDA code on-the-fly:
 
 ```python
 add_module = load_inline(
@@ -113,105 +188,122 @@ add_module = load_inline(
     cpp_sources=add_cpp_source,
     cuda_sources=add_cuda_source,
     functions=['add_cuda'],
-    verbose=True,
+    verbose=True,  # Show me what's happening!
 )
 ```
 
-This compiles the CUDA code using `nvcc` behind the scenes and creates a Python module!
-
-## Understanding the Benchmarking Script
-
-The `run_local.py` script taught me about proper GPU performance measurement:
-
-### Key Components:
-
-1. **Automatic Size Detection**:
-```python
-# Pick sizes that fit in VRAM (80% of available)
-free_bytes, _ = torch.cuda.mem_get_info()
-budget = int(free_bytes * 0.8)
-
-if dims == 2:
-    # For 2D tensors (matrices)
-    s_max = int(math.sqrt(budget / (3 * bytes_per_elem)))
+First time you run this, you'll see:
+```
+Detected CUDA files, patching ldflags
+Building extension module add_cuda...
+ninja: no work to do.
+Loading extension module add_cuda...
 ```
 
-This prevents out-of-memory errors by choosing appropriate test sizes based on available VRAM.
+That's `nvcc` compiling your GPU code into a Python module!
 
-2. **CUDA Event Timing**:
+## The Benchmarking: Measuring Reality
+
+The `run_local.py` script does something clever - it automatically picks test sizes based on available GPU memory:
+
+```python
+# How much GPU memory is free?
+free_bytes, _ = torch.cuda.mem_get_info()
+budget = int(free_bytes * 0.8)  # Use 80% to be safe
+
+# For 2D matrices: need space for A, B, and C
+s_max = int(math.sqrt(budget / (3 * bytes_per_elem)))
+```
+
+This prevents the dreaded "CUDA out of memory" error!
+
+### Timing GPU Code: It's Tricky!
+
+You can't use regular Python timing for GPU code because GPU operations are asynchronous. The solution? CUDA Events:
+
 ```python
 t0 = torch.cuda.Event(enable_timing=True)
 t1 = torch.cuda.Event(enable_timing=True)
-t0.record()
-custom_kernel(case)  # Run the kernel
-t1.record()
-torch.cuda.synchronize()
-elapsed = t0.elapsed_time(t1)  # Time in milliseconds
+
+t0.record()              # Start timer ON THE GPU
+custom_kernel(case)      # Run kernel
+t1.record()              # Stop timer ON THE GPU
+torch.cuda.synchronize() # Wait for GPU to finish
+elapsed = t0.elapsed_time(t1)  # Get time in milliseconds
 ```
 
-**Why CUDA Events?** Regular Python timing wouldn't work because CUDA operations are asynchronous. CUDA events measure time on the GPU itself.
+## The Results: What I Learned from the Numbers
 
-3. **Warmup Runs**: The script does 10 warmup iterations before timing. This is crucial because:
-   - First kernel launch includes JIT compilation overhead
-   - GPU needs to "warm up" to reach peak performance clocks
-
-## My Results on RTX 2050
+Running on my RTX 2050 (4GB VRAM):
 
 ```
-Detected dims=2, free≈3.47 GB, using sizes=[4096, 8192, 12288, 16384]
-size=4096:  mean=0.9877 ms, best=0.9461 ms, worst=1.2061 ms
-size=8192:  mean=3.8027 ms, best=3.7571 ms, worst=3.9188 ms
-size=12288: mean=8.5460 ms, best=8.4602 ms, worst=8.8747 ms
-size=16384: mean=150.3063 ms, best=144.3062 ms, worst=169.5191 ms
+size=4096:  mean=0.9877 ms    (67 million elements)
+size=8192:  mean=3.8027 ms    (268 million elements)
+size=12288: mean=8.5460 ms    (603 million elements)
+size=16384: mean=150.3063 ms  (1.07 billion elements) ← WHAT?!
 ```
 
-### Performance Analysis:
+### The Mystery of the Slow 16384
 
-1. **Linear Scaling (mostly)**: 4096→8192 (4x elements) took ~4x time, which is expected
+Why did 16384×16384 suddenly become 17x slower? This taught me a crucial lesson about GPU architecture:
 
-2. **The 16384 Anomaly**: Suddenly 17x slower! This taught me about:
-   - **Block Scheduling Overhead**: With 256 threads/block, 16384×16384 elements need 1,048,576 blocks!
-   - **Solution**: Use grid-stride loops where each thread processes multiple elements
+**The Problem**: With 256 threads per block, processing 268,435,456 elements needs **1,048,576 blocks**!
 
-3. **Memory Bandwidth**: For simple operations like addition, we're memory-bound:
-   - 8192×8192 elements × 2 bytes × 3 tensors = 402 MB
-   - 3.76 ms → ~107 GB/s effective bandwidth
+The GPU scheduler choked trying to manage over a million tiny work units. It's like trying to manage a million separate construction crews for a project - the coordination overhead kills you!
 
-## Key Lessons Learned
+**The Solution**: Grid-stride loops - have each thread process multiple elements:
+```cpp
+for (int idx = blockIdx.x * blockDim.x + threadIdx.x;
+     idx < N;
+     idx += blockDim.x * gridDim.x) {
+    C[idx] = A[idx] + B[idx];
+}
+```
 
-1. **GPU Programming is Different**: You think in terms of thousands of parallel threads, not sequential loops
+Now you can cap blocks at a reasonable number (like 10,000) and each thread handles multiple elements.
 
-2. **Memory is King**: Most simple kernels are limited by memory bandwidth, not compute
+### Memory Bandwidth: The Real Bottleneck
 
-3. **Launch Configuration Matters**: Too many blocks can cause scheduling overhead
+For the 8192×8192 case:
+- Data moved: 268M elements × 2 bytes × 3 arrays = 1.6 GB
+- Time: 3.8 ms
+- Bandwidth: 421 GB/s
 
-4. **Measure Correctly**: Always use CUDA events for timing, not CPU timers
+My RTX 2050's theoretical max is ~200 GB/s, so we're doing great! Wait, how are we exceeding theoretical max? Cache! Some data gets reused from the GPU's L2 cache.
 
-5. **Check Boundaries**: GPU won't stop you from accessing invalid memory - it'll just crash!
+## The Revelations: What Changed My Understanding
 
-6. **Start Simple**: Vector addition is perfect for learning because it's simple enough to understand but shows all core concepts
+1. **GPUs are not fast CPUs** - They're a completely different beast. They're terrible at complex branching logic but amazing at doing the same simple thing everywhere.
 
-## Next Steps
+2. **Memory movement dominates** - For simple operations like addition, you spend more time moving data than computing. This is why AI models use operations like matrix multiplication that do lots of compute per memory access.
 
-Now that I understand the basics, I want to explore:
-- Shared memory optimization
-- Warp-level primitives
-- More complex kernels (matrix multiplication, reductions)
-- Performance profiling with Nsight
+3. **Launch configuration matters hugely** - Too many blocks? Scheduling overhead. Too few? Underutilization. It's an art.
 
-## Resources for Beginners
+4. **The power of parallel thinking** - Once you start thinking "what can happen simultaneously?" instead of "what comes next?", you see opportunities everywhere.
 
-- **Repository**: [reference-kernels](https://github.com/thefirehacker/reference-kernels) - Great practice problems
-- **PMPP Book**: "Programming Massively Parallel Processors" - The theory behind these kernels
-- **CUDA Documentation**: [docs.nvidia.com/cuda](https://docs.nvidia.com/cuda) - Official reference
-- **GPU Mode Discord**: Community of learners working through these problems together
+## What's Next?
 
-## The "Aha!" Moment
+Now that I've got basic kernels working, I'm excited to explore:
+- **Shared memory**: Using the 48KB of ultra-fast memory shared within each block
+- **Warp-level operations**: Leveraging the fact that 32 threads execute in lockstep
+- **Reduction operations**: How do you sum a billion numbers in parallel?
+- **Matrix multiplication**: The operation that powers all of deep learning
 
-The biggest realization: **A GPU is not just a fast CPU**. It's a completely different architecture that requires rethinking how we approach problems. Instead of "do this step by step," we think "do this everywhere at once."
+## Resources That Helped Me
 
-When that mental shift clicked, suddenly the weird syntax and concepts started making sense. Every thread knows its identity (index) and does its small part of the work. Together, thousands of threads solve the problem in parallel.
+- **[Reference Kernels Repo](https://github.com/thefirehacker/reference-kernels)**: Practice problems with increasing difficulty
+- **[PMPP Book](http://www.wen-mei-hwu.com/)**: "Programming Massively Parallel Processors" - The theory behind it all
+- **[GPU Mode Discord](https://discord.gg/gpumode)**: Amazing community of people learning together
+- **[CUDA Documentation](https://docs.nvidia.com/cuda/)**: Surprisingly readable once you know the basics
+
+## The Journey Continues
+
+Starting with vector addition might seem trivial, but it opened the door to understanding how modern AI actually works at the hardware level. Every transformer model, every diffusion model, every neural network - they're all built on these fundamental parallel operations.
+
+The moment it clicked that my GPU was running 65,536 threads simultaneously, each doing their tiny part of the work, was magical. It's not just faster computing - it's a fundamentally different way of solving problems.
+
+Next week: I'm going to tackle matrix multiplication and see if I can beat PyTorch's built-in implementation (spoiler: probably not, but I'll learn tons trying!).
 
 ---
 
-*This learning journey continues! Follow along as I tackle more complex kernels and optimization techniques.*
+*Want to try this yourself? Clone the [reference-kernels repo](https://github.com/thefirehacker/reference-kernels) and start with `problems/pmpp/vectoradd_py/`. The journey from CPU thinking to GPU thinking is worth it!*

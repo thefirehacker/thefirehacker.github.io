@@ -222,3 +222,78 @@ function trackEmailContact(action) {
         'contact_email': 'firehacker@bubblspace.com'
     });
 }
+
+// Enhanced tracking for CUDA kernel tutorial
+if (window.location.pathname.includes('cuda-kernels-basics')) {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Track CUDA-specific content engagement
+        gtag('event', 'technical_content_view', {
+            'content_type': 'cuda_kernel_tutorial',
+            'difficulty_level': 'beginner',
+            'programming_language': 'cuda_cpp',
+            'hardware_target': 'rtx_2050'
+        });
+
+        // Track clicks on code sections
+        document.querySelectorAll('pre code, .sourceCode').forEach(codeBlock => {
+            codeBlock.addEventListener('click', function() {
+                const language = this.className.match(/language-(\w+)/)?.[1] || 'unknown';
+                gtag('event', 'code_section_click', {
+                    'code_language': language,
+                    'content_type': 'cuda_tutorial'
+                });
+            });
+        });
+
+        // Track clicks on repository links
+        document.querySelectorAll('a[href*="reference-kernels"]').forEach(link => {
+            link.addEventListener('click', function() {
+                gtag('event', 'repository_link_click', {
+                    'repository': 'reference_kernels',
+                    'link_context': 'cuda_tutorial',
+                    'action': 'visit_practice_repo'
+                });
+            });
+        });
+
+        // Track reading progress through sections
+        const sections = document.querySelectorAll('h2, h3');
+        const totalSections = sections.length;
+        let sectionsViewed = 0;
+
+        sections.forEach((section, index) => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        sectionsViewed++;
+                        const progressPercent = Math.round((sectionsViewed / totalSections) * 100);
+
+                        gtag('event', 'tutorial_progress', {
+                            'progress_percent': progressPercent,
+                            'sections_viewed': sectionsViewed,
+                            'total_sections': totalSections,
+                            'current_section': entry.target.textContent.trim()
+                        });
+                    }
+                });
+            }, { threshold: 0.7 });
+            observer.observe(section);
+        });
+
+        // Track time spent on technical content
+        let startTime = Date.now();
+        let engagementTracked = false;
+
+        setTimeout(() => {
+            if (!engagementTracked) {
+                const timeSpent = Math.round((Date.now() - startTime) / 1000);
+                gtag('event', 'technical_content_engagement', {
+                    'time_spent_seconds': timeSpent,
+                    'content_type': 'cuda_tutorial',
+                    'engagement_level': timeSpent > 300 ? 'high' : timeSpent > 120 ? 'medium' : 'low'
+                });
+                engagementTracked = true;
+            }
+        }, 120000); // Track after 2 minutes
+    });
+}

@@ -9,7 +9,7 @@
 <meta name="author" content="The Fire Hacker">
 <meta name="dcterms.date" content="2025-01-16">
 
-<title>Learning CUDA Kernels: From Zero to Running Custom GPU Code – The Fire Hacker</title>
+<title>My First CUDA Kernel: Learning GPU Programming from Scratch – The Fire Hacker</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,31 +183,37 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-journey-running-my-first-cuda-kernel" id="toc-the-journey-running-my-first-cuda-kernel" class="nav-link active" data-scroll-target="#the-journey-running-my-first-cuda-kernel">The Journey: Running My First CUDA Kernel</a></li>
-  <li><a href="#the-setup-wsl2-cuda-pytorch" id="toc-the-setup-wsl2-cuda-pytorch" class="nav-link" data-scroll-target="#the-setup-wsl2-cuda-pytorch">The Setup: WSL2 + CUDA + PyTorch</a>
+  <li><a href="#the-beginning-why-learn-cuda" id="toc-the-beginning-why-learn-cuda" class="nav-link active" data-scroll-target="#the-beginning-why-learn-cuda">The Beginning: Why Learn CUDA?</a></li>
+  <li><a href="#the-program-overall-architecture" id="toc-the-program-overall-architecture" class="nav-link" data-scroll-target="#the-program-overall-architecture">The Program: Overall Architecture</a>
   <ul class="collapse">
-  <li><a href="#environment-configuration" id="toc-environment-configuration" class="nav-link" data-scroll-target="#environment-configuration">1. Environment Configuration</a></li>
-  <li><a href="#pytorch-with-cuda-support" id="toc-pytorch-with-cuda-support" class="nav-link" data-scroll-target="#pytorch-with-cuda-support">2. PyTorch with CUDA Support</a></li>
+  <li><a href="#file-structure-purpose" id="toc-file-structure-purpose" class="nav-link" data-scroll-target="#file-structure-purpose">File Structure &amp; Purpose</a></li>
   </ul></li>
-  <li><a href="#the-project-gpu-modes-reference-kernels" id="toc-the-project-gpu-modes-reference-kernels" class="nav-link" data-scroll-target="#the-project-gpu-modes-reference-kernels">The Project: GPU-Mode’s Reference Kernels</a></li>
-  <li><a href="#understanding-the-cuda-kernel-code" id="toc-understanding-the-cuda-kernel-code" class="nav-link" data-scroll-target="#understanding-the-cuda-kernel-code">Understanding the CUDA Kernel Code</a>
+  <li><a href="#the-challenge-what-was-i-trying-to-achieve" id="toc-the-challenge-what-was-i-trying-to-achieve" class="nav-link" data-scroll-target="#the-challenge-what-was-i-trying-to-achieve">The Challenge: What Was I Trying to Achieve?</a></li>
+  <li><a href="#the-big-picture-how-gpus-think-differently" id="toc-the-big-picture-how-gpus-think-differently" class="nav-link" data-scroll-target="#the-big-picture-how-gpus-think-differently">The Big Picture: How GPUs Think Differently</a></li>
+  <li><a href="#setting-up-the-journey-to-hello-gpu" id="toc-setting-up-the-journey-to-hello-gpu" class="nav-link" data-scroll-target="#setting-up-the-journey-to-hello-gpu">Setting Up: The Journey to “Hello GPU”</a>
   <ul class="collapse">
-  <li><a href="#the-cuda-kernel-function" id="toc-the-cuda-kernel-function" class="nav-link" data-scroll-target="#the-cuda-kernel-function">The CUDA Kernel Function</a></li>
-  <li><a href="#the-host-code-cpu-side" id="toc-the-host-code-cpu-side" class="nav-link" data-scroll-target="#the-host-code-cpu-side">The Host Code (CPU Side)</a></li>
-  <li><a href="#pytorch-integration" id="toc-pytorch-integration" class="nav-link" data-scroll-target="#pytorch-integration">PyTorch Integration</a></li>
+  <li><a href="#step-1-install-cuda-toolkit" id="toc-step-1-install-cuda-toolkit" class="nav-link" data-scroll-target="#step-1-install-cuda-toolkit">Step 1: Install CUDA Toolkit</a></li>
+  <li><a href="#step-2-pytorch-with-cuda-support" id="toc-step-2-pytorch-with-cuda-support" class="nav-link" data-scroll-target="#step-2-pytorch-with-cuda-support">Step 2: PyTorch with CUDA Support</a></li>
   </ul></li>
-  <li><a href="#understanding-the-benchmarking-script" id="toc-understanding-the-benchmarking-script" class="nav-link" data-scroll-target="#understanding-the-benchmarking-script">Understanding the Benchmarking Script</a>
+  <li><a href="#the-code-understanding-every-line" id="toc-the-code-understanding-every-line" class="nav-link" data-scroll-target="#the-code-understanding-every-line">The Code: Understanding Every Line</a>
   <ul class="collapse">
-  <li><a href="#key-components" id="toc-key-components" class="nav-link" data-scroll-target="#key-components">Key Components:</a></li>
+  <li><a href="#the-gpu-kernel-where-the-magic-happens" id="toc-the-gpu-kernel-where-the-magic-happens" class="nav-link" data-scroll-target="#the-gpu-kernel-where-the-magic-happens">The GPU Kernel: Where the Magic Happens</a></li>
+  <li><a href="#launching-the-kernel-mission-control" id="toc-launching-the-kernel-mission-control" class="nav-link" data-scroll-target="#launching-the-kernel-mission-control">Launching the Kernel: Mission Control</a></li>
+  <li><a href="#the-python-bridge-making-it-usable" id="toc-the-python-bridge-making-it-usable" class="nav-link" data-scroll-target="#the-python-bridge-making-it-usable">The Python Bridge: Making it Usable</a></li>
   </ul></li>
-  <li><a href="#my-results-on-rtx-2050" id="toc-my-results-on-rtx-2050" class="nav-link" data-scroll-target="#my-results-on-rtx-2050">My Results on RTX 2050</a>
+  <li><a href="#the-benchmarking-measuring-reality" id="toc-the-benchmarking-measuring-reality" class="nav-link" data-scroll-target="#the-benchmarking-measuring-reality">The Benchmarking: Measuring Reality</a>
   <ul class="collapse">
-  <li><a href="#performance-analysis" id="toc-performance-analysis" class="nav-link" data-scroll-target="#performance-analysis">Performance Analysis:</a></li>
+  <li><a href="#timing-gpu-code-its-tricky" id="toc-timing-gpu-code-its-tricky" class="nav-link" data-scroll-target="#timing-gpu-code-its-tricky">Timing GPU Code: It’s Tricky!</a></li>
   </ul></li>
-  <li><a href="#key-lessons-learned" id="toc-key-lessons-learned" class="nav-link" data-scroll-target="#key-lessons-learned">Key Lessons Learned</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
-  <li><a href="#resources-for-beginners" id="toc-resources-for-beginners" class="nav-link" data-scroll-target="#resources-for-beginners">Resources for Beginners</a></li>
-  <li><a href="#the-aha-moment" id="toc-the-aha-moment" class="nav-link" data-scroll-target="#the-aha-moment">The “Aha!” Moment</a></li>
+  <li><a href="#the-results-what-i-learned-from-the-numbers" id="toc-the-results-what-i-learned-from-the-numbers" class="nav-link" data-scroll-target="#the-results-what-i-learned-from-the-numbers">The Results: What I Learned from the Numbers</a>
+  <ul class="collapse">
+  <li><a href="#the-mystery-of-the-slow-16384" id="toc-the-mystery-of-the-slow-16384" class="nav-link" data-scroll-target="#the-mystery-of-the-slow-16384">The Mystery of the Slow 16384</a></li>
+  <li><a href="#memory-bandwidth-the-real-bottleneck" id="toc-memory-bandwidth-the-real-bottleneck" class="nav-link" data-scroll-target="#memory-bandwidth-the-real-bottleneck">Memory Bandwidth: The Real Bottleneck</a></li>
+  </ul></li>
+  <li><a href="#the-revelations-what-changed-my-understanding" id="toc-the-revelations-what-changed-my-understanding" class="nav-link" data-scroll-target="#the-revelations-what-changed-my-understanding">The Revelations: What Changed My Understanding</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next?</a></li>
+  <li><a href="#resources-that-helped-me" id="toc-resources-that-helped-me" class="nav-link" data-scroll-target="#resources-that-helped-me">Resources That Helped Me</a></li>
+  <li><a href="#the-journey-continues" id="toc-the-journey-continues" class="nav-link" data-scroll-target="#the-journey-continues">The Journey Continues</a></li>
   </ul>
 </nav>
     </div>
@@ -216,7 +222,7 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Learning CUDA Kernels: From Zero to Running Custom GPU Code</h1>
+<h1 class="title">My First CUDA Kernel: Learning GPU Programming from Scratch</h1>
 </div>
 
 
@@ -245,198 +251,243 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 </header>
 
 
-<section id="the-journey-running-my-first-cuda-kernel" class="level2">
-<h2 class="anchored" data-anchor-id="the-journey-running-my-first-cuda-kernel">The Journey: Running My First CUDA Kernel</h2>
-<p>Today I successfully compiled and ran my first custom CUDA kernel on my RTX 2050 gaming laptop! Here’s everything I learned about GPU programming, from environment setup to understanding performance metrics.</p>
+<section id="the-beginning-why-learn-cuda" class="level2">
+<h2 class="anchored" data-anchor-id="the-beginning-why-learn-cuda">The Beginning: Why Learn CUDA?</h2>
+<p>Today I ran my first custom GPU code! Along with distributed pre-training AI models, I wanted to understand what’s happening at the low level. I was looking for a good resource to learn about kernel development for both inference &amp; training. My interests were in MoE routing kernels, however I decided to start simple: compile and run kernels on local GPUs. I have a few gaming laptops and decided to run kernels on them.</p>
+<p>I decided to start with the simplest possible program: adding two vectors together. GPU Mode’s reference kernels are perfect to build a working end-to-end workflow.</p>
 </section>
-<section id="the-setup-wsl2-cuda-pytorch" class="level2">
-<h2 class="anchored" data-anchor-id="the-setup-wsl2-cuda-pytorch">The Setup: WSL2 + CUDA + PyTorch</h2>
-<p>Getting CUDA to work on Windows through WSL2 was my first challenge. Here’s the complete path I took:</p>
-<section id="environment-configuration" class="level3">
-<h3 class="anchored" data-anchor-id="environment-configuration">1. Environment Configuration</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install CUDA Toolkit 12.1 (for nvcc compiler)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> cuda-keyring_1.1-1_all.deb</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> cuda-toolkit-12-1</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up environment variables</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CUDA_HOME</span><span class="op">=</span>/usr/local/cuda-12.1</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">$CUDA_HOME</span>/bin:<span class="va">$PATH</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">LD_LIBRARY_PATH</span><span class="op">=</span><span class="va">$CUDA_HOME</span>/lib64:<span class="va">$LD_LIBRARY_PATH</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="pytorch-with-cuda-support" class="level3">
-<h3 class="anchored" data-anchor-id="pytorch-with-cuda-support">2. PyTorch with CUDA Support</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install PyTorch with CUDA 12.1 support</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--index-url</span> https://download.pytorch.org/whl/cu121 torch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="the-project-gpu-modes-reference-kernels" class="level2">
-<h2 class="anchored" data-anchor-id="the-project-gpu-modes-reference-kernels">The Project: GPU-Mode’s Reference Kernels</h2>
-<p>I worked with the <a href="https://github.com/thefirehacker/reference-kernels">reference-kernels</a> repository, specifically the <code>vectoradd_py</code> problem. This repository contains practice problems for learning GPU kernel optimization.</p>
-</section>
-<section id="understanding-the-cuda-kernel-code" class="level2">
-<h2 class="anchored" data-anchor-id="understanding-the-cuda-kernel-code">Understanding the CUDA Kernel Code</h2>
-<p>Let me break down the <code>submission.py</code> file that implements vector addition on the GPU:</p>
-<section id="the-cuda-kernel-function" class="level3">
-<h3 class="anchored" data-anchor-id="the-cuda-kernel-function">The CUDA Kernel Function</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> <span class="dt">scalar_t</span><span class="op">&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>__global__ <span class="dt">void</span> add_kernel<span class="op">(</span><span class="at">const</span> <span class="dt">scalar_t</span><span class="op">*</span> <span class="ex">__restrict__</span> A<span class="op">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">const</span> <span class="dt">scalar_t</span><span class="op">*</span> <span class="ex">__restrict__</span> B<span class="op">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                           <span class="dt">scalar_t</span><span class="op">*</span> <span class="ex">__restrict__</span> C<span class="op">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                           <span class="dt">int</span> N<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> idx <span class="op">=</span> blockIdx<span class="op">.</span>x <span class="op">*</span> blockDim<span class="op">.</span>x <span class="op">+</span> threadIdx<span class="op">.</span>x<span class="op">;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>idx <span class="op">&lt;</span> N<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        C<span class="op">[</span>idx<span class="op">]</span> <span class="op">=</span> A<span class="op">[</span>idx<span class="op">]</span> <span class="op">+</span> B<span class="op">[</span>idx<span class="op">];</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Key Concepts I Learned:</strong></p>
+<section id="the-program-overall-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="the-program-overall-architecture">The Program: Overall Architecture</h2>
+<p>Before diving into the details, let me explain the complete program flow. We’ll be working with the <a href="https://github.com/thefirehacker/reference-kernels/tree/main/problems/pmpp/vectoradd_py"><code>vectoradd_py</code> problem</a> from the reference-kernels repository.</p>
+<section id="file-structure-purpose" class="level3">
+<h3 class="anchored" data-anchor-id="file-structure-purpose">File Structure &amp; Purpose</h3>
+<pre><code>problems/pmpp/vectoradd_py/
+├── run_local.py        # Main benchmark script
+├── submission.py       # Our custom CUDA kernel implementation
+├── reference.py        # Correctness checking
+├── task.py            # Data structure definitions
+└── README.md          # Problem description</code></pre>
+<p><strong>The Execution Flow:</strong></p>
 <ol type="1">
-<li><p><strong><code>__global__</code></strong>: This marks a function that runs on the GPU and is called from the CPU (host)</p></li>
-<li><p><strong>Thread Indexing</strong>:</p>
+<li><strong><code>run_local.py</code></strong> - The orchestrator that:
 <ul>
-<li><code>blockIdx.x</code>: Which block this thread belongs to</li>
-<li><code>blockDim.x</code>: Number of threads per block</li>
-<li><code>threadIdx.x</code>: Thread’s position within its block</li>
-<li><code>idx = blockIdx.x * blockDim.x + threadIdx.x</code>: Global thread index calculation</li>
+<li>Generates test data of various sizes</li>
+<li>Calls our custom kernel</li>
+<li>Measures performance with CUDA events</li>
+<li>Verifies correctness against reference implementation</li>
 </ul></li>
-<li><p><strong><code>__restrict__</code></strong>: Tells compiler these pointers don’t overlap, enabling optimizations</p></li>
-<li><p><strong>Boundary Check</strong>: <code>if (idx &lt; N)</code> prevents out-of-bounds memory access since we might launch more threads than elements</p></li>
-</ol>
-</section>
-<section id="the-host-code-cpu-side" class="level3">
-<h3 class="anchored" data-anchor-id="the-host-code-cpu-side">The Host Code (CPU Side)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>torch<span class="op">::</span>Tensor add_cuda<span class="op">(</span>torch<span class="op">::</span>Tensor A<span class="op">,</span> torch<span class="op">::</span>Tensor B<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> N <span class="op">=</span> A<span class="op">.</span>numel<span class="op">();</span>  <span class="co">// Total number of elements</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> C <span class="op">=</span> torch<span class="op">::</span>empty_like<span class="op">(</span>A<span class="op">);</span>  <span class="co">// Allocate output tensor</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">int</span> threads <span class="op">=</span> <span class="dv">256</span><span class="op">;</span>  <span class="co">// Threads per block</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">int</span> blocks <span class="op">=</span> <span class="op">(</span>N <span class="op">+</span> threads <span class="op">-</span> <span class="dv">1</span><span class="op">)</span> <span class="op">/</span> threads<span class="op">;</span>  <span class="co">// Number of blocks needed</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    AT_DISPATCH_FLOATING_TYPES_AND_HALF<span class="op">(</span>A<span class="op">.</span><span class="dt">scalar_type</span><span class="op">(),</span> <span class="st">"add_kernel"</span><span class="op">,</span> <span class="op">([&amp;]</span> <span class="op">{</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        add_kernel<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;&lt;&lt;&lt;</span>blocks<span class="op">,</span> threads<span class="op">&gt;&gt;&gt;(</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            A<span class="op">.</span>data_ptr<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;(),</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            B<span class="op">.</span>data_ptr<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;(),</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            C<span class="op">.</span>data_ptr<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;(),</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            N</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">);</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}));</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>What I Learned Here:</strong></p>
-<ol type="1">
-<li><p><strong>Block and Thread Configuration</strong>:</p>
+<li><strong><code>submission.py</code></strong> - Contains our CUDA kernel using PyTorch’s inline compilation:
 <ul>
-<li>256 threads per block is a common choice (multiple of 32, the warp size)</li>
-<li>Calculate blocks needed: <code>(N + threads - 1) / threads</code> (ceiling division)</li>
+<li>CUDA C++ code written as Python strings</li>
+<li>Compiled on-the-fly using <code>load_inline</code></li>
+<li>Creates a Python module we can call</li>
 </ul></li>
-<li><p><strong>Kernel Launch Syntax</strong>: <code>&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;</code> is CUDA’s special syntax for launching kernels</p></li>
-<li><p><strong>Type Dispatching</strong>: <code>AT_DISPATCH_FLOATING_TYPES_AND_HALF</code> handles different data types (float32, float64, float16)</p></li>
+<li><strong>The Magic: JIT Compilation Process</strong></li>
 </ol>
+<p>When we use <code>torch.utils.cpp_extension.load_inline</code>, here’s what happens behind the scenes:</p>
+<pre><code>Your Python Code
+        ↓
+torch.utils.cpp_extension.load_inline
+        ↓
+Generates .cpp and .cu source files
+        ↓
+Writes build.ninja file
+        ↓
+ninja → nvcc/g++ compile → add_cuda.so
+        ↓
+dlopen() loads .so into Python process</code></pre>
+<p>This is <strong>ahead-of-time compilation</strong> - once compiled, your kernel is fixed machine code running directly on the GPU!</p>
 </section>
-<section id="pytorch-integration" class="level3">
-<h3 class="anchored" data-anchor-id="pytorch-integration">PyTorch Integration</h3>
-<p>The really cool part is using PyTorch’s <code>load_inline</code> to compile CUDA code on-the-fly:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>add_module <span class="op">=</span> load_inline(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">'add_cuda'</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    cpp_sources<span class="op">=</span>add_cpp_source,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    cuda_sources<span class="op">=</span>add_cuda_source,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    functions<span class="op">=</span>[<span class="st">'add_cuda'</span>],</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This compiles the CUDA code using <code>nvcc</code> behind the scenes and creates a Python module!</p>
+</section>
+<section id="the-challenge-what-was-i-trying-to-achieve" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge-what-was-i-trying-to-achieve">The Challenge: What Was I Trying to Achieve?</h2>
+<p>My goal was simple but specific: 1. Write actual CUDA code that runs on my RTX 2050 laptop GPU 2. Understand how thousands of threads work together 3. Measure real performance and understand the numbers 4. Learn why GPUs are so powerful for AI workloads</p>
+<p>I found the perfect learning resource which I modified for my use: <a href="https://github.com/thefirehacker/reference-kernels">GPU Mode’s reference-kernels repository fork</a>. It’s a collection of progressively harder GPU programming challenges, starting with vector addition.</p>
+</section>
+<section id="the-big-picture-how-gpus-think-differently" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-picture-how-gpus-think-differently">The Big Picture: How GPUs Think Differently</h2>
+<p>Before diving into code, here’s the mental shift that changed everything for me:</p>
+<p><strong>CPU Thinking</strong>: “Do step 1, then step 2, then step 3…” <strong>GPU Thinking</strong>: “Do ALL the steps at once, everywhere!”</p>
+<p>Imagine you need to paint 1000 fence posts. A CPU is like one very fast painter who paints each post perfectly, one after another. A GPU is like hiring 1000 amateur painters who each paint one post simultaneously. Even if each painter is slower, getting all posts done at once is way faster!</p>
+<p>For vector addition (C = A + B), instead of:</p>
+<pre><code>for i in range(million):
+    C[i] = A[i] + B[i]  # One at a time</code></pre>
+<p>The GPU does:</p>
+<pre><code>Thread 0: C[0] = A[0] + B[0]
+Thread 1: C[1] = A[1] + B[1]
+Thread 2: C[2] = A[2] + B[2]
+... (all at the same time!)
+Thread 999999: C[999999] = A[999999] + B[999999]</code></pre>
+</section>
+<section id="setting-up-the-journey-to-hello-gpu" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-the-journey-to-hello-gpu">Setting Up: The Journey to “Hello GPU”</h2>
+<p>Getting CUDA working on Windows with WSL2 was an adventure. Here’s what actually worked:</p>
+<section id="step-1-install-cuda-toolkit" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-install-cuda-toolkit">Step 1: Install CUDA Toolkit</h3>
+<p>First, I needed the CUDA compiler (<code>nvcc</code>) to turn my code into GPU instructions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get NVIDIA's official CUDA repository</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dpkg <span class="at">-i</span> cuda-keyring_1.1-1_all.deb</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> cuda-toolkit-12-1</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Tell the system where CUDA lives</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CUDA_HOME</span><span class="op">=</span>/usr/local/cuda-12.1</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">$CUDA_HOME</span>/bin:<span class="va">$PATH</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-2-pytorch-with-cuda-support" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-pytorch-with-cuda-support">Step 2: PyTorch with CUDA Support</h3>
+<p>PyTorch makes it easy to compile CUDA code on-the-fly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--index-url</span> https://download.pytorch.org/whl/cu121 torch</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="understanding-the-benchmarking-script" class="level2">
-<h2 class="anchored" data-anchor-id="understanding-the-benchmarking-script">Understanding the Benchmarking Script</h2>
-<p>The <code>run_local.py</code> script taught me about proper GPU performance measurement:</p>
-<section id="key-components" class="level3">
-<h3 class="anchored" data-anchor-id="key-components">Key Components:</h3>
-<ol type="1">
-<li><strong>Automatic Size Detection</strong>:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick sizes that fit in VRAM (80% of available)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>free_bytes, _ <span class="op">=</span> torch.cuda.mem_get_info()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>budget <span class="op">=</span> <span class="bu">int</span>(free_bytes <span class="op">*</span> <span class="fl">0.8</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dims <span class="op">==</span> <span class="dv">2</span>:</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For 2D tensors (matrices)</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    s_max <span class="op">=</span> <span class="bu">int</span>(math.sqrt(budget <span class="op">/</span> (<span class="dv">3</span> <span class="op">*</span> bytes_per_elem)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This prevents out-of-memory errors by choosing appropriate test sizes based on available VRAM.</p>
-<ol start="2" type="1">
-<li><strong>CUDA Event Timing</strong>:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> torch.cuda.Event(enable_timing<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> torch.cuda.Event(enable_timing<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>t0.record()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>custom_kernel(case)  <span class="co"># Run the kernel</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>t1.record()</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>torch.cuda.synchronize()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>elapsed <span class="op">=</span> t0.elapsed_time(t1)  <span class="co"># Time in milliseconds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Why CUDA Events?</strong> Regular Python timing wouldn’t work because CUDA operations are asynchronous. CUDA events measure time on the GPU itself.</p>
-<ol start="3" type="1">
-<li><strong>Warmup Runs</strong>: The script does 10 warmup iterations before timing. This is crucial because:
+<section id="the-code-understanding-every-line" class="level2">
+<h2 class="anchored" data-anchor-id="the-code-understanding-every-line">The Code: Understanding Every Line</h2>
+<p>Now for the exciting part - the actual GPU code! Let me explain what each piece does and why it matters.</p>
+<section id="the-gpu-kernel-where-the-magic-happens" class="level3">
+<h3 class="anchored" data-anchor-id="the-gpu-kernel-where-the-magic-happens">The GPU Kernel: Where the Magic Happens</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> <span class="dt">scalar_t</span><span class="op">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>__global__ <span class="dt">void</span> add_kernel<span class="op">(</span><span class="at">const</span> <span class="dt">scalar_t</span><span class="op">*</span> <span class="ex">__restrict__</span> A<span class="op">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">const</span> <span class="dt">scalar_t</span><span class="op">*</span> <span class="ex">__restrict__</span> B<span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                           <span class="dt">scalar_t</span><span class="op">*</span> <span class="ex">__restrict__</span> C<span class="op">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                           <span class="dt">int</span> N<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Who am I? Calculate my unique ID among thousands of threads</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> idx <span class="op">=</span> blockIdx<span class="op">.</span>x <span class="op">*</span> blockDim<span class="op">.</span>x <span class="op">+</span> threadIdx<span class="op">.</span>x<span class="op">;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Am I responsible for a valid element?</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>idx <span class="op">&lt;</span> N<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        C<span class="op">[</span>idx<span class="op">]</span> <span class="op">=</span> A<span class="op">[</span>idx<span class="op">]</span> <span class="op">+</span> B<span class="op">[</span>idx<span class="op">];</span>  <span class="co">// Do my one simple job</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>What’s happening here:</strong></p>
 <ul>
-<li>First kernel launch includes JIT compilation overhead</li>
-<li>GPU needs to “warm up” to reach peak performance clocks</li>
+<li><p><strong><code>__global__</code></strong>: This function runs on the GPU. It’s called from the CPU but executes on thousands of GPU cores simultaneously.</p></li>
+<li><p><strong>Thread Identity Crisis (solved!)</strong>: Each thread needs to know which element to process. Think of it like a massive factory where each worker needs to know which item on the conveyor belt is theirs:</p>
+<ul>
+<li><code>threadIdx.x</code>: “I’m worker #5 in my team”</li>
+<li><code>blockIdx.x</code>: “My team is team #3”</li>
+<li><code>blockDim.x</code>: “Each team has 256 workers”</li>
+<li>So my global position is: <code>3 * 256 + 5 = 773</code> - I handle element 773!</li>
 </ul></li>
-</ol>
-</section>
-</section>
-<section id="my-results-on-rtx-2050" class="level2">
-<h2 class="anchored" data-anchor-id="my-results-on-rtx-2050">My Results on RTX 2050</h2>
-<pre><code>Detected dims=2, free≈3.47 GB, using sizes=[4096, 8192, 12288, 16384]
-size=4096:  mean=0.9877 ms, best=0.9461 ms, worst=1.2061 ms
-size=8192:  mean=3.8027 ms, best=3.7571 ms, worst=3.9188 ms
-size=12288: mean=8.5460 ms, best=8.4602 ms, worst=8.8747 ms
-size=16384: mean=150.3063 ms, best=144.3062 ms, worst=169.5191 ms</code></pre>
-<section id="performance-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="performance-analysis">Performance Analysis:</h3>
-<ol type="1">
-<li><p><strong>Linear Scaling (mostly)</strong>: 4096→8192 (4x elements) took ~4x time, which is expected</p></li>
-<li><p><strong>The 16384 Anomaly</strong>: Suddenly 17x slower! This taught me about:</p>
-<ul>
-<li><strong>Block Scheduling Overhead</strong>: With 256 threads/block, 16384×16384 elements need 1,048,576 blocks!</li>
-<li><strong>Solution</strong>: Use grid-stride loops where each thread processes multiple elements</li>
-</ul></li>
-<li><p><strong>Memory Bandwidth</strong>: For simple operations like addition, we’re memory-bound:</p>
-<ul>
-<li>8192×8192 elements × 2 bytes × 3 tensors = 402 MB</li>
-<li>3.76 ms → ~107 GB/s effective bandwidth</li>
-</ul></li>
-</ol>
-</section>
-</section>
-<section id="key-lessons-learned" class="level2">
-<h2 class="anchored" data-anchor-id="key-lessons-learned">Key Lessons Learned</h2>
-<ol type="1">
-<li><p><strong>GPU Programming is Different</strong>: You think in terms of thousands of parallel threads, not sequential loops</p></li>
-<li><p><strong>Memory is King</strong>: Most simple kernels are limited by memory bandwidth, not compute</p></li>
-<li><p><strong>Launch Configuration Matters</strong>: Too many blocks can cause scheduling overhead</p></li>
-<li><p><strong>Measure Correctly</strong>: Always use CUDA events for timing, not CPU timers</p></li>
-<li><p><strong>Check Boundaries</strong>: GPU won’t stop you from accessing invalid memory - it’ll just crash!</p></li>
-<li><p><strong>Start Simple</strong>: Vector addition is perfect for learning because it’s simple enough to understand but shows all core concepts</p></li>
-</ol>
-</section>
-<section id="next-steps" class="level2">
-<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
-<p>Now that I understand the basics, I want to explore: - Shared memory optimization - Warp-level primitives - More complex kernels (matrix multiplication, reductions) - Performance profiling with Nsight</p>
-</section>
-<section id="resources-for-beginners" class="level2">
-<h2 class="anchored" data-anchor-id="resources-for-beginners">Resources for Beginners</h2>
-<ul>
-<li><strong>Repository</strong>: <a href="https://github.com/thefirehacker/reference-kernels">reference-kernels</a> - Great practice problems</li>
-<li><strong>PMPP Book</strong>: “Programming Massively Parallel Processors” - The theory behind these kernels</li>
-<li><strong>CUDA Documentation</strong>: <a href="https://docs.nvidia.com/cuda">docs.nvidia.com/cuda</a> - Official reference</li>
-<li><strong>GPU Mode Discord</strong>: Community of learners working through these problems together</li>
+<li><p><strong><code>if (idx &lt; N)</code></strong>: Safety first! We might launch more threads than we have data (for efficiency reasons), so each thread checks if it has real work to do.</p></li>
 </ul>
 </section>
-<section id="the-aha-moment" class="level2">
-<h2 class="anchored" data-anchor-id="the-aha-moment">The “Aha!” Moment</h2>
-<p>The biggest realization: <strong>A GPU is not just a fast CPU</strong>. It’s a completely different architecture that requires rethinking how we approach problems. Instead of “do this step by step,” we think “do this everywhere at once.”</p>
-<p>When that mental shift clicked, suddenly the weird syntax and concepts started making sense. Every thread knows its identity (index) and does its small part of the work. Together, thousands of threads solve the problem in parallel.</p>
+<section id="launching-the-kernel-mission-control" class="level3">
+<h3 class="anchored" data-anchor-id="launching-the-kernel-mission-control">Launching the Kernel: Mission Control</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>torch<span class="op">::</span>Tensor add_cuda<span class="op">(</span>torch<span class="op">::</span>Tensor A<span class="op">,</span> torch<span class="op">::</span>Tensor B<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> N <span class="op">=</span> A<span class="op">.</span>numel<span class="op">();</span>  <span class="co">// How many elements total?</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> C <span class="op">=</span> torch<span class="op">::</span>empty_like<span class="op">(</span>A<span class="op">);</span>  <span class="co">// Prepare output space</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Configure the thread army</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">int</span> threads <span class="op">=</span> <span class="dv">256</span><span class="op">;</span>  <span class="co">// Threads per block (team size)</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">int</span> blocks <span class="op">=</span> <span class="op">(</span>N <span class="op">+</span> threads <span class="op">-</span> <span class="dv">1</span><span class="op">)</span> <span class="op">/</span> threads<span class="op">;</span>  <span class="co">// How many teams needed?</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// LAUNCH! Send thousands of threads to work</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    add_kernel<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;&lt;&lt;&lt;</span>blocks<span class="op">,</span> threads<span class="op">&gt;&gt;&gt;(</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        A<span class="op">.</span>data_ptr<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;(),</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        B<span class="op">.</span>data_ptr<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;(),</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        C<span class="op">.</span>data_ptr<span class="op">&lt;</span><span class="dt">scalar_t</span><span class="op">&gt;(),</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        N</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">);</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>The Strategy:</strong> - We organize threads into blocks (teams) of 256 threads each - Why 256? It’s a multiple of 32 (warp size - the GPU’s natural execution unit) - The <code>&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;</code> syntax is CUDA’s special way to say “launch this many blocks with this many threads each”</p>
+</section>
+<section id="the-python-bridge-making-it-usable" class="level3">
+<h3 class="anchored" data-anchor-id="the-python-bridge-making-it-usable">The Python Bridge: Making it Usable</h3>
+<p>PyTorch’s <code>load_inline</code> is brilliant - it compiles CUDA code on-the-fly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>add_module <span class="op">=</span> load_inline(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">'add_cuda'</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    cpp_sources<span class="op">=</span>add_cpp_source,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    cuda_sources<span class="op">=</span>add_cuda_source,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    functions<span class="op">=</span>[<span class="st">'add_cuda'</span>],</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,  <span class="co"># Show me what's happening!</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>First time you run this, you’ll see:</p>
+<pre><code>Detected CUDA files, patching ldflags
+Building extension module add_cuda...
+ninja: no work to do.
+Loading extension module add_cuda...</code></pre>
+<p>That’s <code>nvcc</code> compiling your GPU code into a Python module!</p>
+</section>
+</section>
+<section id="the-benchmarking-measuring-reality" class="level2">
+<h2 class="anchored" data-anchor-id="the-benchmarking-measuring-reality">The Benchmarking: Measuring Reality</h2>
+<p>The <code>run_local.py</code> script does something clever - it automatically picks test sizes based on available GPU memory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How much GPU memory is free?</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>free_bytes, _ <span class="op">=</span> torch.cuda.mem_get_info()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>budget <span class="op">=</span> <span class="bu">int</span>(free_bytes <span class="op">*</span> <span class="fl">0.8</span>)  <span class="co"># Use 80% to be safe</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For 2D matrices: need space for A, B, and C</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>s_max <span class="op">=</span> <span class="bu">int</span>(math.sqrt(budget <span class="op">/</span> (<span class="dv">3</span> <span class="op">*</span> bytes_per_elem)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This prevents the dreaded “CUDA out of memory” error!</p>
+<section id="timing-gpu-code-its-tricky" class="level3">
+<h3 class="anchored" data-anchor-id="timing-gpu-code-its-tricky">Timing GPU Code: It’s Tricky!</h3>
+<p>You can’t use regular Python timing for GPU code because GPU operations are asynchronous. The solution? CUDA Events:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> torch.cuda.Event(enable_timing<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> torch.cuda.Event(enable_timing<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>t0.record()              <span class="co"># Start timer ON THE GPU</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>custom_kernel(case)      <span class="co"># Run kernel</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>t1.record()              <span class="co"># Stop timer ON THE GPU</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>torch.cuda.synchronize() <span class="co"># Wait for GPU to finish</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>elapsed <span class="op">=</span> t0.elapsed_time(t1)  <span class="co"># Get time in milliseconds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="the-results-what-i-learned-from-the-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="the-results-what-i-learned-from-the-numbers">The Results: What I Learned from the Numbers</h2>
+<p>Running on my RTX 2050 (4GB VRAM):</p>
+<pre><code>size=4096:  mean=0.9877 ms    (67 million elements)
+size=8192:  mean=3.8027 ms    (268 million elements)
+size=12288: mean=8.5460 ms    (603 million elements)
+size=16384: mean=150.3063 ms  (1.07 billion elements) ← WHAT?!</code></pre>
+<section id="the-mystery-of-the-slow-16384" class="level3">
+<h3 class="anchored" data-anchor-id="the-mystery-of-the-slow-16384">The Mystery of the Slow 16384</h3>
+<p>Why did 16384×16384 suddenly become 17x slower? This taught me a crucial lesson about GPU architecture:</p>
+<p><strong>The Problem</strong>: With 256 threads per block, processing 268,435,456 elements needs <strong>1,048,576 blocks</strong>!</p>
+<p>The GPU scheduler choked trying to manage over a million tiny work units. It’s like trying to manage a million separate construction crews for a project - the coordination overhead kills you!</p>
+<p><strong>The Solution</strong>: Grid-stride loops - have each thread process multiple elements:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> idx <span class="op">=</span> blockIdx<span class="op">.</span>x <span class="op">*</span> blockDim<span class="op">.</span>x <span class="op">+</span> threadIdx<span class="op">.</span>x<span class="op">;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     idx <span class="op">&lt;</span> N<span class="op">;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     idx <span class="op">+=</span> blockDim<span class="op">.</span>x <span class="op">*</span> gridDim<span class="op">.</span>x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    C<span class="op">[</span>idx<span class="op">]</span> <span class="op">=</span> A<span class="op">[</span>idx<span class="op">]</span> <span class="op">+</span> B<span class="op">[</span>idx<span class="op">];</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now you can cap blocks at a reasonable number (like 10,000) and each thread handles multiple elements.</p>
+</section>
+<section id="memory-bandwidth-the-real-bottleneck" class="level3">
+<h3 class="anchored" data-anchor-id="memory-bandwidth-the-real-bottleneck">Memory Bandwidth: The Real Bottleneck</h3>
+<p>For the 8192×8192 case: - Data moved: 268M elements × 2 bytes × 3 arrays = 1.6 GB - Time: 3.8 ms - Bandwidth: 421 GB/s</p>
+<p>My RTX 2050’s theoretical max is ~200 GB/s, so we’re doing great! Wait, how are we exceeding theoretical max? Cache! Some data gets reused from the GPU’s L2 cache.</p>
+</section>
+</section>
+<section id="the-revelations-what-changed-my-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="the-revelations-what-changed-my-understanding">The Revelations: What Changed My Understanding</h2>
+<ol type="1">
+<li><p><strong>GPUs are not fast CPUs</strong> - They’re a completely different beast. They’re terrible at complex branching logic but amazing at doing the same simple thing everywhere.</p></li>
+<li><p><strong>Memory movement dominates</strong> - For simple operations like addition, you spend more time moving data than computing. This is why AI models use operations like matrix multiplication that do lots of compute per memory access.</p></li>
+<li><p><strong>Launch configuration matters hugely</strong> - Too many blocks? Scheduling overhead. Too few? Underutilization. It’s an art.</p></li>
+<li><p><strong>The power of parallel thinking</strong> - Once you start thinking “what can happen simultaneously?” instead of “what comes next?”, you see opportunities everywhere.</p></li>
+</ol>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next?</h2>
+<p>Now that I’ve got basic kernels working, I’m excited to explore: - <strong>Shared memory</strong>: Using the 48KB of ultra-fast memory shared within each block - <strong>Warp-level operations</strong>: Leveraging the fact that 32 threads execute in lockstep - <strong>Reduction operations</strong>: How do you sum a billion numbers in parallel? - <strong>Matrix multiplication</strong>: The operation that powers all of deep learning</p>
+</section>
+<section id="resources-that-helped-me" class="level2">
+<h2 class="anchored" data-anchor-id="resources-that-helped-me">Resources That Helped Me</h2>
+<ul>
+<li><strong><a href="https://github.com/thefirehacker/reference-kernels">Reference Kernels Repo</a></strong>: Practice problems with increasing difficulty</li>
+<li><strong><a href="http://www.wen-mei-hwu.com/">PMPP Book</a></strong>: “Programming Massively Parallel Processors” - The theory behind it all</li>
+<li><strong><a href="https://discord.gg/gpumode">GPU Mode Discord</a></strong>: Amazing community of people learning together</li>
+<li><strong><a href="https://docs.nvidia.com/cuda/">CUDA Documentation</a></strong>: Surprisingly readable once you know the basics</li>
+</ul>
+</section>
+<section id="the-journey-continues" class="level2">
+<h2 class="anchored" data-anchor-id="the-journey-continues">The Journey Continues</h2>
+<p>Starting with vector addition might seem trivial, but it opened the door to understanding how modern AI actually works at the hardware level. Every transformer model, every diffusion model, every neural network - they’re all built on these fundamental parallel operations.</p>
+<p>The moment it clicked that my GPU was running 65,536 threads simultaneously, each doing their tiny part of the work, was magical. It’s not just faster computing - it’s a fundamentally different way of solving problems.</p>
+<p>Next week: I’m going to tackle matrix multiplication and see if I can beat PyTorch’s built-in implementation (spoiler: probably not, but I’ll learn tons trying!).</p>
 <hr>
-<p><em>This learning journey continues! Follow along as I tackle more complex kernels and optimization techniques.</em></p>
+<p><em>Want to try this yourself? Clone the <a href="https://github.com/thefirehacker/reference-kernels">reference-kernels repo</a> and start with <code>problems/pmpp/vectoradd_py/</code>. The journey from CPU thinking to GPU thinking is worth it!</em></p>
 
 
 </section>

@@ -650,10 +650,13 @@ pre code {
 
 /* Inline code */
 p code, li code {
-  background: rgba(76, 175, 80, 0.1);
+  background: rgba(76, 175, 80, 0.2);
+  color: #00FF88 !important;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-size: 0.85em;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  font-weight: 600;
 }
 
 /* Tables */

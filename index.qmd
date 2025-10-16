@@ -55,8 +55,12 @@ Small Language Models designed for preserving and sharing memories through time 
 
 ::: {.til-grid}
 ::: {.til-card}
-**CUDA Kernels from Scratch** - Successfully compiled and ran my first GPU kernel on RTX 2050! Learned about blocks, threads, and why my 16384×16384 matrix was 17x slower.
-[Read more →](til/cuda-kernels-basics.qmd)
+### GPU Programming Breakthrough
+**First CUDA Kernel Success!**
+
+Built and ran custom CUDA kernels on RTX 2050. Learned about parallel execution, compilation with ninja/nvcc, and discovered the 16384×16384 performance mystery.
+
+[Deep dive →](til/cuda-kernels-basics.qmd)
 :::
 :::
 
