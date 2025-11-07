@@ -1,0 +1,2 @@
+# Exclude temp workspace files from Quarto rendering
+temp/

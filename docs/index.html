@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a6e161b2431e1f94a14e0f5d32135a3c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-665a47377fd1fb2966ef7e6e7341ee54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fe85ee07f81c83fe8e42bf0d08f49d6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -203,13 +203,20 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 <section id="today-i-learned" class="level2 section-title">
 <h2 class="section-title" data-anchor-id="today-i-learned">Today I Learned</h2>
 <div class="til-grid">
-<section id="gpu-programming-breakthrough" class="level3 til-card">
-<h3 data-anchor-id="gpu-programming-breakthrough">GPU Programming Breakthrough</h3>
+<section id="ddp-from-scratch-a-learner-friendly-guide" class="level3 til-card">
+<h3 data-anchor-id="ddp-from-scratch-a-learner-friendly-guide">DDP from Scratch: a learner-friendly guide</h3>
+<p><strong>From single‑GPU code to a tiny DistributedDataParallel (DDP) built by hand.</strong></p>
+<p>Covers seeding, kwargs unpacking, dictionary comprehensions, gradient averaging with all_reduce, and a minimal training loop.</p>
+<p><a href="./til/ddp-python-basics.html">Deep dive →</a></p>
+</section>
+<section id="my-first-cuda-kernel-learning-gpu-programming-from-scratch" class="level3 til-card">
+<h3 data-anchor-id="my-first-cuda-kernel-learning-gpu-programming-from-scratch">My First CUDA Kernel: Learning GPU Programming from Scratch</h3>
 <p><strong>First CUDA Kernel Success!</strong></p>
 <p>Built and ran custom CUDA kernels on RTX 2050. Learned about parallel execution, compilation with ninja/nvcc, and discovered the 16384×16384 performance mystery.</p>
 <p><a href="./til/cuda-kernels-basics.html">Deep dive →</a></p>
 </section>
 </div>
+<p><a href="./til.html">See all TIL →</a></p>
 </section>
 <section id="connect" class="level2 section-title">
 <h2 class="section-title" data-anchor-id="connect">Connect</h2>
@@ -369,7 +376,7 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/thefirehacker\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -383,11 +390,6 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
             // default icon
             link.classList.add("external");
         }

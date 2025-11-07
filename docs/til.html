@@ -40,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a6e161b2431e1f94a14e0f5d32135a3c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-665a47377fd1fb2966ef7e6e7341ee54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fe85ee07f81c83fe8e42bf0d08f49d6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -141,7 +141,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-</head>
+<link rel="alternate" type="application/rss+xml" title="The Fire Hacker" href="til.xml" data-external="1"></head>
 
 <body class="nav-fixed quarto-light">
 
@@ -234,7 +234,29 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1736965800000" data-listing-file-modified-sort="1760630561370" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1937">
+<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTIwYmFzaWNzJTJDVG9kYXklMjBJJTIwTGVhcm5lZCUyQ1NjcmF0Y2glMjB0byUyMFNjYWxlJTJDUHlUb3JjaCUyQ0Rpc3RyaWJ1dGVkJTIwVHJhaW5pbmc=" data-listing-date-sort="1761157800000" data-listing-file-modified-sort="1762503632332" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3270">
+<a href="./til/ddp-python-basics.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+DDP from Scratch: a learner-friendly guide
+</h5>
+<div class="card-text listing-description delink">
+<p>Learn why dictionary comprehensions in python elegantly transform HuggingFace data for models, how <strong>kwargs unpacking makes model(</strong>batch) ‘just work’, and why gradient…</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+The Fire Hacker
+</div>
+<div class="listing-date">
+Oct 23, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-date-sort="1736965800000" data-listing-file-modified-sort="1760630561370" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1937">
 <a href="./til/cuda-kernels-basics.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
@@ -407,7 +429,7 @@ Jan 16, 2025
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/thefirehacker\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -421,11 +443,6 @@ Jan 16, 2025
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
             // default icon
             link.classList.add("external");
         }

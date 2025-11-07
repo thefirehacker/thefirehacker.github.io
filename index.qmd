@@ -4,70 +4,81 @@ page-layout: custom
 toc: false
 ---
 
-::: {.hero-section}
-::: {.container}
-::: {.hero-content}
+:::: {.hero-section}
+:::: {.container}
+:::: {.hero-content}
 # Welcome to The Fire Hacker {.hero-title}
 
-:::: {.hero-intro}
+::::: {.hero-intro}
 I'm a **Founder & AI Researcher at AIEDX**, passionate about building the future with artificial intelligence. Currently developing innovative solutions that bridge the gap between cutting-edge AI research and practical applications.
-::::
+:::::
 
-:::: {.hero-projects}
+::::: {.hero-projects}
 ### 🚀 Current Projects
 
-::: {.project-cards}
-::: {.project-card}
+:::: {.project-cards}
+:::: {.project-card}
 #### [Bubblspace](https://bubblspace.com)
 A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces.
-:::
+::::
 
-::: {.project-card}
+:::: {.project-card}
 #### [TimeCapsule-SLM](https://timecapsule.bubblspace.com)
 Small Language Models designed for preserving and sharing memories through time with AI assistance.
-:::
-:::
 ::::
+::::
+:::::
 
-:::: {.hero-cta}
+::::: {.hero-cta}
 [Read My Blog →](blog.qmd){.btn-primary}
 [About Me →](about.qmd){.btn-secondary}
+:::::
 ::::
-:::
 
-::: {.hero-image}
+:::: {.hero-image}
 ![](assets/firehacker-logo.jpg){.logo-image}
-:::
-:::
-:::
+::::
+::::
+::::
 
 ## Recent Posts {.section-title}
 
-::: {.recent-posts}
-::: {.post-card}
+:::: {.recent-posts}
+:::: {.post-card}
 ### Getting Started with TimeCapsule-SLM
 *January 2025* - Learn how to use the AI-powered research and learning platform that democratizes knowledge discovery.
 [Read more →](blog/timecapsule-slm.qmd)
-:::
-:::
+::::
+::::
 
 ## Today I Learned {.section-title}
 
-::: {.til-grid}
-::: {.til-card}
-### GPU Programming Breakthrough
+:::: {.til-grid}
+:::: {.til-card}
+### DDP from Scratch: a learner-friendly guide
+**From single‑GPU code to a tiny DistributedDataParallel (DDP) built by hand.**
+
+Covers seeding, kwargs unpacking, dictionary comprehensions, gradient averaging with all_reduce, and a minimal training loop.
+
+[Deep dive →](til/ddp-python-basics.qmd)
+::::
+
+:::: {.til-card}
+### My First CUDA Kernel: Learning GPU Programming from Scratch
 **First CUDA Kernel Success!**
 
 Built and ran custom CUDA kernels on RTX 2050. Learned about parallel execution, compilation with ninja/nvcc, and discovered the 16384×16384 performance mystery.
 
 [Deep dive →](til/cuda-kernels-basics.qmd)
-:::
-:::
+::::
+::::
+
+[See all TIL →](til.qmd)
 
 ## Connect {.section-title}
 
-::: {.social-links}
+:::: {.social-links}
 [GitHub](https://github.com/thefirehacker){.social-link}
 [X/Twitter](https://x.com/thefirehacker){.social-link}
 [Contact](mailto:contact@thefirehacker.com){.social-link}
-:::
+::::

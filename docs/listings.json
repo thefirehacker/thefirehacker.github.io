@@ -1,14 +1,15 @@
 [
   {
-    "listing": "/blog.html",
+    "listing": "/til.html",
     "items": [
-      "/blog/timecapsule-slm.html"
+      "/til/ddp-python-basics.html",
+      "/til/cuda-kernels-basics.html"
     ]
   },
   {
-    "listing": "/til.html",
+    "listing": "/blog.html",
     "items": [
-      "/til/cuda-kernels-basics.html"
+      "/blog/timecapsule-slm.html"
     ]
   }
 ]

@@ -1,0 +1,1699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>The Fire Hacker</title>
+<link>https://thefirehacker.github.io/til.html</link>
+<atom:link href="https://thefirehacker.github.io/til.xml" rel="self" type="application/rss+xml"/>
+<description>Founder &amp; AI Researcher at AIEDX | Building the future with AI</description>
+<generator>quarto-1.8.24</generator>
+<lastBuildDate>Wed, 22 Oct 2025 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>DDP from Scratch: a learner-friendly guide</title>
+  <dc:creator>The Fire Hacker</dc:creator>
+  <link>https://thefirehacker.github.io/til/ddp-python-basics.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<blockquote class="blockquote">
+<p>This note is part of the <strong>Scratch → Scale</strong> series by <a href="https://x.com/TheZachMueller">Zachary Mueller</a> (<a href="https://maven.com/walk-with-code/scratch-to-scale">course link</a>). We’ll implement a toy DDP wrapper, explain <em>why</em> it works, and demystify two Python idioms you’ll see everywhere: dictionary comprehensions and <strong>kwargs</strong> (argument unpacking).</p>
+</blockquote>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<p><strong>🔑 Core Python patterns explained:</strong></p>
+<ul>
+<li><strong>Dictionary comprehensions</strong>: Transform raw data (lists, ints) into model-ready tensors in one elegant line — <code>{k: torch.tensor(v).to(device) for k, v in item.items()}</code> converts HuggingFace dataset samples to GPU tensors with proper shapes.</li>
+<li><strong>Kwargs unpacking (<code>**</code>)</strong>: Unpack dictionaries into named function arguments — <code>model(**batch)</code> automatically maps dict keys to HuggingFace model’s <code>forward()</code> parameters like <code>input_ids</code>, <code>attention_mask</code>, <code>labels</code>.</li>
+<li><strong>Gradient averaging ⚖️ learning rate scaling</strong>: Dividing gradients by <code>world_size</code> or scaling LR by <code>1/world_size</code> are mathematically equivalent — the choice is where in your algorithm the division happens: before the optimizer step (average gradients) or after (scale learning rate).</li>
+</ul>
+<p><strong>📋 DDP essentials:</strong></p>
+<ul>
+<li>Seed <strong>every</strong> process the same way <strong>before</strong> you create the model.</li>
+<li>Average grads with <code>dist.all_reduce(param.grad, op=SUM)</code> then divide by world size.</li>
+<li>Use <code>**kwargs</code> to pass batches to models: <code>model(**batch)</code> works seamlessly with HuggingFace transformers.</li>
+</ul>
+<hr>
+</section>
+<section id="visual-mental-model-of-distributed-training" class="level2">
+<h2 class="anchored" data-anchor-id="visual-mental-model-of-distributed-training">0) Visual mental model of distributed training</h2>
+<pre><code>Rank 0 (GPU0)      Rank 1 (GPU1)      ...
+┌──────────────┐   ┌──────────────┐
+│ forward      │   │ forward      │  (same model weights)
+│ loss.backward│   │ loss.backward│
+└──────┬───────┘   └──────┬───────┘
+       │   grads            │   grads
+       └─────── all_reduce (SUM) ───────▶ (every rank gets sum of all grads)
+                    │
+              divide by world_size
+                    │
+                optimizer.step()</code></pre>
+<hr>
+</section>
+<section id="seeding-making-model-replicas-identical" class="level2">
+<h2 class="anchored" data-anchor-id="seeding-making-model-replicas-identical">1) Seeding: making model replicas identical</h2>
+<p>Identical initialization across ranks is <strong>not optional</strong>. If rank 0 samples weights {W} and rank 1 samples different weights {W’}, averaging grads is meaningless. We seed each RNG <strong>per process</strong>, then construct the model.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> set_seed(seed: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">43</span>):</span>
+<span id="cb2-2">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> random, numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np, torch</span>
+<span id="cb2-3">    random.seed(seed)</span>
+<span id="cb2-4">    np.random.seed(seed)</span>
+<span id="cb2-5">    torch.manual_seed(seed)</span>
+<span id="cb2-6">    torch.cuda.manual_seed_all(seed)</span>
+<span id="cb2-7"></span>
+<span id="cb2-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># In your entry point (each process runs this):</span></span>
+<span id="cb2-9">set_seed(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">43</span>)            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># must happen BEFORE model creation</span></span>
+<span id="cb2-10">model <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> build_model()   <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># identical on all ranks</span></span></code></pre></div></div>
+<section id="why-no-communication" class="level3">
+<h3 class="anchored" data-anchor-id="why-no-communication">Why no communication?</h3>
+<p>Each process runs the exact same Python code with the same seeds → same random draws → identical parameters. No dist.broadcast is <em>required</em> to make them equal, though you can use broadcast to <strong>enforce</strong> equality (see §3).</p>
+<blockquote class="blockquote">
+<p><strong>Pitfall</strong>: Seeding <strong>after</strong> constructing the model doesn’t retroactively change weights.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="two-python-idioms-youll-see-everywhere" class="level2">
+<h2 class="anchored" data-anchor-id="two-python-idioms-youll-see-everywhere">2) Two Python idioms you’ll see everywhere</h2>
+<section id="dictionary-comprehension-why-we-need-this-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="dictionary-comprehension-why-we-need-this-pattern">2.1 Dictionary comprehension — Why we need this pattern</h3>
+<p>This line converts a HuggingFace dataset sample (lists/ints) into a batch dictionary of <strong>GPU tensors</strong> with an added batch dimension:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">item <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {k: torch.tensor(v).unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>).to(device) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> k, v <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> item.items()}</span></code></pre></div></div>
+<p><strong>Why this transformation is essential:</strong></p>
+<p>HuggingFace datasets return items as <strong>Python dicts with lists and ints</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">example <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"input_ids"</span>: [<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">101</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span>, ...], <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"attention_mask"</span>: [<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, ...], <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"labels"</span>: <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>}</span></code></pre></div></div>
+<p>But PyTorch models expect <strong>GPU tensors with batch dimensions</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">batch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"input_ids"</span>: tensor([[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">101</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span>, ...]], device<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cuda:0'</span>), ...}</span></code></pre></div></div>
+<p><strong>Why tensors are required:</strong></p>
+<p>PyTorch models perform tensor operations (matrix multiplications, slicing, etc.) that require PyTorch tensor objects, not Python lists or integers. If you pass Python lists/ints directly, you’ll get errors like: - <code>TypeError: expected Tensor as element 0 in argument 0, but got list</code> - <code>RuntimeError: Expected all tensors to be on the same device</code></p>
+<p>The dictionary comprehension converts your data to the correct tensor format <strong>before</strong> passing it to the model. (See §2.2 for how these tensors flow through the model’s <code>forward()</code> method.)</p>
+<p>The dictionary comprehension does <strong>three transformations in one line</strong>:</p>
+<ol type="1">
+<li><strong>Preserve structure</strong>: Keep the same dict keys (<code>input_ids</code>, <code>attention_mask</code>, etc.)</li>
+<li><strong>Convert types</strong>: List/int → PyTorch tensor → GPU tensor</li>
+<li><strong>Add batch dimension</strong>: Shape <code>(seq_len,)</code> → <code>(1, seq_len)</code> for batching</li>
+</ol>
+<p><strong>Breakdown:</strong> * <code>for k, v in item.items()</code> → iterates over each key-value pair * <code>torch.tensor(v)</code> → converts list/int to tensor * <code>.unsqueeze(0)</code> → adds batch dimension: <code>[a, b, c]</code> → <code>[[a, b, c]]</code> * <code>.to(device)</code> → moves to GPU</p>
+<p><strong>Without</strong> this transformation, you’d pass Python lists/CPU arrays to the model, which would either error or require slow implicit conversion on each forward pass.</p>
+<section id="alternative-generator-based-streaming-with-yield" class="level4">
+<h4 class="anchored" data-anchor-id="alternative-generator-based-streaming-with-yield">Alternative: Generator-based streaming with <code>yield</code></h4>
+<p>For <strong>large datasets</strong> or <strong>memory-constrained</strong> scenarios, dictionary comprehensions can be memory-intensive (they build the entire dict in memory). A better approach uses <strong>generators with <code>yield</code></strong> for lazy evaluation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> stream_to_device(item, device):</span>
+<span id="cb6-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""Generator that yields tensors one at a time - memory efficient"""</span></span>
+<span id="cb6-3">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> k, v <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> item.items():</span>
+<span id="cb6-4">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">yield</span> k, torch.tensor(v).unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>).to(device)</span>
+<span id="cb6-5"></span>
+<span id="cb6-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Usage: build dict lazily</span></span>
+<span id="cb6-7">batch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">dict</span>(stream_to_device(example, device))</span></code></pre></div></div>
+<p><strong>Why generators are better for large data:</strong> * <strong>Lazy evaluation</strong>: Tensors are created and moved to GPU one at a time, not all at once. * <strong>Lower memory footprint</strong>: Only one tensor exists in memory during transformation. * <strong>Scalable</strong>: Works with datasets that don’t fit in RAM.</p>
+<p><strong>When to use each:</strong> * <strong>Dict comprehension</strong>: Small to medium batches, simple one-liners, readable code. * <strong>Generator with <code>yield</code></strong>: Large datasets, streaming data, memory-constrained environments, production pipelines.</p>
+</section>
+</section>
+<section id="kwargs-unpacking-with-the-huggingface-connection" class="level3">
+<h3 class="anchored" data-anchor-id="kwargs-unpacking-with-the-huggingface-connection">2.2 Kwargs unpacking with <code>**</code> — The HuggingFace connection</h3>
+<p>Given <code>item = {"input_ids": X, "attention_mask": Y, "labels": Z}</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>item)</span>
+<span id="cb7-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># exactly the same as:</span></span>
+<span id="cb7-3">out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model(input_ids<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>X, attention_mask<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>Y, labels<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>Z)</span></code></pre></div></div>
+<p><strong>Why this matters for HuggingFace models:</strong></p>
+<p>The <code>**</code> operator unpacks a dict into <strong>named arguments</strong> that match your model’s <code>forward()</code> signature. This is why HuggingFace workflows are so elegant:</p>
+<ol type="1">
+<li><strong>Dataset has standard keys</strong>: HuggingFace datasets/tokenizers output dicts with keys like <code>"input_ids"</code>, <code>"attention_mask"</code>, <code>"labels"</code>.</li>
+<li><strong>Model expects those keys</strong>: All HuggingFace models have a <code>forward()</code> method that accepts these exact parameter names.</li>
+<li><strong><code>**kwargs</code> bridges them</strong>: Instead of manually extracting each key, <code>model(**batch)</code> automatically maps dict keys to function parameters.</li>
+</ol>
+<p><strong>Without <code>**kwargs</code> (manual, verbose):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model(</span>
+<span id="cb8-2">    input_ids<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>batch[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"input_ids"</span>],</span>
+<span id="cb8-3">    attention_mask<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>batch[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"attention_mask"</span>],</span>
+<span id="cb8-4">    labels<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>batch[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"labels"</span>]</span>
+<span id="cb8-5">)</span></code></pre></div></div>
+<p><strong>With <code>**kwargs</code> (clean, scalable):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>batch)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Automatically maps all keys!</span></span></code></pre></div></div>
+<p>This works because HuggingFace models define their <code>forward()</code> signature to match the standard dataset keys. It’s a deliberate design pattern that makes training code incredibly clean.</p>
+<p><strong>Tracing the forward() call chain:</strong></p>
+<p>When you call <code>model(**batch)</code>, the unpacked tensors flow through the model’s forward pass. Here’s the call chain for <code>AutoModelForSequenceClassification</code>:</p>
+<pre><code>model(**batch)  # batch contains tensors: {"input_ids": tensor(...), ...}
+    ↓
+AutoModelForSequenceClassification.from_pretrained(...)
+    ↓
+SmolLM2ForSequenceClassification  # concrete architecture class
+    ↓
+GenericForSequenceClassification.forward(**kwargs)
+    ↓
+    # forward() signature receives unpacked kwargs:
+    def forward(self, input_ids=None, attention_mask=None, labels=None, **kwargs):
+        outputs = self.model(input_ids, attention_mask=attention_mask, **kwargs)
+        #              ↑ **kwargs unpacking maps dict keys to these parameters
+        pooled = outputs[0][:, 0, :]  # CLS token pooling
+        logits = self.score(pooled)   # linear classifier head
+        loss = self.loss_fn(logits, labels) if labels is not None else None
+        return SequenceClassifierOutput(loss=loss, logits=logits, ...)</code></pre>
+<p><strong>Key insight</strong>: The <code>**batch</code> unpacking automatically maps dictionary keys (<code>"input_ids"</code>, <code>"attention_mask"</code>, <code>"labels"</code>) to the <code>forward()</code> method’s parameter names. This is why <code>model(**batch)</code> works seamlessly — the keys match the function signature exactly.</p>
+</section>
+<section id="gradient-averaging-vs-learning-rate-scaling" class="level3">
+<h3 class="anchored" data-anchor-id="gradient-averaging-vs-learning-rate-scaling">2.3 Gradient averaging vs learning-rate scaling ⚖️</h3>
+<p><strong>This is a key insight</strong>: When training on N GPUs, you have two mathematically equivalent options for combining gradients:</p>
+<section id="option-a-average-gradients-most-common" class="level4">
+<h4 class="anchored" data-anchor-id="option-a-average-gradients-most-common">Option A: Average gradients (most common)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># After backward on each rank</span></span>
+<span id="cb11-2">dist.all_reduce(param.grad, op<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>SUM)</span>
+<span id="cb11-3">param.grad <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/=</span> world_size  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Average the gradients</span></span>
+<span id="cb11-4"></span>
+<span id="cb11-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Optimizer update with normal LR</span></span>
+<span id="cb11-6">optimizer.step()  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># uses original learning rate</span></span></code></pre></div></div>
+</section>
+<section id="option-b-sum-gradients-scale-learning-rate" class="level4">
+<h4 class="anchored" data-anchor-id="option-b-sum-gradients-scale-learning-rate">Option B: Sum gradients, scale learning rate</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># After backward on each rank  </span></span>
+<span id="cb12-2">dist.all_reduce(param.grad, op<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>SUM)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Keep summed gradients</span></span>
+<span id="cb12-3"></span>
+<span id="cb12-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Optimizer update with scaled LR</span></span>
+<span id="cb12-5"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> param <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> model.parameters():</span>
+<span id="cb12-6">    param.data <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-=</span> (lr <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> world_size) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> param.grad</span></code></pre></div></div>
+<p><strong>Why they’re equivalent:</strong></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ctext%7Bparam%7D%20-%20%5Ctext%7Blr%7D%20%5Ctimes%20%5Cfrac%7B%5Ctext%7Bgrad%7D%7D%7BN%7D%20=%20%5Ctext%7Bparam%7D%20-%20%5Cfrac%7B%5Ctext%7Blr%7D%7D%7BN%7D%20%5Ctimes%20%5Ctext%7Bgrad%7D%0A"></p>
+<p><strong>Real-world implications:</strong> * <strong>PyTorch DDP</strong>: Uses Option A (averages gradients), so you keep your learning rate unchanged. * <strong>Some frameworks</strong> (Horovod, older examples): Use Option B (sum gradients), expecting you to scale LR by <code>1/world_size</code>. * <strong>The division can happen in two places</strong>: before the optimizer step (average gradients during sync) or after (scale learning rate during optimizer step) — same math, different location in the algorithm.</p>
+<p><strong>Practical tip:</strong> The instructor’s comment “it depends where in the algorithm you want the averaging” refers to this choice. Most modern code averages gradients (Option A) because it’s cleaner and doesn’t require you to remember to scale the learning rate.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="a-tiny-ddp-wrapper-teaching-version" class="level2">
+<h2 class="anchored" data-anchor-id="a-tiny-ddp-wrapper-teaching-version">3) A tiny DDP wrapper (teaching version)</h2>
+<p>This wrapper <strong>(a)</strong> verifies parameter equality at init (optionally enforces it) and <strong>(b)</strong> averages gradients after <code>backward()</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> torch</span>
+<span id="cb13-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> torch.distributed <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> dist</span>
+<span id="cb13-3"></span>
+<span id="cb13-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> MiniDDP:</span>
+<span id="cb13-5">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, model: torch.nn.Module, enforce_broadcast: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>):</span>
+<span id="cb13-6">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model</span>
+<span id="cb13-7">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.world_size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dist.get_world_size() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> dist.is_initialized() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb13-8"></span>
+<span id="cb13-9">        <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># --- verify / enforce identical params across ranks ---</span></span>
+<span id="cb13-10">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> p <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model.parameters():</span>
+<span id="cb13-11">            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># create a rank0 copy to compare/broadcast</span></span>
+<span id="cb13-12">            rank0_buf <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p.detach().clone()</span>
+<span id="cb13-13">            dist.broadcast(rank0_buf, src<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>)     <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># everyone receives rank0's tensor</span></span>
+<span id="cb13-14">            <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> enforce_broadcast:</span>
+<span id="cb13-15">                p.data.copy_(rank0_buf)          <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># enforce equality (optional)</span></span>
+<span id="cb13-16">            <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span>:</span>
+<span id="cb13-17">                <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> torch.equal(p.data, rank0_buf):</span>
+<span id="cb13-18">                    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">raise</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">ValueError</span>(</span>
+<span id="cb13-19">                        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Parameters differ at init. Seed all ranks BEFORE model construction, "</span></span>
+<span id="cb13-20">                        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"or set enforce_broadcast=True."</span></span>
+<span id="cb13-21">                    )</span>
+<span id="cb13-22"></span>
+<span id="cb13-23">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__call__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>args, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>kwargs):</span>
+<span id="cb13-24">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>args, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>kwargs)</span>
+<span id="cb13-25"></span>
+<span id="cb13-26">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> average_grads(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb13-27">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.world_size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>:</span>
+<span id="cb13-28">            <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span></span>
+<span id="cb13-29">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> p <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model.parameters():</span>
+<span id="cb13-30">            <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> p.grad <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>:</span>
+<span id="cb13-31">                <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">continue</span></span>
+<span id="cb13-32">            dist.all_reduce(p.grad, op<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dist.ReduceOp.SUM)</span>
+<span id="cb13-33">            p.grad.div_(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.world_size)</span>
+<span id="cb13-34"></span>
+<span id="cb13-35">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># convenience passthroughs</span></span>
+<span id="cb13-36">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> train(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb13-37">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model.train()</span>
+<span id="cb13-38">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">eval</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb13-39">        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">eval</span>()</span></code></pre></div></div>
+<p><strong>Understanding <code>enforce_broadcast</code>:</strong></p>
+<p>The <code>enforce_broadcast</code> parameter controls how parameter synchronization is handled at initialization:</p>
+<ol type="1">
+<li><p><strong><code>enforce_broadcast=False</code> (default)</strong>: <strong>Verifies</strong> that all ranks already have identical parameters (e.g., via seeding). If parameters differ, it raises an error. This is the “trust but verify” approach — you’re responsible for ensuring equality (via seeding), and the wrapper checks that you did it correctly.</p></li>
+<li><p><strong><code>enforce_broadcast=True</code></strong>: <strong>Forces</strong> all ranks to use rank 0’s parameters by overwriting each rank’s parameters with rank 0’s values. This is the “belt and suspenders” approach — even if seeding failed or parameters diverged, everyone gets rank 0’s exact state.</p></li>
+</ol>
+<p><strong>Why this mirrors PyTorch’s official DDP:</strong></p>
+<p>PyTorch’s <code>DistributedDataParallel</code> <strong>always</strong> performs parameter synchronization at initialization (like <code>enforce_broadcast=True</code>), but it does so <strong>internally, automatically, and efficiently</strong>: - It broadcasts parameters from rank 0 to all other ranks during construction - It handles buffers (like BatchNorm running stats) as well - It uses optimized communication patterns (coalesced broadcasts, bucketing)</p>
+<p>This initial synchronization is a core part of DDP’s design to ensure all model replicas start with identical weights. As documented in the <a href="https://docs.pytorch.org/docs/stable/notes/ddp.html">PyTorch DDP notes</a>: <em>“When a model is wrapped with DDP, the constructor synchronizes the model’s parameters across all processes. This is achieved by broadcasting the parameters from the process with rank 0 to all other processes.”</em></p>
+<p><strong>Key difference</strong>: In PyTorch’s DDP, this synchronization happens <strong>automatically in the constructor</strong> — there’s no user-facing parameter to control it. It’s an internal implementation detail that ensures correctness.</p>
+<p>In <code>MiniDDP</code>, we make this synchronization <strong>explicit and optional</strong> so you can: - See exactly what’s happening (educational value) - Choose to verify vs.&nbsp;enforce (learning about seeding) - Understand the tradeoffs between verification and enforcement</p>
+<blockquote class="blockquote">
+<p>This mirrors what PyTorch’s official <code>DistributedDataParallel</code> does conceptually, but without bucketing, overlap, or autograd hooks. Perfect for learning; use the real DDP for production.</p>
+</blockquote>
+<hr>
+</section>
+<section id="minimal-distributed-training-loop" class="level2">
+<h2 class="anchored" data-anchor-id="minimal-distributed-training-loop">4) Minimal distributed training loop</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># torchrun --nproc_per_node=2 train.py</span></span>
+<span id="cb14-2"></span>
+<span id="cb14-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> os, torch, torch.distributed <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> dist</span>
+<span id="cb14-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> torch.optim <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Adam</span>
+<span id="cb14-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datasets <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> load_dataset</span>
+<span id="cb14-6"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> transformers <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> AutoModelForSequenceClassification, AutoTokenizer</span>
+<span id="cb14-7"></span>
+<span id="cb14-8">MODEL <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"HuggingFaceTB/SmolLM2-360M-Instruct"</span></span>
+<span id="cb14-9"></span>
+<span id="cb14-10"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> set_seed(seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">43</span>):</span>
+<span id="cb14-11">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> random, numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np</span>
+<span id="cb14-12">    random.seed(seed)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> np.random.seed(seed)</span>
+<span id="cb14-13">    torch.manual_seed(seed)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> torch.cuda.manual_seed_all(seed)</span>
+<span id="cb14-14"></span>
+<span id="cb14-15"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> main():</span>
+<span id="cb14-16">    dist.init_process_group(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"nccl"</span>)</span>
+<span id="cb14-17">    rank  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dist.get_rank()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span>  local_rank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(os.environ.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"LOCAL_RANK"</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>))</span>
+<span id="cb14-18">    device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.device(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"cuda:</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>local_rank<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span>
+<span id="cb14-19"></span>
+<span id="cb14-20">    set_seed(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">43</span>)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># same on every process BEFORE creating the model</span></span>
+<span id="cb14-21"></span>
+<span id="cb14-22">    tok <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> AutoTokenizer.from_pretrained(MODEL)</span>
+<span id="cb14-23">    model <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> AutoModelForSequenceClassification.from_pretrained(</span>
+<span id="cb14-24">        MODEL, num_labels<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, torch_dtype<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>torch.bfloat16</span>
+<span id="cb14-25">    ).to(device)</span>
+<span id="cb14-26"></span>
+<span id="cb14-27">    ddp <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> MiniDDP(model, enforce_broadcast<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span>
+<span id="cb14-28">    opt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Adam(ddp.model.parameters(), lr<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e-3</span>)</span>
+<span id="cb14-29"></span>
+<span id="cb14-30">    ds <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> load_dataset(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"glue"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mrpc"</span>)</span>
+<span id="cb14-31">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> encode(ex):</span>
+<span id="cb14-32">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> tok(ex[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sentence1"</span>], ex[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sentence2"</span>], padding<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, truncation<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb14-33">    ds <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ds.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">map</span>(encode, batched<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>).rename_columns({<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"label"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"labels"</span>})</span>
+<span id="cb14-34"></span>
+<span id="cb14-35">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># toy per-rank sample (one example per rank to show divergence if not averaged)</span></span>
+<span id="cb14-36">    example <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ds[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"train"</span>][rank]</span>
+<span id="cb14-37">    batch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {k: torch.tensor(v).unsqueeze(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>).to(device) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> k, v <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> example.items()}</span>
+<span id="cb14-38"></span>
+<span id="cb14-39">    ddp.train()</span>
+<span id="cb14-40">    out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ddp(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>batch)         <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># kwargs unpacking</span></span>
+<span id="cb14-41">    out.loss.backward()</span>
+<span id="cb14-42">    ddp.average_grads()        <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># &lt;— key! average across ranks</span></span>
+<span id="cb14-43">    opt.step()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> opt.zero_grad(set_to_none<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb14-44"></span>
+<span id="cb14-45">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> rank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>:</span>
+<span id="cb14-46">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"step ok; loss:"</span>, out.loss.item())</span>
+<span id="cb14-47"></span>
+<span id="cb14-48">    dist.destroy_process_group()</span>
+<span id="cb14-49"></span>
+<span id="cb14-50"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">__name__</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"__main__"</span>:</span>
+<span id="cb14-51">    main()</span></code></pre></div></div>
+<section id="what-just-happened" class="level3">
+<h3 class="anchored" data-anchor-id="what-just-happened">What just happened?</h3>
+<ul>
+<li>Both ranks ran the same code and created identical models (thanks to seeding).</li>
+<li>Each rank used a <strong>different</strong> example (rank index) → losses differ initially.</li>
+<li><code>average_grads()</code> made every GPU apply the <strong>same averaged update</strong>, keeping replicas in lock‑step.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="why-broadcast-at-init-if-we-already-seed" class="level2">
+<h2 class="anchored" data-anchor-id="why-broadcast-at-init-if-we-already-seed">5) Why broadcast at init if we already seed?</h2>
+<p>Seeding should guarantee equality. The <code>broadcast</code> operation (when <code>enforce_broadcast=True</code>) is a belt‑and‑suspenders option:</p>
+<ul>
+<li><strong>Protect against forgotten seeds</strong>: If you forgot to seed on some ranks, broadcast ensures everyone still starts identical.</li>
+<li><strong>Handle divergent code paths</strong>: If different ranks take different initialization paths, broadcast syncs them.</li>
+<li><strong>Deal with non‑deterministic ops</strong>: Some operations (e.g., certain CUDA kernels) may not be fully deterministic even with seeds.</li>
+<li><strong>Enable joining late ranks</strong>: If a rank joins after initialization, broadcast can sync it to the current state from rank 0.</li>
+</ul>
+<p><strong>In practice</strong>: With proper seeding (see §1), <code>enforce_broadcast=False</code> (verify mode) is usually sufficient. Use <code>enforce_broadcast=True</code> only if you <em>intend</em> to force‑sync weights at init or are debugging initialization issues.</p>
+<p><strong>Note</strong>: PyTorch’s official DDP always performs this synchronization automatically (equivalent to <code>enforce_broadcast=True</code>), but hides it from you. <code>MiniDDP</code> makes it explicit so you can learn about the mechanism.</p>
+<hr>
+</section>
+<section id="common-pitfalls-fixes" class="level2">
+<h2 class="anchored" data-anchor-id="common-pitfalls-fixes">6) Common pitfalls &amp; fixes</h2>
+<ul>
+<li><strong>Different seeds / seeding too late</strong> → parameters differ. <em>Fix</em>: call <code>set_seed()</code> before <code>build_model()</code> on every rank.</li>
+<li><strong>Forgetting to divide after <code>all_reduce(SUM)</code></strong> → LR effectively <code>× world_size</code>. <em>Fix</em>: divide grads (or use <code>op=AVG</code> on newer APIs like <code>reduce_scatter_tensor</code>).</li>
+<li><strong>Grad is <code>None</code></strong>: layers not used in the forward didn’t receive gradients. <em>Fix</em>: check the graph; guard <code>if p.grad is None: continue</code>.</li>
+<li><strong>CPU tensors in batch</strong>: model expects CUDA tensors. <em>Fix</em>: dictionary comprehension that moves tensors to <code>device</code>.</li>
+<li><strong>Shape mismatches across ranks</strong>: ensure each rank’s micro‑batch has identical shapes (padding or a proper <code>DistributedSampler</code>).</li>
+<li><strong>NCCL init errors</strong>: set <code>MASTER_ADDR/PORT</code>, unique <code>RANK</code>, correct <code>CUDA_VISIBLE_DEVICES</code>.</li>
+</ul>
+<hr>
+</section>
+<section id="from-toy-to-real-ddp" class="level2">
+<h2 class="anchored" data-anchor-id="from-toy-to-real-ddp">7) From toy to real DDP</h2>
+<p>What we built is the core idea. Production <code>torch.nn.parallel.DistributedDataParallel</code> adds:</p>
+<ul>
+<li>gradient bucketing and overlap with communication;</li>
+<li>parameter and buffer broadcast on construction (with versioning);</li>
+<li>autograd hooks for exact timing;</li>
+<li>mixed precision, static graph optimizations, etc.</li>
+</ul>
+<p><strong>Upgrade path</strong>: once you grasp the flow above, swap <code>MiniDDP</code> for <code>DistributedDataParallel(model, device_ids=[local_rank])</code> and use <code>DistributedSampler</code> in your <code>DataLoader</code>.</p>
+<hr>
+</section>
+<section id="exercises-recommended" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-recommended">8) Exercises (recommended)</h2>
+<ol type="1">
+<li><strong>Fail fast</strong>: comment out <code>set_seed(43)</code> and watch the init check throw. Then set <code>enforce_broadcast=True</code> and observe it succeed.</li>
+<li><strong>Batching</strong>: replace the single‑example hack with a <code>DataLoader</code> + <code>DistributedSampler</code>. Verify all ranks consume disjoint shards.</li>
+<li><strong>Reduce‑scatter</strong>: re‑implement <code>average_grads()</code> with <code>reduce_scatter_tensor</code> + <code>all_gather_into_tensor</code> to mimic optimizer sharding.</li>
+<li><strong>Kwargs drill</strong>: write a wrapper that logs which kwargs are passed through (<code>*args</code>, <code>**kwargs</code>) and rejects unknown keys.</li>
+<li><strong>Determinism</strong>: enable CUDA deterministic flags and compare speed/behavior.</li>
+</ol>
+<hr>
+</section>
+<section id="cheatsheet" class="level2">
+<h2 class="anchored" data-anchor-id="cheatsheet">9) Cheatsheet</h2>
+<ul>
+<li><code>item = {k: f(v) for k, v in d.items()}</code> → dictionary comprehension.</li>
+<li><code>model(**d)</code> → unpack <code>d</code> into named arguments to <code>forward</code>.</li>
+<li><code>dist.all_reduce(t, SUM); t /= world_size</code> → average a tensor across ranks.</li>
+<li>Seed <em>before</em> model creation on <strong>every</strong> process.</li>
+<li>If in doubt, force-sync params once with <code>broadcast</code>.</li>
+</ul>
+<hr>
+</section>
+<section id="appendix-tiny-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-tiny-utilities">10) Appendix: tiny utilities</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> recursively_apply(func, data):</span>
+<span id="cb15-2">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">isinstance</span>(data, (<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">tuple</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>)):</span>
+<span id="cb15-3">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">type</span>(data)(recursively_apply(func, x) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> x <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> data)</span>
+<span id="cb15-4">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">isinstance</span>(data, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">dict</span>):</span>
+<span id="cb15-5">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> {k: recursively_apply(func, v) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> k, v <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> data.items()}</span>
+<span id="cb15-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> func(data)</span>
+<span id="cb15-7"></span>
+<span id="cb15-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Example: move a nested batch to device</span></span>
+<span id="cb15-9">batch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> recursively_apply(<span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">lambda</span> t: t.to(device) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">isinstance</span>(t, torch.Tensor) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> t, batch)</span></code></pre></div></div>
+</section>
+<section id="bonus-where-does-forward-come-from-with-automodel" class="level2">
+<h2 class="anchored" data-anchor-id="bonus-where-does-forward-come-from-with-automodel">11) Bonus: Where does forward() come from with AutoModel?</h2>
+<p>When we wrote:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">model <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> AutoModelForSequenceClassification.from_pretrained(MODEL, num_labels<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)</span></code></pre></div></div>
+<p>that helper inspects the model config and dispatches to the architecture‑specific <code>...ForSequenceClassification</code> class. For the SmolLM family, that class inherits a generic head that already implements <code>forward()</code>.</p>
+<p>Call chain at runtime (conceptual):</p>
+<ul>
+<li>AutoModelForSequenceClassification → ArchitectureForSequenceClassification → GenericForSequenceClassification.forward(**kwargs) → ArchitectureModel.forward(…) → CLS pooling → classifier head (<code>self.score</code>) → loss (if labels)</li>
+</ul>
+<p>Minimal shape of that <code>forward()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> GenericForSequenceClassification(PreTrainedModel):</span>
+<span id="cb17-2">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> forward(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, input_ids<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, attention_mask<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, labels<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>kwargs):</span>
+<span id="cb17-3">        outputs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.model(input_ids, attention_mask<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>attention_mask, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span>kwargs)</span>
+<span id="cb17-4">        pooled <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> outputs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>][:, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, :]</span>
+<span id="cb17-5">        logits <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.score(pooled)</span>
+<span id="cb17-6">        loss <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.loss_fn(logits, labels) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> labels <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span></span>
+<span id="cb17-7">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> SequenceClassifierOutput(loss<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>loss, logits<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>logits, hidden_states<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>outputs.hidden_states)</span></code></pre></div></div>
+<p>This is why <code>model(**batch)</code> (see §2.2) “just works”: the dict keys map to the generic <code>forward()</code> signature, which calls the backbone’s <code>forward()</code> under the hood.</p>
+<hr>
+<p>Happy scaling! If you’re following the course, tag this post as <strong>TIL/DDP‑from‑scratch</strong> and iterate from here. 🧪🚀</p>
+</section>
+<section id="quick-reference-gradient-sync-patterns" class="level2">
+<h2 class="anchored" data-anchor-id="quick-reference-gradient-sync-patterns">12) Quick Reference: Gradient sync patterns</h2>
+<p><strong>Summary of the two equivalent approaches</strong> (see §2.3 for full explanation):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Pattern A: Average gradients (PyTorch DDP default)</span></span>
+<span id="cb18-2">dist.all_reduce(param.grad, op<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>SUM)</span>
+<span id="cb18-3">param.grad <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/=</span> world_size</span>
+<span id="cb18-4">param <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-=</span> lr <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> param.grad  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Original LR</span></span>
+<span id="cb18-5"></span>
+<span id="cb18-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Pattern B: Sum gradients, scale LR (Horovod-style)</span></span>
+<span id="cb18-7">dist.all_reduce(param.grad, op<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>SUM)</span>
+<span id="cb18-8">param <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-=</span> (lr <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> world_size) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> param.grad  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Scaled LR</span></span></code></pre></div></div>
+<p><strong>Key takeaway:</strong> Both produce identical updates. Choose Pattern A for cleaner code that matches PyTorch DDP defaults.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Python basics</category>
+  <category>Today I Learned</category>
+  <category>Scratch to Scale</category>
+  <category>PyTorch</category>
+  <category>Distributed Training</category>
+  <guid>https://thefirehacker.github.io/til/ddp-python-basics.html</guid>
+  <pubDate>Wed, 22 Oct 2025 18:30:00 GMT</pubDate>
+</item>
+<item>
+  <title>My First CUDA Kernel: Learning GPU Programming from Scratch</title>
+  <dc:creator>The Fire Hacker</dc:creator>
+  <link>https://thefirehacker.github.io/til/cuda-kernels-basics.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="the-beginning-why-learn-cuda" class="level2">
+<h2 class="anchored" data-anchor-id="the-beginning-why-learn-cuda">The Beginning: Why Learn CUDA?</h2>
+<p>Today I ran my first custom GPU code! Along with distributed pre-training AI models, I wanted to understand what’s happening at the low level. I was looking for a good resource to learn about kernel development for both inference &amp; training. My interests were in MoE routing kernels, however I decided to start simple: compile and run kernels on local GPUs. I have a few gaming laptops and decided to run kernels on them.</p>
+<p>I decided to start with the simplest possible program: adding two vectors together. GPU Mode’s reference kernels are perfect to build a working end-to-end workflow.</p>
+</section>
+<section id="the-program-overall-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="the-program-overall-architecture">The Program: Overall Architecture</h2>
+<p>Before diving into the details, let me explain the complete program flow. We’ll be working with the <a href="https://github.com/thefirehacker/reference-kernels/tree/main/problems/pmpp/vectoradd_py"><code>vectoradd_py</code> problem</a> from the reference-kernels repository.</p>
+<section id="file-structure-purpose" class="level3">
+<h3 class="anchored" data-anchor-id="file-structure-purpose">File Structure &amp; Purpose</h3>
+<pre><code>problems/pmpp/vectoradd_py/
+├── run_local.py        # Main benchmark script
+├── submission.py       # Our custom CUDA kernel implementation
+├── reference.py        # Correctness checking
+├── task.py            # Data structure definitions
+└── README.md          # Problem description</code></pre>
+<p><strong>The Execution Flow:</strong></p>
+<ol type="1">
+<li><strong><code>run_local.py</code></strong> - The orchestrator that:
+<ul>
+<li>Generates test data of various sizes</li>
+<li>Calls our custom kernel</li>
+<li>Measures performance with CUDA events</li>
+<li>Verifies correctness against reference implementation</li>
+</ul></li>
+<li><strong><code>submission.py</code></strong> - Contains our CUDA kernel using PyTorch’s inline compilation:
+<ul>
+<li>CUDA C++ code written as Python strings</li>
+<li>Compiled on-the-fly using <code>load_inline</code></li>
+<li>Creates a Python module we can call</li>
+</ul></li>
+<li><strong>The Magic: JIT Compilation Process</strong></li>
+</ol>
+<p>When we use <code>torch.utils.cpp_extension.load_inline</code>, here’s what happens behind the scenes:</p>
+<pre><code>Your Python Code
+        ↓
+torch.utils.cpp_extension.load_inline
+        ↓
+Generates .cpp and .cu source files
+        ↓
+Writes build.ninja file
+        ↓
+ninja → nvcc/g++ compile → add_cuda.so
+        ↓
+dlopen() loads .so into Python process</code></pre>
+<p>This is <strong>ahead-of-time compilation</strong> - once compiled, your kernel is fixed machine code running directly on the GPU!</p>
+</section>
+</section>
+<section id="the-challenge-what-was-i-trying-to-achieve" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge-what-was-i-trying-to-achieve">The Challenge: What Was I Trying to Achieve?</h2>
+<p>My goal was simple but specific: 1. Write actual CUDA code that runs on my RTX 2050 laptop GPU 2. Understand how thousands of threads work together 3. Measure real performance and understand the numbers 4. Learn why GPUs are so powerful for AI workloads</p>
+<p>I found the perfect learning resource which I modified for my use: <a href="https://github.com/thefirehacker/reference-kernels">GPU Mode’s reference-kernels repository fork</a>. It’s a collection of progressively harder GPU programming challenges, starting with vector addition.</p>
+</section>
+<section id="the-big-picture-how-gpus-think-differently" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-picture-how-gpus-think-differently">The Big Picture: How GPUs Think Differently</h2>
+<p>Before diving into code, here’s the mental shift that changed everything for me:</p>
+<p><strong>CPU Thinking</strong>: “Do step 1, then step 2, then step 3…” <strong>GPU Thinking</strong>: “Do ALL the steps at once, everywhere!”</p>
+<p>Imagine you need to paint 1000 fence posts. A CPU is like one very fast painter who paints each post perfectly, one after another. A GPU is like hiring 1000 amateur painters who each paint one post simultaneously. Even if each painter is slower, getting all posts done at once is way faster!</p>
+<p>For vector addition (C = A + B), instead of:</p>
+<pre><code>for i in range(million):
+    C[i] = A[i] + B[i]  # One at a time</code></pre>
+<p>The GPU does:</p>
+<pre><code>Thread 0: C[0] = A[0] + B[0]
+Thread 1: C[1] = A[1] + B[1]
+Thread 2: C[2] = A[2] + B[2]
+... (all at the same time!)
+Thread 999999: C[999999] = A[999999] + B[999999]</code></pre>
+</section>
+<section id="setting-up-the-journey-to-hello-gpu" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-the-journey-to-hello-gpu">Setting Up: The Journey to “Hello GPU”</h2>
+<p>Getting CUDA working on Windows with WSL2 was an adventure. Here’s what actually worked:</p>
+<section id="step-1-install-cuda-toolkit" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-install-cuda-toolkit">Step 1: Install CUDA Toolkit</h3>
+<p>First, I needed the CUDA compiler (<code>nvcc</code>) to turn my code into GPU instructions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Get NVIDIA's official CUDA repository</span></span>
+<span id="cb5-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">wget</span> https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb</span>
+<span id="cb5-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sudo</span> dpkg <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-i</span> cuda-keyring_1.1-1_all.deb</span>
+<span id="cb5-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sudo</span> apt-get update</span>
+<span id="cb5-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sudo</span> apt-get install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-y</span> cuda-toolkit-12-1</span>
+<span id="cb5-6"></span>
+<span id="cb5-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Tell the system where CUDA lives</span></span>
+<span id="cb5-8"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">CUDA_HOME</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>/usr/local/cuda-12.1</span>
+<span id="cb5-9"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">export</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">PATH</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$CUDA_HOME</span>/bin:<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$PATH</span></span></code></pre></div></div>
+</section>
+<section id="step-2-pytorch-with-cuda-support" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-pytorch-with-cuda-support">Step 2: PyTorch with CUDA Support</h3>
+<p>PyTorch makes it easy to compile CUDA code on-the-fly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--index-url</span> https://download.pytorch.org/whl/cu121 torch</span></code></pre></div></div>
+</section>
+</section>
+<section id="the-code-understanding-every-line" class="level2">
+<h2 class="anchored" data-anchor-id="the-code-understanding-every-line">The Code: Understanding Every Line</h2>
+<p>Now for the exciting part - the actual GPU code! Let me explain what each piece does and why it matters.</p>
+<section id="the-gpu-kernel-where-the-magic-happens" class="level3">
+<h3 class="anchored" data-anchor-id="the-gpu-kernel-where-the-magic-happens">The GPU Kernel: Where the Magic Happens</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">template</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">typename</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span></span>
+<span id="cb7-2">__global__ <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">void</span> add_kernel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">const</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">__restrict__</span> A<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb7-3">                           <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">const</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">__restrict__</span> B<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb7-4">                           <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">__restrict__</span> C<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb7-5">                           <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">int</span> N<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb7-6">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Who am I? Calculate my unique ID among thousands of threads</span></span>
+<span id="cb7-7">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">int</span> idx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> blockIdx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> blockDim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> threadIdx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-8"></span>
+<span id="cb7-9">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Am I responsible for a valid element?</span></span>
+<span id="cb7-10">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>idx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span> N<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb7-11">        C<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>idx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> A<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>idx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> B<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>idx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">];</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Do my one simple job</span></span>
+<span id="cb7-12">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb7-13"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<p><strong>What’s happening here:</strong></p>
+<ul>
+<li><p><strong><code>__global__</code></strong>: This function runs on the GPU. It’s called from the CPU but executes on thousands of GPU cores simultaneously.</p></li>
+<li><p><strong>Thread Identity Crisis (solved!)</strong>: Each thread needs to know which element to process. Think of it like a massive factory where each worker needs to know which item on the conveyor belt is theirs:</p>
+<ul>
+<li><code>threadIdx.x</code>: “I’m worker #5 in my team”</li>
+<li><code>blockIdx.x</code>: “My team is team #3”</li>
+<li><code>blockDim.x</code>: “Each team has 256 workers”</li>
+<li>So my global position is: <code>3 * 256 + 5 = 773</code> - I handle element 773!</li>
+</ul></li>
+<li><p><strong><code>if (idx &lt; N)</code></strong>: Safety first! We might launch more threads than we have data (for efficiency reasons), so each thread checks if it has real work to do.</p></li>
+</ul>
+</section>
+<section id="launching-the-kernel-mission-control" class="level3">
+<h3 class="anchored" data-anchor-id="launching-the-kernel-mission-control">Launching the Kernel: Mission Control</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1">torch<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span>Tensor add_cuda<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>torch<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span>Tensor A<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> torch<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span>Tensor B<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb8-2">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">int</span> N <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> A<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>numel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">();</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// How many elements total?</span></span>
+<span id="cb8-3">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">auto</span> C <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span>empty_like<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>A<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">);</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Prepare output space</span></span>
+<span id="cb8-4"></span>
+<span id="cb8-5">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Configure the thread army</span></span>
+<span id="cb8-6">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">const</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">int</span> threads <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">256</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Threads per block (team size)</span></span>
+<span id="cb8-7">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">const</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">int</span> blocks <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>N <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> threads <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> threads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// How many teams needed?</span></span>
+<span id="cb8-8"></span>
+<span id="cb8-9">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// LAUNCH! Send thousands of threads to work</span></span>
+<span id="cb8-10">    add_kernel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&lt;&lt;&lt;</span>blocks<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> threads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;(</span></span>
+<span id="cb8-11">        A<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>data_ptr<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;(),</span></span>
+<span id="cb8-12">        B<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>data_ptr<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;(),</span></span>
+<span id="cb8-13">        C<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>data_ptr<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">scalar_t</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;(),</span></span>
+<span id="cb8-14">        N</span>
+<span id="cb8-15">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">);</span></span>
+<span id="cb8-16"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<p><strong>The Strategy:</strong> - We organize threads into blocks (teams) of 256 threads each - Why 256? It’s a multiple of 32 (warp size - the GPU’s natural execution unit) - The <code>&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;</code> syntax is CUDA’s special way to say “launch this many blocks with this many threads each”</p>
+</section>
+<section id="the-python-bridge-making-it-usable" class="level3">
+<h3 class="anchored" data-anchor-id="the-python-bridge-making-it-usable">The Python Bridge: Making it Usable</h3>
+<p>PyTorch’s <code>load_inline</code> is brilliant - it compiles CUDA code on-the-fly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">add_module <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> load_inline(</span>
+<span id="cb9-2">    name<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'add_cuda'</span>,</span>
+<span id="cb9-3">    cpp_sources<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>add_cpp_source,</span>
+<span id="cb9-4">    cuda_sources<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>add_cuda_source,</span>
+<span id="cb9-5">    functions<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'add_cuda'</span>],</span>
+<span id="cb9-6">    verbose<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>,  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Show me what's happening!</span></span>
+<span id="cb9-7">)</span></code></pre></div></div>
+<p>First time you run this, you’ll see:</p>
+<pre><code>Detected CUDA files, patching ldflags
+Building extension module add_cuda...
+ninja: no work to do.
+Loading extension module add_cuda...</code></pre>
+<p>That’s <code>nvcc</code> compiling your GPU code into a Python module!</p>
+</section>
+</section>
+<section id="the-benchmarking-measuring-reality" class="level2">
+<h2 class="anchored" data-anchor-id="the-benchmarking-measuring-reality">The Benchmarking: Measuring Reality</h2>
+<p>The <code>run_local.py</code> script does something clever - it automatically picks test sizes based on available GPU memory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># How much GPU memory is free?</span></span>
+<span id="cb11-2">free_bytes, _ <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.cuda.mem_get_info()</span>
+<span id="cb11-3">budget <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(free_bytes <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span>)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Use 80% to be safe</span></span>
+<span id="cb11-4"></span>
+<span id="cb11-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># For 2D matrices: need space for A, B, and C</span></span>
+<span id="cb11-6">s_max <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(math.sqrt(budget <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> bytes_per_elem)))</span></code></pre></div></div>
+<p>This prevents the dreaded “CUDA out of memory” error!</p>
+<section id="timing-gpu-code-its-tricky" class="level3">
+<h3 class="anchored" data-anchor-id="timing-gpu-code-its-tricky">Timing GPU Code: It’s Tricky!</h3>
+<p>You can’t use regular Python timing for GPU code because GPU operations are asynchronous. The solution? CUDA Events:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">t0 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.cuda.Event(enable_timing<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb12-2">t1 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> torch.cuda.Event(enable_timing<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb12-3"></span>
+<span id="cb12-4">t0.record()              <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Start timer ON THE GPU</span></span>
+<span id="cb12-5">custom_kernel(case)      <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Run kernel</span></span>
+<span id="cb12-6">t1.record()              <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Stop timer ON THE GPU</span></span>
+<span id="cb12-7">torch.cuda.synchronize() <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Wait for GPU to finish</span></span>
+<span id="cb12-8">elapsed <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> t0.elapsed_time(t1)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Get time in milliseconds</span></span></code></pre></div></div>
+</section>
+</section>
+<section id="the-results-what-i-learned-from-the-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="the-results-what-i-learned-from-the-numbers">The Results: What I Learned from the Numbers</h2>
+<p>Running on my RTX 2050 (4GB VRAM):</p>
+<pre><code>size=4096:  mean=0.9877 ms    (67 million elements)
+size=8192:  mean=3.8027 ms    (268 million elements)
+size=12288: mean=8.5460 ms    (603 million elements)
+size=16384: mean=150.3063 ms  (1.07 billion elements) ← WHAT?!</code></pre>
+<section id="the-mystery-of-the-slow-16384" class="level3">
+<h3 class="anchored" data-anchor-id="the-mystery-of-the-slow-16384">The Mystery of the Slow 16384</h3>
+<p>Why did 16384×16384 suddenly become 17x slower? This taught me a crucial lesson about GPU architecture:</p>
+<p><strong>The Problem</strong>: With 256 threads per block, processing 268,435,456 elements needs <strong>1,048,576 blocks</strong>!</p>
+<p>The GPU scheduler choked trying to manage over a million tiny work units. It’s like trying to manage a million separate construction crews for a project - the coordination overhead kills you!</p>
+<p><strong>The Solution</strong>: Grid-stride loops - have each thread process multiple elements:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb14-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">int</span> idx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> blockIdx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> blockDim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> threadIdx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb14-2">     idx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span> N<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb14-3">     idx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+=</span> blockDim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> gridDim<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb14-4">    C<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>idx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> A<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>idx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> B<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>idx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">];</span></span>
+<span id="cb14-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<p>Now you can cap blocks at a reasonable number (like 10,000) and each thread handles multiple elements.</p>
+</section>
+<section id="memory-bandwidth-the-real-bottleneck" class="level3">
+<h3 class="anchored" data-anchor-id="memory-bandwidth-the-real-bottleneck">Memory Bandwidth: The Real Bottleneck</h3>
+<p>For the 8192×8192 case: - Data moved: 268M elements × 2 bytes × 3 arrays = 1.6 GB - Time: 3.8 ms - Bandwidth: 421 GB/s</p>
+<p>My RTX 2050’s theoretical max is ~200 GB/s, so we’re doing great! Wait, how are we exceeding theoretical max? Cache! Some data gets reused from the GPU’s L2 cache.</p>
+</section>
+</section>
+<section id="the-revelations-what-changed-my-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="the-revelations-what-changed-my-understanding">The Revelations: What Changed My Understanding</h2>
+<ol type="1">
+<li><p><strong>GPUs are not fast CPUs</strong> - They’re a completely different beast. They’re terrible at complex branching logic but amazing at doing the same simple thing everywhere.</p></li>
+<li><p><strong>Memory movement dominates</strong> - For simple operations like addition, you spend more time moving data than computing. This is why AI models use operations like matrix multiplication that do lots of compute per memory access.</p></li>
+<li><p><strong>Launch configuration matters hugely</strong> - Too many blocks? Scheduling overhead. Too few? Underutilization. It’s an art.</p></li>
+<li><p><strong>The power of parallel thinking</strong> - Once you start thinking “what can happen simultaneously?” instead of “what comes next?”, you see opportunities everywhere.</p></li>
+</ol>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next?</h2>
+<p>Now that I’ve got basic kernels working, I’m excited to explore: - <strong>Shared memory</strong>: Using the 48KB of ultra-fast memory shared within each block - <strong>Warp-level operations</strong>: Leveraging the fact that 32 threads execute in lockstep - <strong>Reduction operations</strong>: How do you sum a billion numbers in parallel? - <strong>Matrix multiplication</strong>: The operation that powers all of deep learning</p>
+</section>
+<section id="resources-that-helped-me" class="level2">
+<h2 class="anchored" data-anchor-id="resources-that-helped-me">Resources That Helped Me</h2>
+<ul>
+<li><strong><a href="https://github.com/thefirehacker/reference-kernels">Reference Kernels Repo</a></strong>: Practice problems with increasing difficulty</li>
+<li><strong><a href="http://www.wen-mei-hwu.com/">PMPP Book</a></strong>: “Programming Massively Parallel Processors” - The theory behind it all</li>
+<li><strong><a href="https://discord.gg/gpumode">GPU Mode Discord</a></strong>: Amazing community of people learning together</li>
+<li><strong><a href="https://docs.nvidia.com/cuda/">CUDA Documentation</a></strong>: Surprisingly readable once you know the basics</li>
+</ul>
+</section>
+<section id="the-journey-continues" class="level2">
+<h2 class="anchored" data-anchor-id="the-journey-continues">The Journey Continues</h2>
+<p>Starting with vector addition might seem trivial, but it opened the door to understanding how modern AI actually works at the hardware level. Every transformer model, every diffusion model, every neural network - they’re all built on these fundamental parallel operations.</p>
+<p>The moment it clicked that my GPU was running 65,536 threads simultaneously, each doing their tiny part of the work, was magical. It’s not just faster computing - it’s a fundamentally different way of solving problems.</p>
+<p>Next week: I’m going to tackle matrix multiplication and see if I can beat PyTorch’s built-in implementation (spoiler: probably not, but I’ll learn tons trying!).</p>
+<hr>
+<p><em>Want to try this yourself? Clone the <a href="https://github.com/thefirehacker/reference-kernels">reference-kernels repo</a> and start with <code>problems/pmpp/vectoradd_py/</code>. The journey from CPU thinking to GPU thinking is worth it!</em></p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://thefirehacker.github.io/til/cuda-kernels-basics.html</guid>
+  <pubDate>Wed, 15 Jan 2025 18:30:00 GMT</pubDate>
+</item>
+</channel>
+</rss>
