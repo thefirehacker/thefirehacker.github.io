@@ -36,7 +36,7 @@ Small Language Models designed for preserving and sharing memories through time 
 ::::
 
 :::: {.hero-image}
-![](assets/firehacker-logo.jpg){.logo-image}
+![](assets/firehacker-logo.png){.logo-image}
 ::::
 ::::
 ::::

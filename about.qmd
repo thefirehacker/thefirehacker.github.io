@@ -6,7 +6,7 @@ toc: false
 
 ::: {.about-container}
 ::: {.about-image}
-![](assets/firehacker-logo.jpg){.profile-image}
+![](assets/firehacker-logo.png){.profile-image}
 :::
 
 ::: {.about-content}
