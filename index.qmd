@@ -45,9 +45,9 @@ Small Language Models designed for preserving and sharing memories through time 
 
 :::: {.recent-posts}
 :::: {.post-card}
-### Getting Started with TimeCapsule-SLM
-*January 2025* - Learn how to use the AI-powered research and learning platform that democratizes knowledge discovery.
-[Read more →](blog/timecapsule-slm.qmd)
+### Solving the Hidden Pain of AI Coding Agents
+*February 2026* - How to prevent AI coding agents from silently breaking your code -- a Skills-based approach to regression testing with golden testing and structured test management.
+[Read more →](blog/regression-testing-ai-agents.qmd)
 ::::
 ::::
 
