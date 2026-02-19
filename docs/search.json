@@ -112,109 +112,88 @@
     "text": "Deep dives into technical concepts I’m learning. From GPU programming to AI systems, these are comprehensive explorations of new technologies and techniques.\n\n\n\n\n\n\n\n\n\n\n\n\nDDP from Scratch: a learner-friendly guide\n\n\nLearn why dictionary comprehensions in python elegantly transform HuggingFace data for models, how kwargs unpacking makes model(batch) ‘just work’, and why gradient…\n\n\n\nThe Fire Hacker\n\n\nOct 23, 2025\n\n\n\n\n\n\n\n\n\n\n\nMy First CUDA Kernel: Learning GPU Programming from Scratch\n\n\n\n\n\n\nThe Fire Hacker\n\n\nJan 16, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "blog/timecapsule-slm.html",
-    "href": "blog/timecapsule-slm.html",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
+    "objectID": "blog/regression-testing-ai-agents.html",
+    "href": "blog/regression-testing-ai-agents.html",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
     "section": "",
-    "text": "TimeCapsule-SLM is an innovative AI-powered research and learning platform that’s revolutionizing how we discover knowledge and collaborate on research. Built with privacy-first principles and cutting-edge AI technology, it democratizes access to powerful research tools while keeping your data secure and local."
+    "text": "One of the biggest hidden pains of building products with AI coding agents is regression testing.\nA new feature written by an agent can quietly break existing functionality and wipe out days of effort. I’ve run into this multiple times, and if you’re building with AI agents like Claude, Cursor, or GitHub Copilot, you probably have too.\nThe problem isn’t feature velocity. It’s stability.\nWhen an AI agent writes code at incredible speed, it’s easy to celebrate the productivity gains. But velocity without stability is a recipe for technical debt. According to recent research from Carnegie Mellon University, teams using autonomous AI agents saw static-analysis warnings increase by 18% and cognitive complexity rise by 39% after agent adoption. The speed is real, but so is the quality tax."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#introduction",
-    "href": "blog/timecapsule-slm.html#introduction",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
+    "objectID": "blog/regression-testing-ai-agents.html#the-silent-killer-of-ai-powered-development",
+    "href": "blog/regression-testing-ai-agents.html#the-silent-killer-of-ai-powered-development",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
     "section": "",
-    "text": "TimeCapsule-SLM is an innovative AI-powered research and learning platform that’s revolutionizing how we discover knowledge and collaborate on research. Built with privacy-first principles and cutting-edge AI technology, it democratizes access to powerful research tools while keeping your data secure and local."
+    "text": "One of the biggest hidden pains of building products with AI coding agents is regression testing.\nA new feature written by an agent can quietly break existing functionality and wipe out days of effort. I’ve run into this multiple times, and if you’re building with AI agents like Claude, Cursor, or GitHub Copilot, you probably have too.\nThe problem isn’t feature velocity. It’s stability.\nWhen an AI agent writes code at incredible speed, it’s easy to celebrate the productivity gains. But velocity without stability is a recipe for technical debt. According to recent research from Carnegie Mellon University, teams using autonomous AI agents saw static-analysis warnings increase by 18% and cognitive complexity rise by 39% after agent adoption. The speed is real, but so is the quality tax."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#what-is-timecapsule-slm",
-    "href": "blog/timecapsule-slm.html#what-is-timecapsule-slm",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "What is TimeCapsule-SLM?",
-    "text": "What is TimeCapsule-SLM?\nTimeCapsule-SLM combines the power of Small Language Models with advanced research capabilities to create a comprehensive platform for:\n\nResearchers seeking AI-assisted discovery and pattern recognition\nStudents looking for adaptive, personalized learning experiences\nTeachers creating interactive educational content\nTeams collaborating on knowledge discovery\n\nThe platform addresses critical challenges in modern education and research: - Research fragmentation across multiple sources - Inefficient learning workflows - Privacy concerns with cloud-based AI - Limited AI integration in educational settings - Resource constraints in low-bandwidth environments"
+    "objectID": "blog/regression-testing-ai-agents.html#understanding-the-testing-landscape",
+    "href": "blog/regression-testing-ai-agents.html#understanding-the-testing-landscape",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "Understanding the Testing Landscape",
+    "text": "Understanding the Testing Landscape\nBefore diving into the solution, let’s establish a common foundation. Test cases are fundamental to the Software Development Life Cycle (SDLC). Well-written test cases can often replace complex feature or requirement documents—they serve as executable specifications of how your system should behave.\nOnce code is written, you typically perform three types of testing:\n\nUnit testing — validates the functionality of a single module or feature\nIntegration testing — ensures different modules work correctly together\nRegression testing — confirms that new changes haven’t broken existing functionality\n\nIn many early-stage products, most of this testing is manual. For this discussion, let’s assume a simple CI/CD pipeline with manual test execution.\nThe challenge with AI agents is that they excel at the first two but can inadvertently sabotage the third. They write features quickly but lack the historical context to understand what might break downstream."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#core-features",
-    "href": "blog/timecapsule-slm.html#core-features",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Core Features",
-    "text": "Core Features\n\n🧠 DeepResearch TimeCapsule\nTransform your research workflow with multi-agent AI collaboration:\n\nAI-Powered Discovery: Generate novel research ideas and hypotheses\nPattern Recognition: Uncover hidden connections in your data\nMulti-Agent System: Leverage specialized AI agents for different research tasks\nCollaborative Intelligence: Combine human expertise with AI insights\n\n\n\n🎥 AI-Frames Interactive Learning\nCreate immersive, adaptive learning experiences:\n\nSequential Learning Paths: Build structured knowledge journeys\nMultimodal Content: Integrate videos, documents, and interactive elements\nAI-Guided Explanations: Get personalized help when you need it\nSelf-Paced Progress: Learn at your own speed with AI support\n\n\n\n📚 In-Browser RAG (Retrieval-Augmented Generation)\nExperience the power of semantic search without compromising privacy:\n\nLocal Vector Store: All processing happens in your browser\nOffline Capability: Works without internet after initial model load\nSemantic Understanding: Find information based on meaning, not just keywords\nPrivacy-First Design: Your documents never leave your device"
+    "objectID": "blog/regression-testing-ai-agents.html#the-skills-based-solution",
+    "href": "blog/regression-testing-ai-agents.html#the-skills-based-solution",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "The Skills-Based Solution",
+    "text": "The Skills-Based Solution\nHere’s how I’ve solved this using structured Skills for testing and documentation.\nFor large features, I create a detailed, phase-wise plan. After each phase, structured test cases are generated and stored alongside the plan. Test execution logs are maintained in the same file—creating a living document of what was tested, when, and what the results were.\nBut the real leverage comes later.\n\n\n\nAI Agent Regression Testing Architecture\n\n\nThe diagram above shows the workflow: a central folder tree representing your detailed plan with test cases nested within each phase. As development progresses, test execution logs accumulate, creating a rich historical context."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#getting-started",
-    "href": "blog/timecapsule-slm.html#getting-started",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Getting Started",
-    "text": "Getting Started\n\nPrerequisites\nBefore installing TimeCapsule-SLM, ensure you have:\n# Node.js 18 or higher\nnode --version\n\n# npm or yarn package manager\nnpm --version\n\n# Git for cloning the repository\ngit --version\n\n\nInstallation\n\nClone the Repository:\n\ngit clone https://github.com/thefirehacker/TimeCapsule-SLM.git\ncd TimeCapsule-SLM\n\nInstall Dependencies:\n\nnpm install\n# or\nyarn install\n\nConfigure Environment:\n\ncp env.example .env.local\nEdit .env.local to configure your AI providers:\n# Optional: Add API keys for cloud models\nOPENAI_API_KEY=your_key_here\n\n# Local model configuration (Ollama)\nOLLAMA_HOST=http://localhost:11434\n\nStart the Development Server:\n\nnpm run dev\n# or\nyarn dev\nVisit http://localhost:3000 to access TimeCapsule-SLM!"
+    "objectID": "blog/regression-testing-ai-agents.html#a-real-world-example",
+    "href": "blog/regression-testing-ai-agents.html#a-real-world-example",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "A Real-World Example",
+    "text": "A Real-World Example\nLet me share a concrete example. I was building a dashboard for AI Personas so users could track what their agents were doing while they focused on other work. It was a multi-phase feature with complex state management, API integrations, and real-time updates.\nAll test cases and execution logs were captured during development in a structured Skill file. Each phase had:\n\nFeature description with acceptance criteria\nTest cases covering happy paths, edge cases, and error conditions\nExecution logs showing actual vs. expected results\nRegression impact notes documenting which existing features were affected\n\nOn subsequent iterations, something remarkable happened: coding agents could extract the full test history and automatically generate a regression checklist. Because execution logs already existed, the agent could focus on real historical breakpoints instead of hallucinating edge cases.\nThis is test effectiveness, not just test density. The agent knows: - What you assert (from test cases) - Where you assert it (from the codebase structure) - How fast it runs (from execution logs) - What broke before (from historical failures)"
   },
   {
-    "objectID": "blog/timecapsule-slm.html#setting-up-local-ai-models",
-    "href": "blog/timecapsule-slm.html#setting-up-local-ai-models",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Setting Up Local AI Models",
-    "text": "Setting Up Local AI Models\nFor the best privacy and offline experience, use local models with Ollama:\n\nInstall Ollama\n# macOS/Linux\ncurl -fsSL https://ollama.ai/install.sh | sh\n\n# Windows - Download from ollama.ai\n\n\nPull Recommended Models\n# For research and general tasks\nollama pull gemma:2b\n\n# For code and technical content\nollama pull qwen2.5:3b\n\n# For creative writing\nollama pull llama3.2:3b"
+    "objectID": "blog/regression-testing-ai-agents.html#the-community-evolution-golden-testing",
+    "href": "blog/regression-testing-ai-agents.html#the-community-evolution-golden-testing",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "The Community Evolution: Golden Testing",
+    "text": "The Community Evolution: Golden Testing\nAfter sharing this approach, a Reddit user suggested supplementing it with golden testing alongside traditional test cases. I’d never used golden testing before, and at first, it felt like a brute-force approach.\nBut the more I explored it, the more it made sense.\nGolden testing (also called snapshot testing or baseline testing) means saving “known-good” outputs from a working version of the app—such as API responses, rendered UI snapshots, screenshots, logs, or database records. On every new change, you re-run and diff against those baselines. If something changes unexpectedly, you catch the regression even if you didn’t write an explicit test for that edge case.\n\n\n\nGolden Testing Workflow\n\n\nThe diagram shows a sophisticated golden testing workflow: you maintain a golden snapshot of your application state (incremental API responses, DB state), compare each new build against it, and an agent detects changes—even catching edge cases without explicit test cases.\n\nWhy Golden Testing Works with AI Agents\nTraditional testing frameworks like Flutter and Playwright support visual testing via pixel-by-pixel comparison. In our context, golden testing means:\n\nCapture baselines from a verified working build\nStore snapshots of API responses, UI renders, logs, DB state\nAutomated comparison on every new agent-generated change\nDiff alerts when anything deviates from baseline\n\nThe beauty is that you catch regressions you didn’t anticipate. When an AI agent refactors a component, the golden test catches if it inadvertently changes output format, breaks an API contract, or alters visual appearance.\nAccording to research on AI-generated code testing, models like GPT-4o achieve only ~35% average code coverage in test generation. Golden testing supplements this by providing broad coverage without manually writing assertions for every possible state."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#using-timecapsule-slm",
-    "href": "blog/timecapsule-slm.html#using-timecapsule-slm",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Using TimeCapsule-SLM",
-    "text": "Using TimeCapsule-SLM\n\nCreating Your First Research Project\n\nInitialize a Knowledge Base:\n\nClick “New Project”\nChoose your domain (Research, Education, Personal)\nSelect your preferred AI model\n\nImport Your Documents:\n\nDrag and drop PDFs, Word docs, or text files\nThe system will automatically index and embed them\nAll processing happens locally in your browser\n\nStart Researching:\n\nUse natural language queries to explore your knowledge base\nThe AI will surface relevant information and suggest connections\nGenerate summaries, insights, and new research directions\n\n\n\n\nBuilding AI-Frames for Learning\nCreate interactive learning experiences with AI-Frames:\n// Example AI-Frame configuration\n{\n  \"title\": \"Introduction to Quantum Computing\",\n  \"modules\": [\n    {\n      \"type\": \"video\",\n      \"content\": \"intro-video.mp4\",\n      \"ai_notes\": true\n    },\n    {\n      \"type\": \"interactive\",\n      \"content\": \"qubit-simulator\",\n      \"ai_guidance\": \"adaptive\"\n    },\n    {\n      \"type\": \"quiz\",\n      \"ai_generated\": true,\n      \"difficulty\": \"progressive\"\n    }\n  ]\n}\n\n\nCollaborative Features\nTimeCapsule-SLM supports real-time collaboration:\n\nShared Workspaces: Invite team members to research projects\nLive AI Sessions: Collaborate with AI assistance in real-time\nKnowledge Graphs: Visualize connections discovered by your team\nVersion Control: Track changes and contributions"
+    "objectID": "blog/regression-testing-ai-agents.html#advanced-technique-vlm-powered-screenshot-analysis",
+    "href": "blog/regression-testing-ai-agents.html#advanced-technique-vlm-powered-screenshot-analysis",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "Advanced Technique: VLM-Powered Screenshot Analysis",
+    "text": "Advanced Technique: VLM-Powered Screenshot Analysis\nHere’s where it gets even more interesting.\nScreenshots can be processed through a vision-language model (VLM) to generate detailed descriptions of the app, UI elements, core features, and priority user actions. This helps detect meaningful state changes triggered by events—changes that simple pixel-by-pixel or frame-by-frame comparisons might miss.\nFor example: - Pixel comparison catches visual changes but may produce false positives from anti-aliasing or font rendering - VLM analysis understands semantic changes: “The submit button is now disabled when it should be enabled” or “The error message no longer appears in the validation flow”\nTools like Applitools and Percy are already using AI-powered visual comparison to filter ~40% of false positives from traditional pixel-diff approaches. By combining golden testing with VLM analysis, you create a testing safety net that understands both visual and functional correctness."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#architecture-technology",
-    "href": "blog/timecapsule-slm.html#architecture-technology",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Architecture & Technology",
-    "text": "Architecture & Technology\nTimeCapsule-SLM is built with modern, performant technologies:\n\nFrontend: Next.js 15, React 19, TypeScript\nAI Integration: Support for Ollama, OpenAI, and local models\nDatabase: RxDB for offline-first data persistence\nVector Store: In-browser embeddings with WebAssembly\nAuthentication: NextAuth.js for secure access"
+    "objectID": "blog/regression-testing-ai-agents.html#taking-it-further-impact-analysis-and-automated-logging",
+    "href": "blog/regression-testing-ai-agents.html#taking-it-further-impact-analysis-and-automated-logging",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "Taking It Further: Impact Analysis and Automated Logging",
+    "text": "Taking It Further: Impact Analysis and Automated Logging\nYou can extend this approach with additional automation:\n\nImpact analysis — Add a step inside the Skill to prioritize affected requirements based on historical breakage patterns\nAutomated PR logging — Log every pull request and commit automatically with links to related test cases\nStructured change history — Maintain a queryable log for easier rollback and root cause analysis\nRegression checklist generation — Let agents synthesize test histories into focused checklists for new changes\n\nRecent research shows that the top-performing AI coding agents on SWE-bench Verified reach only ~38% accuracy on real-world software engineering tasks. The ones that succeed explicitly re-check their assumptions instead of guessing. Your testing infrastructure should do the same—verify rather than assume."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#privacy-security",
-    "href": "blog/timecapsule-slm.html#privacy-security",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Privacy & Security",
-    "text": "Privacy & Security\nYour privacy is our priority:\n\nLocal-First: All sensitive processing happens on your device\nNo Telemetry: We don’t track your usage or collect data\nOpen Source: Audit the code yourself (Apache 2.0 License)\nEncryption: Local data is encrypted at rest\nControl: You decide what stays local vs. what uses cloud services"
+    "objectID": "blog/regression-testing-ai-agents.html#test-effectiveness-over-test-density",
+    "href": "blog/regression-testing-ai-agents.html#test-effectiveness-over-test-density",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "Test Effectiveness Over Test Density",
+    "text": "Test Effectiveness Over Test Density\nLet me emphasize this again: I’m building this from first principles rather than focusing on any specific framework.\nMy goal is test effectiveness rather than test density: - What you assert — Meaningful checks that validate actual requirements - Where you assert it — Strategic placement at architectural boundaries - How fast it runs — Efficient execution for quick feedback loops\nI’m trying to provide enough structured data to agents so they can: - Generate stronger assertions based on historical context - Think like testers who actively try to break the application - Prioritize regressions based on what actually broke before\nTraditional test coverage metrics (like line coverage or branch coverage) don’t capture this. You can have 90% coverage and still miss critical regressions. Golden testing + historical execution logs + VLM analysis creates a more robust safety net."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#use-cases",
-    "href": "blog/timecapsule-slm.html#use-cases",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Use Cases",
-    "text": "Use Cases\n\nFor Researchers\n\nLiterature reviews with AI-powered synthesis\nPattern discovery in research data\nHypothesis generation and validation\nCollaborative paper writing\n\n\n\nFor Students\n\nPersonalized study guides\nAI tutoring for complex topics\nInteractive learning paths\nExam preparation with adaptive quizzes\n\n\n\nFor Teachers\n\nCreate engaging course content\nBuild interactive lessons\nTrack student progress\nGenerate assessments automatically\n\n\n\nFor Teams\n\nKnowledge management\nCollaborative research\nTraining materials\nDocumentation with AI assistance"
+    "objectID": "blog/regression-testing-ai-agents.html#how-bubblspace-enables-this-workflow",
+    "href": "blog/regression-testing-ai-agents.html#how-bubblspace-enables-this-workflow",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "How BubblSpace Enables This Workflow",
+    "text": "How BubblSpace Enables This Workflow\nThis entire approach is built into BubblSpace, our Full Stack SkillOps Platform for AI Agents.\nBubblSpace solves the core problem: AI agents that learn and remember. Your Persona in BubblSpace doesn’t just run tests—it builds institutional knowledge about your codebase.\n\nWhat BubblSpace Does Differently\nSkills as Portable Knowledge\nEvery testing skill your Persona develops is MCP-compatible and portable. The regression testing workflow I described? It’s a Skill. The golden testing setup? It’s a Skill. These Skills work across Cursor, Claude Code, Codex, and any SWE agent runtime.\nInstitutional Memory\nYour Persona maintains structured knowledge about: - Test case histories and execution patterns - Historical breakage points and failure modes - Code quality trends over time - Regression impact maps\nThis isn’t just stored context—it’s queryable, shareable, and continuously enriched.\nSocial Learning\nIn BubblSpace, Personas can meet and exchange knowledge. Your Persona might learn a golden testing pattern from another Persona that’s been shipping AI products to real users. It’s like playdates for AI agents—but productive.\nContinuous Skill Evolution\nEvery time your Persona catches a regression or generates a better test checklist, it refines its Skills. These improvements compound over time, making your testing infrastructure progressively smarter.\n\n\nFrom Prompts to Skills\nThe fundamental insight is: Prompts fade. Skills compound.\nWhen you prompt an AI agent to “write tests for this feature,” you get one-off results that disappear. When you build a Skill that encodes your testing methodology, regression history, and quality standards, every future interaction builds on that foundation.\nBubblSpace is SkillOps for the AI-native development workflow. Just as DevOps transformed how we build and deploy code, and MLOps transformed how we train and serve models, SkillOps transforms how we develop and maintain Skills for AI agents."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#performance-tips",
-    "href": "blog/timecapsule-slm.html#performance-tips",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Performance Tips",
-    "text": "Performance Tips\nOptimize TimeCapsule-SLM for your hardware:\n\nModel Selection: Choose smaller models (2-3B parameters) for faster responses\nCaching: Enable browser caching for repeated queries\nBatch Processing: Process multiple documents simultaneously\nGPU Acceleration: Use WebGPU when available for faster inference"
+    "objectID": "blog/regression-testing-ai-agents.html#the-path-forward",
+    "href": "blog/regression-testing-ai-agents.html#the-path-forward",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "The Path Forward",
+    "text": "The Path Forward\nThe combination of structured Skills, golden testing, and VLM analysis represents a new paradigm for quality assurance in AI-accelerated development.\nAs AI agents write more of our code, the question isn’t “How do we write tests?” but rather “How do we ensure agents write the right tests and maintain quality over time?”\nThe answer is systematic:\n\nCapture structured knowledge about tests, execution, and failures\nEnable agents to learn from historical patterns\nSupplement explicit tests with golden baselines\nUse AI to understand AI through VLM analysis of application state\nBuild Skills that compound rather than prompts that fade\n\nResearch from 2025-2026 shows that quality gates are maturing rapidly. SonarQube now offers “Sonar way for AI Code” quality profiles with stricter thresholds for AI-generated code (80% test coverage, zero new issues, security rating A). The industry is waking up to the fact that AI-generated code needs stronger verification.\nBut tools alone won’t solve this. We need systematic approaches that make agents smarter over time—not just faster."
   },
   {
-    "objectID": "blog/timecapsule-slm.html#roadmap-future-features",
-    "href": "blog/timecapsule-slm.html#roadmap-future-features",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Roadmap & Future Features",
-    "text": "Roadmap & Future Features\nWe’re constantly improving TimeCapsule-SLM:\n\nMobile Apps: iOS and Android applications (Q2 2025)\nVoice Interface: Natural conversation with your knowledge base\nAdvanced Visualizations: 3D knowledge graphs and mind maps\nPlugin System: Extend functionality with custom modules\nFederated Learning: Collaborate without sharing raw data"
-  },
-  {
-    "objectID": "blog/timecapsule-slm.html#contributing",
-    "href": "blog/timecapsule-slm.html#contributing",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Contributing",
-    "text": "Contributing\nTimeCapsule-SLM is open source and welcomes contributions:\n# Fork the repository\n# Create a feature branch\ngit checkout -b feature/amazing-feature\n\n# Make your changes\n# Run tests\nnpm test\n\n# Submit a pull request\nCheck our contribution guidelines for more details."
-  },
-  {
-    "objectID": "blog/timecapsule-slm.html#community-support",
-    "href": "blog/timecapsule-slm.html#community-support",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Community & Support",
-    "text": "Community & Support\nJoin our growing community:\n\nGitHub Discussions: Technical questions and feature requests\nDiscord Server: Real-time chat with developers and users\nDocumentation: Comprehensive guides at timecapsule.bubblspace.com\nX/Twitter: Follow @thefirehacker for updates"
-  },
-  {
-    "objectID": "blog/timecapsule-slm.html#conclusion",
-    "href": "blog/timecapsule-slm.html#conclusion",
-    "title": "Getting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform",
-    "section": "Conclusion",
-    "text": "Conclusion\nTimeCapsule-SLM represents a new paradigm in AI-assisted research and learning. By combining powerful AI capabilities with privacy-first design and local-first architecture, we’re making advanced research tools accessible to everyone.\nWhether you’re a researcher pushing the boundaries of knowledge, a student seeking personalized learning, or a teacher creating engaging content, TimeCapsule-SLM empowers you to work smarter, not harder.\nStart your journey today and experience the future of AI-powered research and learning!\n\nReady to transform your research and learning workflow? Get started with TimeCapsule-SLM or visit timecapsule.bubblspace.com for more information.\nHave questions or feedback? Reach out on X/Twitter or open an issue on GitHub."
+    "objectID": "blog/regression-testing-ai-agents.html#try-it-yourself",
+    "href": "blog/regression-testing-ai-agents.html#try-it-yourself",
+    "title": "Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing",
+    "section": "Try It Yourself",
+    "text": "Try It Yourself\nIf you’re building with AI coding agents and struggling with regressions, start here:\n\nDocument your next feature with phase-wise test cases\nLog execution results in the same structured document\nLet your agent generate regression checklists from the history\nExperiment with golden testing for critical workflows\nExplore VLM analysis for state verification\n\nThis isn’t about replacing your testing framework—it’s about giving AI agents the context they need to maintain quality as they accelerate velocity.\nThe velocity is already here. Now we need to build the stability infrastructure to match.\n\nOriginally shared on X/Twitter. Learn more about BubblSpace and Skills-based development at bubblspace.com.\nHave questions or experiences to share about testing AI-generated code? Let’s continue the conversation on X or GitHub."
   },
   {
     "objectID": "about.html",
@@ -235,7 +214,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGetting Started with TimeCapsule-SLM: AI-Powered Research & Learning Platform\n\n\n\nAI\n\nResearch\n\nEducation\n\nOpen Source\n\n\n\n\n\n\n\n\n\nJan 16, 2025\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing\n\n\n\nAI\n\nTesting\n\nSoftware Development\n\nBubblSpace\n\n\n\nHow to prevent AI coding agents from silently breaking your code—a Skills-based approach to regression testing with golden testing and structured test management\n\n\n\n\n\nFeb 19, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#recent-posts",

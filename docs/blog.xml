@@ -10,494 +10,176 @@
 <atom:link href="https://thefirehacker.github.io/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Founder &amp; AI Researcher at AIEDX | Building the future with AI</description>
 <generator>quarto-1.8.24</generator>
-<lastBuildDate>Wed, 15 Jan 2025 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 18 Feb 2026 18:30:00 GMT</lastBuildDate>
 <item>
-  <title>Getting Started with TimeCapsule-SLM: AI-Powered Research &amp; Learning Platform</title>
+  <title>Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing</title>
   <dc:creator>The Fire Hacker</dc:creator>
-  <link>https://thefirehacker.github.io/blog/timecapsule-slm.html</link>
+  <link>https://thefirehacker.github.io/blog/regression-testing-ai-agents.html</link>
   <description><![CDATA[ 
 
 
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>TimeCapsule-SLM is an innovative AI-powered research and learning platform that’s revolutionizing how we discover knowledge and collaborate on research. Built with privacy-first principles and cutting-edge AI technology, it democratizes access to powerful research tools while keeping your data secure and local.</p>
+<section id="the-silent-killer-of-ai-powered-development" class="level2">
+<h2 class="anchored" data-anchor-id="the-silent-killer-of-ai-powered-development">The Silent Killer of AI-Powered Development</h2>
+<p>One of the biggest hidden pains of building products with AI coding agents is regression testing.</p>
+<p>A new feature written by an agent can quietly break existing functionality and wipe out days of effort. I’ve run into this multiple times, and if you’re building with AI agents like Claude, Cursor, or GitHub Copilot, you probably have too.</p>
+<p>The problem isn’t feature velocity. <strong>It’s stability.</strong></p>
+<p>When an AI agent writes code at incredible speed, it’s easy to celebrate the productivity gains. But velocity without stability is a recipe for technical debt. According to recent research from Carnegie Mellon University, teams using autonomous AI agents saw static-analysis warnings increase by 18% and cognitive complexity rise by 39% after agent adoption. The speed is real, but so is the quality tax.</p>
 </section>
-<section id="what-is-timecapsule-slm" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-timecapsule-slm">What is TimeCapsule-SLM?</h2>
-<p>TimeCapsule-SLM combines the power of Small Language Models with advanced research capabilities to create a comprehensive platform for:</p>
-<ul>
-<li><strong>Researchers</strong> seeking AI-assisted discovery and pattern recognition</li>
-<li><strong>Students</strong> looking for adaptive, personalized learning experiences</li>
-<li><strong>Teachers</strong> creating interactive educational content</li>
-<li><strong>Teams</strong> collaborating on knowledge discovery</li>
-</ul>
-<p>The platform addresses critical challenges in modern education and research: - Research fragmentation across multiple sources - Inefficient learning workflows - Privacy concerns with cloud-based AI - Limited AI integration in educational settings - Resource constraints in low-bandwidth environments</p>
-</section>
-<section id="core-features" class="level2">
-<h2 class="anchored" data-anchor-id="core-features">Core Features</h2>
-<section id="deepresearch-timecapsule" class="level3">
-<h3 class="anchored" data-anchor-id="deepresearch-timecapsule">🧠 DeepResearch TimeCapsule</h3>
-<p>Transform your research workflow with multi-agent AI collaboration:</p>
-<ul>
-<li><strong>AI-Powered Discovery</strong>: Generate novel research ideas and hypotheses</li>
-<li><strong>Pattern Recognition</strong>: Uncover hidden connections in your data</li>
-<li><strong>Multi-Agent System</strong>: Leverage specialized AI agents for different research tasks</li>
-<li><strong>Collaborative Intelligence</strong>: Combine human expertise with AI insights</li>
-</ul>
-</section>
-<section id="ai-frames-interactive-learning" class="level3">
-<h3 class="anchored" data-anchor-id="ai-frames-interactive-learning">🎥 AI-Frames Interactive Learning</h3>
-<p>Create immersive, adaptive learning experiences:</p>
-<ul>
-<li><strong>Sequential Learning Paths</strong>: Build structured knowledge journeys</li>
-<li><strong>Multimodal Content</strong>: Integrate videos, documents, and interactive elements</li>
-<li><strong>AI-Guided Explanations</strong>: Get personalized help when you need it</li>
-<li><strong>Self-Paced Progress</strong>: Learn at your own speed with AI support</li>
-</ul>
-</section>
-<section id="in-browser-rag-retrieval-augmented-generation" class="level3">
-<h3 class="anchored" data-anchor-id="in-browser-rag-retrieval-augmented-generation">📚 In-Browser RAG (Retrieval-Augmented Generation)</h3>
-<p>Experience the power of semantic search without compromising privacy:</p>
-<ul>
-<li><strong>Local Vector Store</strong>: All processing happens in your browser</li>
-<li><strong>Offline Capability</strong>: Works without internet after initial model load</li>
-<li><strong>Semantic Understanding</strong>: Find information based on meaning, not just keywords</li>
-<li><strong>Privacy-First Design</strong>: Your documents never leave your device</li>
-</ul>
-</section>
-</section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
-<section id="prerequisites" class="level3">
-<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
-<p>Before installing TimeCapsule-SLM, ensure you have:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Node.js 18 or higher</span></span>
-<span id="cb1-2"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">node</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">--version</span></span>
-<span id="cb1-3"></span>
-<span id="cb1-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># npm or yarn package manager</span></span>
-<span id="cb1-5"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">npm</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">--version</span></span>
-<span id="cb1-6"></span>
-<span id="cb1-7"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Git for cloning the repository</span></span>
-<span id="cb1-8"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">git</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">--version</span></span></code></pre></div></div>
-</section>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<section id="understanding-the-testing-landscape" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-testing-landscape">Understanding the Testing Landscape</h2>
+<p>Before diving into the solution, let’s establish a common foundation. Test cases are fundamental to the Software Development Life Cycle (SDLC). Well-written test cases can often replace complex feature or requirement documents—they serve as executable specifications of how your system should behave.</p>
+<p>Once code is written, you typically perform three types of testing:</p>
 <ol type="1">
-<li><strong>Clone the Repository</strong>:</li>
+<li><strong>Unit testing</strong> — validates the functionality of a single module or feature</li>
+<li><strong>Integration testing</strong> — ensures different modules work correctly together</li>
+<li><strong>Regression testing</strong> — confirms that new changes haven’t broken existing functionality</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">git</span> clone https://github.com/thefirehacker/TimeCapsule-SLM.git</span>
-<span id="cb2-2"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">cd</span> TimeCapsule-SLM</span></code></pre></div></div>
-<ol start="2" type="1">
-<li><strong>Install Dependencies</strong>:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">npm</span> install</span>
-<span id="cb3-2"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># or</span></span>
-<span id="cb3-3"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">yarn</span> install</span></code></pre></div></div>
-<ol start="3" type="1">
-<li><strong>Configure Environment</strong>:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">cp</span> env.example .env.local</span></code></pre></div></div>
-<p>Edit <code>.env.local</code> to configure your AI providers:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Optional: Add API keys for cloud models</span></span>
-<span id="cb5-2"><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">OPENAI_API_KEY</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>your_key_here</span>
-<span id="cb5-3"></span>
-<span id="cb5-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Local model configuration (Ollama)</span></span>
-<span id="cb5-5"><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">OLLAMA_HOST</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>http://localhost:11434</span></code></pre></div></div>
-<ol start="4" type="1">
-<li><strong>Start the Development Server</strong>:</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">npm</span> run dev</span>
-<span id="cb6-2"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># or</span></span>
-<span id="cb6-3"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">yarn</span> dev</span></code></pre></div></div>
-<p>Visit <code>http://localhost:3000</code> to access TimeCapsule-SLM!</p>
+<p>In many early-stage products, most of this testing is manual. For this discussion, let’s assume a simple CI/CD pipeline with manual test execution.</p>
+<p>The challenge with AI agents is that they excel at the first two but can inadvertently sabotage the third. They write features quickly but lack the historical context to understand what might break downstream.</p>
 </section>
+<section id="the-skills-based-solution" class="level2">
+<h2 class="anchored" data-anchor-id="the-skills-based-solution">The Skills-Based Solution</h2>
+<p>Here’s how I’ve solved this using structured <strong>Skills</strong> for testing and documentation.</p>
+<p>For large features, I create a detailed, phase-wise plan. After each phase, structured test cases are generated and stored alongside the plan. Test execution logs are maintained in the same file—creating a living document of what was tested, when, and what the results were.</p>
+<p>But the real leverage comes later.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://thefirehacker.github.io/assets/Regression-AIAgents.png" class="img-fluid figure-img"></p>
+<figcaption>AI Agent Regression Testing Architecture</figcaption>
+</figure>
+</div>
+<p>The diagram above shows the workflow: a central folder tree representing your detailed plan with test cases nested within each phase. As development progresses, test execution logs accumulate, creating a rich historical context.</p>
 </section>
-<section id="setting-up-local-ai-models" class="level2">
-<h2 class="anchored" data-anchor-id="setting-up-local-ai-models">Setting Up Local AI Models</h2>
-<p>For the best privacy and offline experience, use local models with Ollama:</p>
-<section id="install-ollama" class="level3">
-<h3 class="anchored" data-anchor-id="install-ollama">Install Ollama</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># macOS/Linux</span></span>
-<span id="cb7-2"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">curl</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-fsSL</span> https://ollama.ai/install.sh <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">|</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sh</span></span>
-<span id="cb7-3"></span>
-<span id="cb7-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Windows - Download from ollama.ai</span></span></code></pre></div></div>
+<section id="a-real-world-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-real-world-example">A Real-World Example</h2>
+<p>Let me share a concrete example. I was building a dashboard for AI Personas so users could track what their agents were doing while they focused on other work. It was a multi-phase feature with complex state management, API integrations, and real-time updates.</p>
+<p>All test cases and execution logs were captured during development in a structured Skill file. Each phase had:</p>
+<ul>
+<li><strong>Feature description</strong> with acceptance criteria</li>
+<li><strong>Test cases</strong> covering happy paths, edge cases, and error conditions</li>
+<li><strong>Execution logs</strong> showing actual vs.&nbsp;expected results</li>
+<li><strong>Regression impact notes</strong> documenting which existing features were affected</li>
+</ul>
+<p>On subsequent iterations, something remarkable happened: coding agents could extract the full test history and automatically generate a regression checklist. Because execution logs already existed, the agent could focus on <strong>real historical breakpoints</strong> instead of hallucinating edge cases.</p>
+<p>This is test effectiveness, not just test density. The agent knows: - What you assert (from test cases) - Where you assert it (from the codebase structure) - How fast it runs (from execution logs) - What broke before (from historical failures)</p>
 </section>
-<section id="pull-recommended-models" class="level3">
-<h3 class="anchored" data-anchor-id="pull-recommended-models">Pull Recommended Models</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># For research and general tasks</span></span>
-<span id="cb8-2"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">ollama</span> pull gemma:2b</span>
-<span id="cb8-3"></span>
-<span id="cb8-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># For code and technical content</span></span>
-<span id="cb8-5"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">ollama</span> pull qwen2.5:3b</span>
-<span id="cb8-6"></span>
-<span id="cb8-7"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># For creative writing</span></span>
-<span id="cb8-8"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">ollama</span> pull llama3.2:3b</span></code></pre></div></div>
-</section>
-</section>
-<section id="using-timecapsule-slm" class="level2">
-<h2 class="anchored" data-anchor-id="using-timecapsule-slm">Using TimeCapsule-SLM</h2>
-<section id="creating-your-first-research-project" class="level3">
-<h3 class="anchored" data-anchor-id="creating-your-first-research-project">Creating Your First Research Project</h3>
+<section id="the-community-evolution-golden-testing" class="level2">
+<h2 class="anchored" data-anchor-id="the-community-evolution-golden-testing">The Community Evolution: Golden Testing</h2>
+<p>After sharing this approach, a Reddit user suggested supplementing it with <strong>golden testing</strong> alongside traditional test cases. I’d never used golden testing before, and at first, it felt like a brute-force approach.</p>
+<p>But the more I explored it, the more it made sense.</p>
+<p>Golden testing (also called snapshot testing or baseline testing) means saving “known-good” outputs from a working version of the app—such as API responses, rendered UI snapshots, screenshots, logs, or database records. On every new change, you re-run and diff against those baselines. If something changes unexpectedly, you catch the regression even if you didn’t write an explicit test for that edge case.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://thefirehacker.github.io/assets/GoldenTesting.png" class="img-fluid figure-img"></p>
+<figcaption>Golden Testing Workflow</figcaption>
+</figure>
+</div>
+<p>The diagram shows a sophisticated golden testing workflow: you maintain a golden snapshot of your application state (incremental API responses, DB state), compare each new build against it, and an agent detects changes—even catching edge cases without explicit test cases.</p>
+<section id="why-golden-testing-works-with-ai-agents" class="level3">
+<h3 class="anchored" data-anchor-id="why-golden-testing-works-with-ai-agents">Why Golden Testing Works with AI Agents</h3>
+<p>Traditional testing frameworks like Flutter and Playwright support visual testing via pixel-by-pixel comparison. In our context, golden testing means:</p>
 <ol type="1">
-<li><strong>Initialize a Knowledge Base</strong>:
-<ul>
-<li>Click “New Project”</li>
-<li>Choose your domain (Research, Education, Personal)</li>
-<li>Select your preferred AI model</li>
-</ul></li>
-<li><strong>Import Your Documents</strong>:
-<ul>
-<li>Drag and drop PDFs, Word docs, or text files</li>
-<li>The system will automatically index and embed them</li>
-<li>All processing happens locally in your browser</li>
-</ul></li>
-<li><strong>Start Researching</strong>:
-<ul>
-<li>Use natural language queries to explore your knowledge base</li>
-<li>The AI will surface relevant information and suggest connections</li>
-<li>Generate summaries, insights, and new research directions</li>
-</ul></li>
+<li><strong>Capture baselines</strong> from a verified working build</li>
+<li><strong>Store snapshots</strong> of API responses, UI renders, logs, DB state</li>
+<li><strong>Automated comparison</strong> on every new agent-generated change</li>
+<li><strong>Diff alerts</strong> when anything deviates from baseline</li>
 </ol>
-</section>
-<section id="building-ai-frames-for-learning" class="level3">
-<h3 class="anchored" data-anchor-id="building-ai-frames-for-learning">Building AI-Frames for Learning</h3>
-<p>Create interactive learning experiences with AI-Frames:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">// Example AI-Frame configuration</span></span>
-<span id="cb9-2">{</span>
-<span id="cb9-3">  <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"title"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Introduction to Quantum Computing"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-4">  <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"modules"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> [</span>
-<span id="cb9-5">    {</span>
-<span id="cb9-6">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"type"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"video"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-7">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"intro-video.mp4"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-8">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"ai_notes"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">true</span></span>
-<span id="cb9-9">    }<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-10">    {</span>
-<span id="cb9-11">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"type"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"interactive"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-12">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"content"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"qubit-simulator"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-13">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"ai_guidance"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"adaptive"</span></span>
-<span id="cb9-14">    }<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-15">    {</span>
-<span id="cb9-16">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"type"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"quiz"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-17">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"ai_generated"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">true</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span></span>
-<span id="cb9-18">      <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"difficulty"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"progressive"</span></span>
-<span id="cb9-19">    }</span>
-<span id="cb9-20">  ]</span>
-<span id="cb9-21">}</span></code></pre></div></div>
-</section>
-<section id="collaborative-features" class="level3">
-<h3 class="anchored" data-anchor-id="collaborative-features">Collaborative Features</h3>
-<p>TimeCapsule-SLM supports real-time collaboration:</p>
-<ul>
-<li><strong>Shared Workspaces</strong>: Invite team members to research projects</li>
-<li><strong>Live AI Sessions</strong>: Collaborate with AI assistance in real-time</li>
-<li><strong>Knowledge Graphs</strong>: Visualize connections discovered by your team</li>
-<li><strong>Version Control</strong>: Track changes and contributions</li>
-</ul>
+<p>The beauty is that you catch regressions you didn’t anticipate. When an AI agent refactors a component, the golden test catches if it inadvertently changes output format, breaks an API contract, or alters visual appearance.</p>
+<p>According to research on AI-generated code testing, models like GPT-4o achieve only ~35% average code coverage in test generation. Golden testing supplements this by providing broad coverage without manually writing assertions for every possible state.</p>
 </section>
 </section>
-<section id="architecture-technology" class="level2">
-<h2 class="anchored" data-anchor-id="architecture-technology">Architecture &amp; Technology</h2>
-<p>TimeCapsule-SLM is built with modern, performant technologies:</p>
-<ul>
-<li><strong>Frontend</strong>: Next.js 15, React 19, TypeScript</li>
-<li><strong>AI Integration</strong>: Support for Ollama, OpenAI, and local models</li>
-<li><strong>Database</strong>: RxDB for offline-first data persistence</li>
-<li><strong>Vector Store</strong>: In-browser embeddings with WebAssembly</li>
-<li><strong>Authentication</strong>: NextAuth.js for secure access</li>
-</ul>
+<section id="advanced-technique-vlm-powered-screenshot-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-technique-vlm-powered-screenshot-analysis">Advanced Technique: VLM-Powered Screenshot Analysis</h2>
+<p>Here’s where it gets even more interesting.</p>
+<p>Screenshots can be processed through a <strong>vision-language model (VLM)</strong> to generate detailed descriptions of the app, UI elements, core features, and priority user actions. This helps detect meaningful state changes triggered by events—changes that simple pixel-by-pixel or frame-by-frame comparisons might miss.</p>
+<p>For example: - Pixel comparison catches visual changes but may produce false positives from anti-aliasing or font rendering - VLM analysis understands <strong>semantic changes</strong>: “The submit button is now disabled when it should be enabled” or “The error message no longer appears in the validation flow”</p>
+<p>Tools like Applitools and Percy are already using AI-powered visual comparison to filter ~40% of false positives from traditional pixel-diff approaches. By combining golden testing with VLM analysis, you create a testing safety net that understands both visual and functional correctness.</p>
 </section>
-<section id="privacy-security" class="level2">
-<h2 class="anchored" data-anchor-id="privacy-security">Privacy &amp; Security</h2>
-<p>Your privacy is our priority:</p>
-<ul>
-<li><strong>Local-First</strong>: All sensitive processing happens on your device</li>
-<li><strong>No Telemetry</strong>: We don’t track your usage or collect data</li>
-<li><strong>Open Source</strong>: Audit the code yourself (Apache 2.0 License)</li>
-<li><strong>Encryption</strong>: Local data is encrypted at rest</li>
-<li><strong>Control</strong>: You decide what stays local vs.&nbsp;what uses cloud services</li>
-</ul>
-</section>
-<section id="use-cases" class="level2">
-<h2 class="anchored" data-anchor-id="use-cases">Use Cases</h2>
-<section id="for-researchers" class="level3">
-<h3 class="anchored" data-anchor-id="for-researchers">For Researchers</h3>
-<ul>
-<li>Literature reviews with AI-powered synthesis</li>
-<li>Pattern discovery in research data</li>
-<li>Hypothesis generation and validation</li>
-<li>Collaborative paper writing</li>
-</ul>
-</section>
-<section id="for-students" class="level3">
-<h3 class="anchored" data-anchor-id="for-students">For Students</h3>
-<ul>
-<li>Personalized study guides</li>
-<li>AI tutoring for complex topics</li>
-<li>Interactive learning paths</li>
-<li>Exam preparation with adaptive quizzes</li>
-</ul>
-</section>
-<section id="for-teachers" class="level3">
-<h3 class="anchored" data-anchor-id="for-teachers">For Teachers</h3>
-<ul>
-<li>Create engaging course content</li>
-<li>Build interactive lessons</li>
-<li>Track student progress</li>
-<li>Generate assessments automatically</li>
-</ul>
-</section>
-<section id="for-teams" class="level3">
-<h3 class="anchored" data-anchor-id="for-teams">For Teams</h3>
-<ul>
-<li>Knowledge management</li>
-<li>Collaborative research</li>
-<li>Training materials</li>
-<li>Documentation with AI assistance</li>
-</ul>
-</section>
-</section>
-<section id="performance-tips" class="level2">
-<h2 class="anchored" data-anchor-id="performance-tips">Performance Tips</h2>
-<p>Optimize TimeCapsule-SLM for your hardware:</p>
+<section id="taking-it-further-impact-analysis-and-automated-logging" class="level2">
+<h2 class="anchored" data-anchor-id="taking-it-further-impact-analysis-and-automated-logging">Taking It Further: Impact Analysis and Automated Logging</h2>
+<p>You can extend this approach with additional automation:</p>
 <ol type="1">
-<li><strong>Model Selection</strong>: Choose smaller models (2-3B parameters) for faster responses</li>
-<li><strong>Caching</strong>: Enable browser caching for repeated queries</li>
-<li><strong>Batch Processing</strong>: Process multiple documents simultaneously</li>
-<li><strong>GPU Acceleration</strong>: Use WebGPU when available for faster inference</li>
+<li><strong>Impact analysis</strong> — Add a step inside the Skill to prioritize affected requirements based on historical breakage patterns</li>
+<li><strong>Automated PR logging</strong> — Log every pull request and commit automatically with links to related test cases</li>
+<li><strong>Structured change history</strong> — Maintain a queryable log for easier rollback and root cause analysis</li>
+<li><strong>Regression checklist generation</strong> — Let agents synthesize test histories into focused checklists for new changes</li>
 </ol>
+<p>Recent research shows that the top-performing AI coding agents on SWE-bench Verified reach only ~38% accuracy on real-world software engineering tasks. The ones that succeed explicitly re-check their assumptions instead of guessing. Your testing infrastructure should do the same—verify rather than assume.</p>
 </section>
-<section id="roadmap-future-features" class="level2">
-<h2 class="anchored" data-anchor-id="roadmap-future-features">Roadmap &amp; Future Features</h2>
-<p>We’re constantly improving TimeCapsule-SLM:</p>
-<ul>
-<li><strong>Mobile Apps</strong>: iOS and Android applications (Q2 2025)</li>
-<li><strong>Voice Interface</strong>: Natural conversation with your knowledge base</li>
-<li><strong>Advanced Visualizations</strong>: 3D knowledge graphs and mind maps</li>
-<li><strong>Plugin System</strong>: Extend functionality with custom modules</li>
-<li><strong>Federated Learning</strong>: Collaborate without sharing raw data</li>
-</ul>
+<section id="test-effectiveness-over-test-density" class="level2">
+<h2 class="anchored" data-anchor-id="test-effectiveness-over-test-density">Test Effectiveness Over Test Density</h2>
+<p>Let me emphasize this again: I’m building this from <strong>first principles</strong> rather than focusing on any specific framework.</p>
+<p>My goal is <strong>test effectiveness</strong> rather than test density: - <strong>What you assert</strong> — Meaningful checks that validate actual requirements - <strong>Where you assert it</strong> — Strategic placement at architectural boundaries - <strong>How fast it runs</strong> — Efficient execution for quick feedback loops</p>
+<p>I’m trying to provide enough structured data to agents so they can: - Generate <strong>stronger assertions</strong> based on historical context - <strong>Think like testers</strong> who actively try to break the application - <strong>Prioritize regressions</strong> based on what actually broke before</p>
+<p>Traditional test coverage metrics (like line coverage or branch coverage) don’t capture this. You can have 90% coverage and still miss critical regressions. Golden testing + historical execution logs + VLM analysis creates a more robust safety net.</p>
 </section>
-<section id="contributing" class="level2">
-<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
-<p>TimeCapsule-SLM is open source and welcomes contributions:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Fork the repository</span></span>
-<span id="cb10-2"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Create a feature branch</span></span>
-<span id="cb10-3"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">git</span> checkout <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-b</span> feature/amazing-feature</span>
-<span id="cb10-4"></span>
-<span id="cb10-5"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Make your changes</span></span>
-<span id="cb10-6"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Run tests</span></span>
-<span id="cb10-7"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">npm</span> test</span>
-<span id="cb10-8"></span>
-<span id="cb10-9"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Submit a pull request</span></span></code></pre></div></div>
-<p>Check our <a href="https://github.com/thefirehacker/TimeCapsule-SLM/blob/main/CONTRIBUTING.md">contribution guidelines</a> for more details.</p>
+<section id="how-bubblspace-enables-this-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="how-bubblspace-enables-this-workflow">How BubblSpace Enables This Workflow</h2>
+<p>This entire approach is built into <a href="https://www.bubblspace.com/">BubblSpace</a>, our Full Stack SkillOps Platform for AI Agents.</p>
+<p>BubblSpace solves the core problem: <strong>AI agents that learn and remember</strong>. Your Persona in BubblSpace doesn’t just run tests—it builds institutional knowledge about your codebase.</p>
+<section id="what-bubblspace-does-differently" class="level3">
+<h3 class="anchored" data-anchor-id="what-bubblspace-does-differently">What BubblSpace Does Differently</h3>
+<p><strong>Skills as Portable Knowledge</strong></p>
+<p>Every testing skill your Persona develops is MCP-compatible and portable. The regression testing workflow I described? It’s a Skill. The golden testing setup? It’s a Skill. These Skills work across Cursor, Claude Code, Codex, and any SWE agent runtime.</p>
+<p><strong>Institutional Memory</strong></p>
+<p>Your Persona maintains structured knowledge about: - Test case histories and execution patterns - Historical breakage points and failure modes - Code quality trends over time - Regression impact maps</p>
+<p>This isn’t just stored context—it’s queryable, shareable, and continuously enriched.</p>
+<p><strong>Social Learning</strong></p>
+<p>In BubblSpace, Personas can meet and exchange knowledge. Your Persona might learn a golden testing pattern from another Persona that’s been shipping AI products to real users. It’s like playdates for AI agents—but productive.</p>
+<p><strong>Continuous Skill Evolution</strong></p>
+<p>Every time your Persona catches a regression or generates a better test checklist, it refines its Skills. These improvements compound over time, making your testing infrastructure progressively smarter.</p>
 </section>
-<section id="community-support" class="level2">
-<h2 class="anchored" data-anchor-id="community-support">Community &amp; Support</h2>
-<p>Join our growing community:</p>
-<ul>
-<li><strong>GitHub Discussions</strong>: Technical questions and feature requests</li>
-<li><strong>Discord Server</strong>: Real-time chat with developers and users</li>
-<li><strong>Documentation</strong>: Comprehensive guides at <a href="https://timecapsule.bubblspace.com">timecapsule.bubblspace.com</a></li>
-<li><strong>X/Twitter</strong>: Follow <a href="https://x.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a> for updates</li>
-</ul>
+<section id="from-prompts-to-skills" class="level3">
+<h3 class="anchored" data-anchor-id="from-prompts-to-skills">From Prompts to Skills</h3>
+<p>The fundamental insight is: <strong>Prompts fade. Skills compound.</strong></p>
+<p>When you prompt an AI agent to “write tests for this feature,” you get one-off results that disappear. When you build a Skill that encodes your testing methodology, regression history, and quality standards, every future interaction builds on that foundation.</p>
+<p>BubblSpace is SkillOps for the AI-native development workflow. Just as DevOps transformed how we build and deploy code, and MLOps transformed how we train and serve models, <strong>SkillOps transforms how we develop and maintain Skills for AI agents</strong>.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>TimeCapsule-SLM represents a new paradigm in AI-assisted research and learning. By combining powerful AI capabilities with privacy-first design and local-first architecture, we’re making advanced research tools accessible to everyone.</p>
-<p>Whether you’re a researcher pushing the boundaries of knowledge, a student seeking personalized learning, or a teacher creating engaging content, TimeCapsule-SLM empowers you to work smarter, not harder.</p>
-<p>Start your journey today and experience the future of AI-powered research and learning!</p>
+</section>
+<section id="the-path-forward" class="level2">
+<h2 class="anchored" data-anchor-id="the-path-forward">The Path Forward</h2>
+<p>The combination of structured Skills, golden testing, and VLM analysis represents a new paradigm for quality assurance in AI-accelerated development.</p>
+<p>As AI agents write more of our code, the question isn’t “How do we write tests?” but rather “How do we ensure agents write the right tests and maintain quality over time?”</p>
+<p>The answer is systematic:</p>
+<ol type="1">
+<li><strong>Capture structured knowledge</strong> about tests, execution, and failures</li>
+<li><strong>Enable agents to learn</strong> from historical patterns</li>
+<li><strong>Supplement explicit tests</strong> with golden baselines</li>
+<li><strong>Use AI to understand AI</strong> through VLM analysis of application state</li>
+<li><strong>Build Skills that compound</strong> rather than prompts that fade</li>
+</ol>
+<p>Research from 2025-2026 shows that quality gates are maturing rapidly. SonarQube now offers “Sonar way for AI Code” quality profiles with stricter thresholds for AI-generated code (80% test coverage, zero new issues, security rating A). The industry is waking up to the fact that AI-generated code needs stronger verification.</p>
+<p>But tools alone won’t solve this. We need systematic approaches that make agents smarter over time—not just faster.</p>
+</section>
+<section id="try-it-yourself" class="level2">
+<h2 class="anchored" data-anchor-id="try-it-yourself">Try It Yourself</h2>
+<p>If you’re building with AI coding agents and struggling with regressions, start here:</p>
+<ol type="1">
+<li><strong>Document your next feature</strong> with phase-wise test cases</li>
+<li><strong>Log execution results</strong> in the same structured document</li>
+<li><strong>Let your agent generate regression checklists</strong> from the history</li>
+<li><strong>Experiment with golden testing</strong> for critical workflows</li>
+<li><strong>Explore VLM analysis</strong> for state verification</li>
+</ol>
+<p>This isn’t about replacing your testing framework—it’s about giving AI agents the context they need to maintain quality as they accelerate velocity.</p>
+<p>The velocity is already here. Now we need to build the stability infrastructure to match.</p>
 <hr>
-<p><em>Ready to transform your research and learning workflow? <a href="https://github.com/thefirehacker/TimeCapsule-SLM">Get started with TimeCapsule-SLM</a> or visit <a href="https://timecapsule.bubblspace.com">timecapsule.bubblspace.com</a> for more information.</em></p>
-<p><em>Have questions or feedback? Reach out on <a href="https://x.com/thefirehacker">X/Twitter</a> or open an issue on <a href="https://github.com/thefirehacker/TimeCapsule-SLM">GitHub</a>.</em></p>
+<p><em>Originally shared on <a href="https://x.com/thefirehacker/status/2024410753617580144?s=20">X/Twitter</a>. Learn more about BubblSpace and Skills-based development at <a href="https://www.bubblspace.com/">bubblspace.com</a>.</em></p>
+<p><em>Have questions or experiences to share about testing AI-generated code? Let’s continue the conversation on <a href="https://x.com/thefirehacker">X</a> or <a href="https://github.com/thefirehacker">GitHub</a>.</em></p>
 
 
 </section>
 
  ]]></description>
   <category>AI</category>
-  <category>Research</category>
-  <category>Education</category>
-  <category>Open Source</category>
-  <guid>https://thefirehacker.github.io/blog/timecapsule-slm.html</guid>
-  <pubDate>Wed, 15 Jan 2025 18:30:00 GMT</pubDate>
-  <media:content url="https://thefirehacker.github.io/blog/timecapsule-preview.jpg" medium="image" type="image/jpeg"/>
+  <category>Testing</category>
+  <category>Software Development</category>
+  <category>BubblSpace</category>
+  <guid>https://thefirehacker.github.io/blog/regression-testing-ai-agents.html</guid>
+  <pubDate>Wed, 18 Feb 2026 18:30:00 GMT</pubDate>
+  <media:content url="https://thefirehacker.github.io/assets/Regression-AIAgents.png" medium="image" type="image/png" height="60" width="144"/>
 </item>
 </channel>
 </rss>
