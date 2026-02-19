@@ -1879,3 +1879,62 @@ h6 code {
   z-index: 2;
   padding-top: 0.75rem;
 }
+
+/* ── Image Lightbox ── */
+.content img:not(.logo-image):not(.navbar-brand-logo img) {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.content img:not(.logo-image):not(.navbar-brand-logo img):hover {
+  opacity: 0.85;
+}
+
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  justify-content: center;
+  align-items: center;
+  animation: lightbox-fade-in 0.2s ease;
+}
+
+.lightbox-overlay.active {
+  display: flex;
+}
+
+.lightbox-overlay img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 28px;
+  z-index: 10000;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.2rem;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+@keyframes lightbox-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

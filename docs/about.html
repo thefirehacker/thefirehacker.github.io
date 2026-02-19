@@ -324,7 +324,49 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 </script>
 
 <!-- Load enhanced tracking script -->
-<script src="analytics.js"></script>
+<script src="./analytics.js"></script>
+
+<!-- Image Lightbox -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">&times;</button><img src="" alt="">';
+  document.body.appendChild(overlay);
+
+  var lbImg = overlay.querySelector('img');
+  var lbClose = overlay.querySelector('.lightbox-close');
+
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  document.querySelectorAll('.content img:not(.logo-image)').forEach(function (img) {
+    img.addEventListener('click', function () {
+      openLightbox(this.src, this.alt);
+    });
+  });
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay || e.target === lbClose) closeLightbox();
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeLightbox();
+  });
+});
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
