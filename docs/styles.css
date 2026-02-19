@@ -1881,13 +1881,50 @@ h6 code {
 }
 
 /* ── Image Lightbox ── */
+.content figure,
+.content p:has(> img) {
+  position: relative;
+}
+
 .content img:not(.logo-image):not(.navbar-brand-logo img) {
-  cursor: pointer;
+  cursor: zoom-in;
   transition: opacity 0.2s ease;
 }
 
 .content img:not(.logo-image):not(.navbar-brand-logo img):hover {
   opacity: 0.85;
+}
+
+.img-zoom-hint {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.img-zoom-hint svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.content figure:hover .img-zoom-hint,
+.content p:has(> img):hover .img-zoom-hint,
+.img-zoom-wrapper:hover .img-zoom-hint {
+  opacity: 1;
 }
 
 .lightbox-overlay {

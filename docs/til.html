@@ -381,7 +381,17 @@ document.addEventListener('DOMContentLoaded', function () {
     lbImg.src = '';
   }
 
+  var zoomSvg = '<svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/><line x1="7.5" y1="10.5" x2="13.5" y2="10.5"/><line x1="10.5" y1="7.5" x2="10.5" y2="13.5"/></svg>';
+
   document.querySelectorAll('.content img:not(.logo-image)').forEach(function (img) {
+    var parent = img.closest('figure') || img.parentElement;
+    if (parent && !parent.querySelector('.img-zoom-hint')) {
+      if (getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
+      var hint = document.createElement('span');
+      hint.className = 'img-zoom-hint';
+      hint.innerHTML = zoomSvg;
+      parent.appendChild(hint);
+    }
     img.addEventListener('click', function () {
       openLightbox(this.src, this.alt);
     });
