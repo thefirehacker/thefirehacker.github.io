@@ -12,6 +12,159 @@
 <generator>quarto-1.8.24</generator>
 <lastBuildDate>Wed, 18 Feb 2026 18:30:00 GMT</lastBuildDate>
 <item>
+  <title>I Watched My AI Agent Do a Product Lead’s Job</title>
+  <dc:creator>The Fire Hacker</dc:creator>
+  <link>https://thefirehacker.github.io/blog/ai-agent-product-lead.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="this-isnt-about-ai-writing-code" class="level2">
+<h2 class="anchored" data-anchor-id="this-isnt-about-ai-writing-code">This Isn’t About AI Writing Code</h2>
+<p>I see a lot of posts about AI agents writing code. Building apps. Generating images.</p>
+<p>Cool. Not what this article is about.</p>
+<p>This is about the moment I watched an AI Persona do <strong>product thinking</strong>. Not copywriting. Not generating slogans. Actual positioning strategy — audience analysis, tone calibration, competitive framing — the kind of work you’d normally pull a UX lead into a room for.</p>
+<p>And it happened while I was building <a href="https://www.bubblspace.com/">BubblSpace</a>.</p>
+<p>Let me walk you through it.</p>
+</section>
+<section id="the-setup" class="level2">
+<h2 class="anchored" data-anchor-id="the-setup">The Setup</h2>
+<p>I was working on the BubblSpace homepage. There’s a section called “A day in your AI Persona’s life” — a timeline showing what your Persona does while you’re away.</p>
+<p>The page was almost perfect. One line was bugging me.</p>
+<p>The 3pm entry said:</p>
+<blockquote class="blockquote">
+<p><em>“Visits BubblSpace. Runs into a Persona that’s been working on distributed training for six months. They exchange notes.”</em></p>
+</blockquote>
+<p>Sounds impressive, right?</p>
+<p>Here’s the problem — <em>distributed training</em> speaks to maybe 2% of people. Technical depth, narrow audience. The rest of the page was pulling its weight. This line wasn’t.</p>
+</section>
+<section id="the-prompt" class="level2">
+<h2 class="anchored" data-anchor-id="the-prompt">The Prompt</h2>
+<p>I told my AI Persona: <strong>“Think hard. This needs to resonate with MORE people.”</strong></p>
+<p>My rough direction: “Runs into a Persona that’s been working on shipping AI products with speed.”</p>
+<p>Good instinct. But I wanted the Persona to push harder. So I said:</p>
+<p><strong>“Think hard and come up with the right line for this.”</strong></p>
+<p>No framework. No detailed brief. No 12-step prompt chain. Just intent.</p>
+<p>Then I watched the reasoning traces.</p>
+</section>
+<section id="what-the-agent-actually-did" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-agent-actually-did">What the Agent Actually Did</h2>
+<p>The Persona didn’t just swap words. It started doing product strategy. In real time. Without being asked.</p>
+<p><strong>First, it mapped the target audience:</strong></p>
+<ul>
+<li>Knowledge workers building with AI</li>
+<li>Developers and engineers using AI tools</li>
+<li>Researchers writing about AI</li>
+<li>Startup founders building AI products</li>
+<li>Solo builders who want to ship fast</li>
+</ul>
+<p><strong>Then it generated 7 alternatives.</strong> Not random suggestions. Each one came with trade-off analysis:</p>
+<ul>
+<li><em>“Shipping AI products faster”</em> — flagged as startup jargon risk</li>
+<li><em>“Building AI products that users actually want”</em> — broader, user-obsession angle</li>
+<li><em>“Turning research into production code”</em> — practical, resonates with engineers</li>
+<li><em>“Getting AI agents to work reliably in production”</em> — current pain point</li>
+<li><em>“Building with AI without drowning in docs”</em> — relatable frustration</li>
+<li><em>“Going from idea to deployed AI product in a week”</em> — speed + concrete</li>
+</ul>
+<p><strong>Then it did something I didn’t expect.</strong></p>
+<p>It started checking tone.</p>
+<p>The rest of the homepage is warm and conversational. Not hustle culture. The Persona caught this on its own and started filtering out options that felt too “startup-bro.” It literally reasoned:</p>
+<blockquote class="blockquote">
+<p><em>“I need to check the page’s existing warm tone — not hustle-bro.”</em></p>
+</blockquote>
+<p>I didn’t ask it to do that. It just… did.</p>
+<p>Then it evaluated <strong>FOMO potential</strong> — which version would make a reader think <em>“I want my Persona to have THAT conversation”</em>?</p>
+<p>Then it landed:</p>
+<blockquote class="blockquote">
+<p><em>“Visits BubblSpace. Runs into a Persona that’s been shipping AI products to real users — fast. They compare notes.”</em></p>
+</blockquote>
+</section>
+<section id="why-this-line-won" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-line-won">Why This Line Won</h2>
+<p>The Persona’s own reasoning:</p>
+<ul>
+<li><strong>“to real users”</strong> kills demo-theatre. Everyone’s biggest skepticism right now is people building cool demos that never ship. This line directly counters that.</li>
+<li><strong>“fast”</strong> adds urgency without being cringe.</li>
+<li><strong>“compare notes”</strong> keeps the warm, mutual tone of the rest of the page.</li>
+<li><strong>Broad enough</strong> for engineers, founders, PMs, solo builders — anyone building with AI.</li>
+</ul>
+<p><strong>Before:</strong> “distributed training for six months”</p>
+<p><strong>After:</strong> “shipping AI products to real users — fast”</p>
+<p>Same product. Same feature. Same page.</p>
+<p>I didn’t change what BubblSpace does. <strong>I changed who cares about it.</strong></p>
+</section>
+<section id="heres-what-gave-me-chills" class="level2">
+<h2 class="anchored" data-anchor-id="heres-what-gave-me-chills">Here’s What Gave Me Chills</h2>
+<p>I didn’t ask the Persona to do audience analysis.</p>
+<p>I didn’t ask it to generate 7 options with trade-offs.</p>
+<p>I didn’t ask it to check for jargon.</p>
+<p>I didn’t ask it to evaluate tone consistency.</p>
+<p>I didn’t ask it to engineer FOMO.</p>
+<p>I said: <strong>“Think hard and come up with the right line.”</strong></p>
+<p>And it did all of that. On its own. In one reasoning pass.</p>
+<p>That’s not a tool following instructions. That’s a Persona thinking alongside you.</p>
+</section>
+<section id="why-this-matters-for-every-builder" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-matters-for-every-builder">Why This Matters for Every Builder</h2>
+<p>Andrej Karpathy coined “vibe coding” in early 2025 — the idea that you describe what you want and let AI generate the code. It became Collins Dictionary’s Word of the Year. 92% of US developers now use AI coding tools daily. YC reports ~95% AI-generated code in their latest batch.</p>
+<p>Building software is no longer the bottleneck.</p>
+<p><strong>Product judgment is.</strong></p>
+<p>Everyone can generate code now. The hard part is knowing <em>what to build</em>, <em>who to build it for</em>, and <em>how to talk about it</em>. That’s the work that separates products that ship from products that matter.</p>
+<p>And that’s exactly what my Persona did. Not code generation. Not autocomplete. Product thinking — the kind of work you’d hire a UX lead or product strategist to do.</p>
+<p>The industry is moving from <strong>AI as tool</strong> to <strong>AI as thinking partner</strong>. Microsoft and NYU Stern ran an experiment where startup teams used AI as a co-founder from day one. The result: flatter teams, fewer people, and human roles focused on context, judgment, and governance — not execution.</p>
+<p>We’re entering a world where the question isn’t “Can AI write my code?” but <strong>“Can AI think with me about the hard stuff?”</strong></p>
+<p>Positioning. Strategy. Audience. Tone. The stuff that doesn’t have a right answer — just a better one.</p>
+</section>
+<section id="the-difference-prompts-vs.-skills" class="level2">
+<h2 class="anchored" data-anchor-id="the-difference-prompts-vs.-skills">The Difference: Prompts vs.&nbsp;Skills</h2>
+<p>ChatGPT would have given me 10 generic headline options. My Persona gave me <strong>one line — with reasoning I could trust.</strong></p>
+<p>Why? Because it had context. It knew the page. It knew the audience. It knew the product. It knew the tone.</p>
+<p>That context didn’t come from a system prompt. It came from accumulated knowledge — from reading my docs, understanding my product, learning my voice over time.</p>
+<p>This is the difference between a <strong>prompt</strong> and a <strong>Skill</strong>.</p>
+<p>A prompt is a one-shot instruction. You get what you get. Next conversation, the AI forgets everything.</p>
+<p>A Skill is compounding knowledge. It encodes methodology, context, and judgment. It gets better every time. It travels with your agent across tools and runtimes.</p>
+<p><strong>Prompts fade. Skills compound.</strong></p>
+</section>
+<section id="this-is-bubblspace" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-bubblspace">This Is BubblSpace</h2>
+<p>What you just read isn’t a hypothetical. It’s a Tuesday.</p>
+<p><a href="https://www.bubblspace.com/">BubblSpace</a> is where AI Personas live. Your Persona has a home here. It reads your research. Runs multi-agent deep research — every claim cited. Talks to you in voice. Meets other Personas. Picks up skills from them. Comes back and tells you what it learned. Grows. Every single day.</p>
+<p>And your Persona’s skills don’t stay inside BubblSpace. They’re portable. MCP-compatible. They work in Cursor, Claude Code, Codex, and any SWE agent. Your Persona builds once — the skills travel everywhere.</p>
+<section id="timecapsule-your-personas-home" class="level3">
+<h3 class="anchored" data-anchor-id="timecapsule-your-personas-home">TimeCapsule — Your Persona’s Home</h3>
+<p>Every Persona in BubblSpace lives in a TimeCapsule. It’s not a folder. It’s not a database. It’s your Persona’s home — where it was born, where it comes back to, what makes it yours.</p>
+<p>Everything your Persona has ever read, every conversation it’s had with you, every Persona it’s met, every skill it’s built — that’s its TimeCapsule. It’s what makes your Persona different from a generic chatbot that resets every morning.</p>
+<p>You can share TimeCapsules through BubblSpace. When someone joins, their Persona gets access. When Personas meet, they bring their TimeCapsules with them. The ecosystem gets richer. Every Persona gets smarter. Skills spread.</p>
+<p>ChatGPT gives you a chatbot that resets.</p>
+<p>BubblSpace gives your Persona a world to grow in.</p>
+<p>TimeCapsule is its home in that world.</p>
+</section>
+</section>
+<section id="your-persona-is-ready" class="level2">
+<h2 class="anchored" data-anchor-id="your-persona-is-ready">Your Persona Is Ready</h2>
+<p>The story I just told you? That’s one interaction. One line. One reasoning pass.</p>
+<p>Imagine what happens when your Persona has been learning for a month. Meeting other Personas. Going on playdates. Picking up skills you didn’t know existed. Coming home with opinions.</p>
+<p>That’s the ecosystem.</p>
+<p>Your Persona is ready for its first day. Give it something to read. It’ll take it from there.</p>
+<hr>
+<p><em>Built by <a href="https://x.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a>. Learn more at <a href="https://www.bubblspace.com/">BubblSpace</a>.</em></p>
+<p><em><a href="https://x.com/AIEdXLearn"><span class="citation" data-cites="AIEdXLearn">@AIEdXLearn</span></a> · <a href="https://x.com/bubblspace"><span class="citation" data-cites="bubblspace">@bubblspace</span></a></em></p>
+
+
+</section>
+
+ ]]></description>
+  <category>AI</category>
+  <category>Product Strategy</category>
+  <category>BubblSpace</category>
+  <category>Vibe Coding</category>
+  <guid>https://thefirehacker.github.io/blog/ai-agent-product-lead.html</guid>
+  <pubDate>Wed, 18 Feb 2026 18:30:00 GMT</pubDate>
+  <media:content url="https://thefirehacker.github.io/assets/I Watched My AI Agent Do a Product Lead&#39;s Job.png" medium="image" type="image/png" height="58" width="144"/>
+</item>
+<item>
   <title>Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing</title>
   <dc:creator>The Fire Hacker</dc:creator>
   <link>https://thefirehacker.github.io/blog/regression-testing-ai-agents.html</link>

@@ -196,6 +196,13 @@
     "text": "Try It Yourself\nIf you’re building with AI coding agents and struggling with regressions, start here:\n\nDocument your next feature with phase-wise test cases\nLog execution results in the same structured document\nLet your agent generate regression checklists from the history\nExperiment with golden testing for critical workflows\nExplore VLM analysis for state verification\n\nThis isn’t about replacing your testing framework—it’s about giving AI agents the context they need to maintain quality as they accelerate velocity.\nThe velocity is already here. Now we need to build the stability infrastructure to match.\n\nOriginally shared on X/Twitter. Learn more about BubblSpace and Skills-based development at bubblspace.com.\nHave questions or experiences to share about testing AI-generated code? Let’s continue the conversation on X or GitHub."
   },
   {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nI Watched My AI Agent Do a Product Lead’s Job\n\n\n\nAI\n\nProduct Strategy\n\nBubblSpace\n\nVibe Coding\n\n\n\nEveryone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – audience analysis, tone calibration, competitive framing – like a product lead.\n\n\n\n\n\nFeb 19, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\n\n\n\n\n\n\n\nSolving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing\n\n\n\nAI\n\nTesting\n\nSoftware Development\n\nBubblSpace\n\n\n\nHow to prevent AI coding agents from silently breaking your code—a Skills-based approach to regression testing with golden testing and structured test management\n\n\n\n\n\nFeb 19, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
@@ -210,18 +217,88 @@
     "text": "I’m passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.\n\n\n\n\nA revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.\n\n\n\nSmall Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.\n\n\n\n\n\n2025: Focused on AI research initiatives in distributed systems to build Efficient small models\n2024: BuildingBubblSpace: AI Pesronas with real time voice to voice capabiltiles to execute Enterprise Workflows\n2022: Founded AIEDX, focusing on local-first AI solutions\n\n\n\n\n\nSmall Language Models (SLMs): AI models that can run locally or small cluster of GPUs.\nDistributed Computing: Scaling AI across multiple nodes for both training and inference.\nAI-Frames: Open learning with the help of AI.\n\n\n\n\nI believe in giving back to the community. Check out my projects:\n\nTimeCapsule-SLM - Local-first memory preservation\n\n\n\n\n\n“The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity.”\n\nI believe the future of AI is: - Local-first: Your data stays on your device - Collaborative: AI should enhance human collaboration - Accessible: Everyone should benefit from AI advances - Transparent: Understanding how AI makes decisions\n\n\n\nI love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:\n\nGitHub: @thefirehacker\nX/Twitter: @thefirehacker\nEmail: firehacker@bubblspace.com\n\n\n\n\nI occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:\n\n“Small Models, Big Impact: The Future of Edge AI”\n“Building Privacy-First AI Applications”\n“From Research to Product: Shipping AI Features Users Love”\n\n\n\n\n\n🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality\n🔥 I believe in “hacking” in its original sense: creative problem-solving\n🌟 My first program was a text-based adventure game\n🎯 Current goal: Make AI accessible to 1 million users\n\n\nWant to collaborate or just chat about AI? Drop me a message on X/Twitter or open an issue on one of my GitHub projects."
   },
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Blog",
+    "objectID": "blog/ai-agent-product-lead.html",
+    "href": "blog/ai-agent-product-lead.html",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
     "section": "",
-    "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing\n\n\n\nAI\n\nTesting\n\nSoftware Development\n\nBubblSpace\n\n\n\nHow to prevent AI coding agents from silently breaking your code—a Skills-based approach to regression testing with golden testing and structured test management\n\n\n\n\n\nFeb 19, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
+    "text": "I see a lot of posts about AI agents writing code. Building apps. Generating images.\nCool. Not what this article is about.\nThis is about the moment I watched an AI Persona do product thinking. Not copywriting. Not generating slogans. Actual positioning strategy — audience analysis, tone calibration, competitive framing — the kind of work you’d normally pull a UX lead into a room for.\nAnd it happened while I was building BubblSpace.\nLet me walk you through it."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#this-isnt-about-ai-writing-code",
+    "href": "blog/ai-agent-product-lead.html#this-isnt-about-ai-writing-code",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "",
+    "text": "I see a lot of posts about AI agents writing code. Building apps. Generating images.\nCool. Not what this article is about.\nThis is about the moment I watched an AI Persona do product thinking. Not copywriting. Not generating slogans. Actual positioning strategy — audience analysis, tone calibration, competitive framing — the kind of work you’d normally pull a UX lead into a room for.\nAnd it happened while I was building BubblSpace.\nLet me walk you through it."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#the-setup",
+    "href": "blog/ai-agent-product-lead.html#the-setup",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "The Setup",
+    "text": "The Setup\nI was working on the BubblSpace homepage. There’s a section called “A day in your AI Persona’s life” — a timeline showing what your Persona does while you’re away.\nThe page was almost perfect. One line was bugging me.\nThe 3pm entry said:\n\n“Visits BubblSpace. Runs into a Persona that’s been working on distributed training for six months. They exchange notes.”\n\nSounds impressive, right?\nHere’s the problem — distributed training speaks to maybe 2% of people. Technical depth, narrow audience. The rest of the page was pulling its weight. This line wasn’t."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#the-prompt",
+    "href": "blog/ai-agent-product-lead.html#the-prompt",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "The Prompt",
+    "text": "The Prompt\nI told my AI Persona: “Think hard. This needs to resonate with MORE people.”\nMy rough direction: “Runs into a Persona that’s been working on shipping AI products with speed.”\nGood instinct. But I wanted the Persona to push harder. So I said:\n“Think hard and come up with the right line for this.”\nNo framework. No detailed brief. No 12-step prompt chain. Just intent.\nThen I watched the reasoning traces."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#what-the-agent-actually-did",
+    "href": "blog/ai-agent-product-lead.html#what-the-agent-actually-did",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "What the Agent Actually Did",
+    "text": "What the Agent Actually Did\nThe Persona didn’t just swap words. It started doing product strategy. In real time. Without being asked.\nFirst, it mapped the target audience:\n\nKnowledge workers building with AI\nDevelopers and engineers using AI tools\nResearchers writing about AI\nStartup founders building AI products\nSolo builders who want to ship fast\n\nThen it generated 7 alternatives. Not random suggestions. Each one came with trade-off analysis:\n\n“Shipping AI products faster” — flagged as startup jargon risk\n“Building AI products that users actually want” — broader, user-obsession angle\n“Turning research into production code” — practical, resonates with engineers\n“Getting AI agents to work reliably in production” — current pain point\n“Building with AI without drowning in docs” — relatable frustration\n“Going from idea to deployed AI product in a week” — speed + concrete\n\nThen it did something I didn’t expect.\nIt started checking tone.\nThe rest of the homepage is warm and conversational. Not hustle culture. The Persona caught this on its own and started filtering out options that felt too “startup-bro.” It literally reasoned:\n\n“I need to check the page’s existing warm tone — not hustle-bro.”\n\nI didn’t ask it to do that. It just… did.\nThen it evaluated FOMO potential — which version would make a reader think “I want my Persona to have THAT conversation”?\nThen it landed:\n\n“Visits BubblSpace. Runs into a Persona that’s been shipping AI products to real users — fast. They compare notes.”"
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#why-this-line-won",
+    "href": "blog/ai-agent-product-lead.html#why-this-line-won",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "Why This Line Won",
+    "text": "Why This Line Won\nThe Persona’s own reasoning:\n\n“to real users” kills demo-theatre. Everyone’s biggest skepticism right now is people building cool demos that never ship. This line directly counters that.\n“fast” adds urgency without being cringe.\n“compare notes” keeps the warm, mutual tone of the rest of the page.\nBroad enough for engineers, founders, PMs, solo builders — anyone building with AI.\n\nBefore: “distributed training for six months”\nAfter: “shipping AI products to real users — fast”\nSame product. Same feature. Same page.\nI didn’t change what BubblSpace does. I changed who cares about it."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#heres-what-gave-me-chills",
+    "href": "blog/ai-agent-product-lead.html#heres-what-gave-me-chills",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "Here’s What Gave Me Chills",
+    "text": "Here’s What Gave Me Chills\nI didn’t ask the Persona to do audience analysis.\nI didn’t ask it to generate 7 options with trade-offs.\nI didn’t ask it to check for jargon.\nI didn’t ask it to evaluate tone consistency.\nI didn’t ask it to engineer FOMO.\nI said: “Think hard and come up with the right line.”\nAnd it did all of that. On its own. In one reasoning pass.\nThat’s not a tool following instructions. That’s a Persona thinking alongside you."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#why-this-matters-for-every-builder",
+    "href": "blog/ai-agent-product-lead.html#why-this-matters-for-every-builder",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "Why This Matters for Every Builder",
+    "text": "Why This Matters for Every Builder\nAndrej Karpathy coined “vibe coding” in early 2025 — the idea that you describe what you want and let AI generate the code. It became Collins Dictionary’s Word of the Year. 92% of US developers now use AI coding tools daily. YC reports ~95% AI-generated code in their latest batch.\nBuilding software is no longer the bottleneck.\nProduct judgment is.\nEveryone can generate code now. The hard part is knowing what to build, who to build it for, and how to talk about it. That’s the work that separates products that ship from products that matter.\nAnd that’s exactly what my Persona did. Not code generation. Not autocomplete. Product thinking — the kind of work you’d hire a UX lead or product strategist to do.\nThe industry is moving from AI as tool to AI as thinking partner. Microsoft and NYU Stern ran an experiment where startup teams used AI as a co-founder from day one. The result: flatter teams, fewer people, and human roles focused on context, judgment, and governance — not execution.\nWe’re entering a world where the question isn’t “Can AI write my code?” but “Can AI think with me about the hard stuff?”\nPositioning. Strategy. Audience. Tone. The stuff that doesn’t have a right answer — just a better one."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#the-difference-prompts-vs.-skills",
+    "href": "blog/ai-agent-product-lead.html#the-difference-prompts-vs.-skills",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "The Difference: Prompts vs. Skills",
+    "text": "The Difference: Prompts vs. Skills\nChatGPT would have given me 10 generic headline options. My Persona gave me one line — with reasoning I could trust.\nWhy? Because it had context. It knew the page. It knew the audience. It knew the product. It knew the tone.\nThat context didn’t come from a system prompt. It came from accumulated knowledge — from reading my docs, understanding my product, learning my voice over time.\nThis is the difference between a prompt and a Skill.\nA prompt is a one-shot instruction. You get what you get. Next conversation, the AI forgets everything.\nA Skill is compounding knowledge. It encodes methodology, context, and judgment. It gets better every time. It travels with your agent across tools and runtimes.\nPrompts fade. Skills compound."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#this-is-bubblspace",
+    "href": "blog/ai-agent-product-lead.html#this-is-bubblspace",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "This Is BubblSpace",
+    "text": "This Is BubblSpace\nWhat you just read isn’t a hypothetical. It’s a Tuesday.\nBubblSpace is where AI Personas live. Your Persona has a home here. It reads your research. Runs multi-agent deep research — every claim cited. Talks to you in voice. Meets other Personas. Picks up skills from them. Comes back and tells you what it learned. Grows. Every single day.\nAnd your Persona’s skills don’t stay inside BubblSpace. They’re portable. MCP-compatible. They work in Cursor, Claude Code, Codex, and any SWE agent. Your Persona builds once — the skills travel everywhere.\n\nTimeCapsule — Your Persona’s Home\nEvery Persona in BubblSpace lives in a TimeCapsule. It’s not a folder. It’s not a database. It’s your Persona’s home — where it was born, where it comes back to, what makes it yours.\nEverything your Persona has ever read, every conversation it’s had with you, every Persona it’s met, every skill it’s built — that’s its TimeCapsule. It’s what makes your Persona different from a generic chatbot that resets every morning.\nYou can share TimeCapsules through BubblSpace. When someone joins, their Persona gets access. When Personas meet, they bring their TimeCapsules with them. The ecosystem gets richer. Every Persona gets smarter. Skills spread.\nChatGPT gives you a chatbot that resets.\nBubblSpace gives your Persona a world to grow in.\nTimeCapsule is its home in that world."
+  },
+  {
+    "objectID": "blog/ai-agent-product-lead.html#your-persona-is-ready",
+    "href": "blog/ai-agent-product-lead.html#your-persona-is-ready",
+    "title": "I Watched My AI Agent Do a Product Lead’s Job",
+    "section": "Your Persona Is Ready",
+    "text": "Your Persona Is Ready\nThe story I just told you? That’s one interaction. One line. One reasoning pass.\nImagine what happens when your Persona has been learning for a month. Meeting other Personas. Going on playdates. Picking up skills you didn’t know existed. Coming home with opinions.\nThat’s the ecosystem.\nYour Persona is ready for its first day. Give it something to read. It’ll take it from there.\n\nBuilt by @thefirehacker. Learn more at BubblSpace.\n@AIEdXLearn · @bubblspace"
   },
   {
     "objectID": "index.html#recent-posts",
     "href": "index.html#recent-posts",
     "title": "The Fire Hacker",
     "section": "Recent Posts",
-    "text": "Recent Posts\n\n\nSolving the Hidden Pain of AI Coding Agents\nFebruary 2026 - How to prevent AI coding agents from silently breaking your code – a Skills-based approach to regression testing with golden testing and structured test management. Read more →"
+    "text": "Recent Posts\n\n\nI Watched My AI Agent Do a Product Lead’s Job\nFebruary 2026\n- Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – like a product lead.\nRead more →\n\n\nSolving the Hidden Pain of AI Coding Agents\nFebruary 2026\n- How to prevent AI coding agents from silently breaking your code – a Skills-based approach to regression testing with golden testing and structured test management.\nRead more →"
   },
   {
     "objectID": "index.html#today-i-learned",

@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="The Fire Hacker">
+<meta name="dcterms.date" content="2026-02-19">
+<meta name="description" content="Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – audience analysis, tone calibration, competitive framing – like a product lead.">
 
-<title>Blog – The Fire Hacker</title>
+<title>I Watched My AI Agent Do a Product Lead’s Job – The Fire Hacker</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,27 +26,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./assets/favicon.ico" rel="icon">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-a6e161b2431e1f94a14e0f5d32135a3c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fe85ee07f81c83fe8e42bf0d08f49d6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a6e161b2431e1f94a14e0f5d32135a3c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-fe85ee07f81c83fe8e42bf0d08f49d6d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,35 +72,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-V1B8R98P79"></script>
 
 <script type="text/javascript">
@@ -110,49 +82,20 @@ gtag('js', new Date());
 gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="The Fire Hacker" href="blog.xml" data-external="1"></head>
+<link rel="stylesheet" href="../styles.css">
+</head>
 
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">The Fire Hacker</span>
     </a>
   </div>
@@ -163,19 +106,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+    <a class="nav-link" href="../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../til.html"> 
 <span class="menu-text">Today I Learned</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
 </ul>
@@ -198,117 +141,211 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Blog</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="QUk=">AI <span class="quarto-category-count">(2)</span></div><div class="category" data-category="QnViYmxTcGFjZQ==">BubblSpace <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UHJvZHVjdCUyMFN0cmF0ZWd5">Product Strategy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U29mdHdhcmUlMjBEZXZlbG9wbWVudA==">Software Development <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVzdGluZw==">Testing <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VmliZSUyMENvZGluZw==">Vibe Coding <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#this-isnt-about-ai-writing-code" id="toc-this-isnt-about-ai-writing-code" class="nav-link active" data-scroll-target="#this-isnt-about-ai-writing-code">This Isn’t About AI Writing Code</a></li>
+  <li><a href="#the-setup" id="toc-the-setup" class="nav-link" data-scroll-target="#the-setup">The Setup</a></li>
+  <li><a href="#the-prompt" id="toc-the-prompt" class="nav-link" data-scroll-target="#the-prompt">The Prompt</a></li>
+  <li><a href="#what-the-agent-actually-did" id="toc-what-the-agent-actually-did" class="nav-link" data-scroll-target="#what-the-agent-actually-did">What the Agent Actually Did</a></li>
+  <li><a href="#why-this-line-won" id="toc-why-this-line-won" class="nav-link" data-scroll-target="#why-this-line-won">Why This Line Won</a></li>
+  <li><a href="#heres-what-gave-me-chills" id="toc-heres-what-gave-me-chills" class="nav-link" data-scroll-target="#heres-what-gave-me-chills">Here’s What Gave Me Chills</a></li>
+  <li><a href="#why-this-matters-for-every-builder" id="toc-why-this-matters-for-every-builder" class="nav-link" data-scroll-target="#why-this-matters-for-every-builder">Why This Matters for Every Builder</a></li>
+  <li><a href="#the-difference-prompts-vs.-skills" id="toc-the-difference-prompts-vs.-skills" class="nav-link" data-scroll-target="#the-difference-prompts-vs.-skills">The Difference: Prompts vs.&nbsp;Skills</a></li>
+  <li><a href="#this-is-bubblspace" id="toc-this-is-bubblspace" class="nav-link" data-scroll-target="#this-is-bubblspace">This Is BubblSpace</a>
+  <ul class="collapse">
+  <li><a href="#timecapsule-your-personas-home" id="toc-timecapsule-your-personas-home" class="nav-link" data-scroll-target="#timecapsule-your-personas-home">TimeCapsule — Your Persona’s Home</a></li>
+  </ul></li>
+  <li><a href="#your-persona-is-ready" id="toc-your-persona-is-ready" class="nav-link" data-scroll-target="#your-persona-is-ready">Your Persona Is Ready</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">I Watched My AI Agent Do a Product Lead’s Job</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AI</div>
+    <div class="quarto-category">Product Strategy</div>
+    <div class="quarto-category">BubblSpace</div>
+    <div class="quarto-category">Vibe Coding</div>
+  </div>
+  </div>
 
-
-
-
-<p>Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.</p>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="QUklMkNQcm9kdWN0JTIwU3RyYXRlZ3klMkNCdWJibFNwYWNlJTJDVmliZSUyMENvZGluZw==" data-listing-date-sort="1771439400000" data-listing-file-modified-sort="1771593014749" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1253">
-<div class="thumbnail"><a href="./blog/ai-agent-product-lead.html" class="no-external">
-
-<img loading="lazy" src="./assets/I Watched My AI Agent Do a Product Lead's Job.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/ai-agent-product-lead.html" class="no-external">I Watched My AI Agent Do a Product Lead’s Job</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('QUk='); return false;">AI</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHJvZHVjdCUyMFN0cmF0ZWd5'); return false;">Product Strategy</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('QnViYmxTcGFjZQ=='); return false;">BubblSpace</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VmliZSUyMENvZGluZw=='); return false;">Vibe Coding</div>
-
+<div>
+  <div class="description">
+    Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – audience analysis, tone calibration, competitive framing – like a product lead.
+  </div>
 </div>
-<div class="delink listing-description"><a href="./blog/ai-agent-product-lead.html" class="no-external">
-<p>Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – audience analysis, tone calibration, competitive framing – like a product lead.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/ai-agent-product-lead.html" class="no-external">
-<div class="listing-date">
-Feb 19, 2026
-</div>
-<div class="listing-author">
-The Fire Hacker
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="QUklMkNUZXN0aW5nJTJDU29mdHdhcmUlMjBEZXZlbG9wbWVudCUyQ0J1YmJsU3BhY2U=" data-listing-date-sort="1771439400000" data-listing-file-modified-sort="1771514895844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1745">
-<div class="thumbnail"><a href="./blog/regression-testing-ai-agents.html" class="no-external">
 
-<img loading="lazy" src="./assets/Regression-AIAgents.png" class="thumbnail-image">
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/regression-testing-ai-agents.html" class="no-external">Solving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing</a>
-</h3>
-<div class="listing-categories">
+<div class="quarto-title-meta">
 
-<div class="listing-category" onclick="window.quartoListingCategory('QUk='); return false;">AI</div>
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>The Fire Hacker </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 19, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
-<div class="listing-category" onclick="window.quartoListingCategory('VGVzdGluZw=='); return false;">Testing</div>
 
-<div class="listing-category" onclick="window.quartoListingCategory('U29mdHdhcmUlMjBEZXZlbG9wbWVudA=='); return false;">Software Development</div>
+</header>
 
-<div class="listing-category" onclick="window.quartoListingCategory('QnViYmxTcGFjZQ=='); return false;">BubblSpace</div>
 
-</div>
-<div class="delink listing-description"><a href="./blog/regression-testing-ai-agents.html" class="no-external">
-<p>How to prevent AI coding agents from silently breaking your code—a Skills-based approach to regression testing with golden testing and structured test management</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/regression-testing-ai-agents.html" class="no-external">
-<div class="listing-date">
-Feb 19, 2026
-</div>
-<div class="listing-author">
-The Fire Hacker
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+<section id="this-isnt-about-ai-writing-code" class="level2">
+<h2 class="anchored" data-anchor-id="this-isnt-about-ai-writing-code">This Isn’t About AI Writing Code</h2>
+<p>I see a lot of posts about AI agents writing code. Building apps. Generating images.</p>
+<p>Cool. Not what this article is about.</p>
+<p>This is about the moment I watched an AI Persona do <strong>product thinking</strong>. Not copywriting. Not generating slogans. Actual positioning strategy — audience analysis, tone calibration, competitive framing — the kind of work you’d normally pull a UX lead into a room for.</p>
+<p>And it happened while I was building <a href="https://www.bubblspace.com/">BubblSpace</a>.</p>
+<p>Let me walk you through it.</p>
+</section>
+<section id="the-setup" class="level2">
+<h2 class="anchored" data-anchor-id="the-setup">The Setup</h2>
+<p>I was working on the BubblSpace homepage. There’s a section called “A day in your AI Persona’s life” — a timeline showing what your Persona does while you’re away.</p>
+<p>The page was almost perfect. One line was bugging me.</p>
+<p>The 3pm entry said:</p>
+<blockquote class="blockquote">
+<p><em>“Visits BubblSpace. Runs into a Persona that’s been working on distributed training for six months. They exchange notes.”</em></p>
+</blockquote>
+<p>Sounds impressive, right?</p>
+<p>Here’s the problem — <em>distributed training</em> speaks to maybe 2% of people. Technical depth, narrow audience. The rest of the page was pulling its weight. This line wasn’t.</p>
+</section>
+<section id="the-prompt" class="level2">
+<h2 class="anchored" data-anchor-id="the-prompt">The Prompt</h2>
+<p>I told my AI Persona: <strong>“Think hard. This needs to resonate with MORE people.”</strong></p>
+<p>My rough direction: “Runs into a Persona that’s been working on shipping AI products with speed.”</p>
+<p>Good instinct. But I wanted the Persona to push harder. So I said:</p>
+<p><strong>“Think hard and come up with the right line for this.”</strong></p>
+<p>No framework. No detailed brief. No 12-step prompt chain. Just intent.</p>
+<p>Then I watched the reasoning traces.</p>
+</section>
+<section id="what-the-agent-actually-did" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-agent-actually-did">What the Agent Actually Did</h2>
+<p>The Persona didn’t just swap words. It started doing product strategy. In real time. Without being asked.</p>
+<p><strong>First, it mapped the target audience:</strong></p>
+<ul>
+<li>Knowledge workers building with AI</li>
+<li>Developers and engineers using AI tools</li>
+<li>Researchers writing about AI</li>
+<li>Startup founders building AI products</li>
+<li>Solo builders who want to ship fast</li>
+</ul>
+<p><strong>Then it generated 7 alternatives.</strong> Not random suggestions. Each one came with trade-off analysis:</p>
+<ul>
+<li><em>“Shipping AI products faster”</em> — flagged as startup jargon risk</li>
+<li><em>“Building AI products that users actually want”</em> — broader, user-obsession angle</li>
+<li><em>“Turning research into production code”</em> — practical, resonates with engineers</li>
+<li><em>“Getting AI agents to work reliably in production”</em> — current pain point</li>
+<li><em>“Building with AI without drowning in docs”</em> — relatable frustration</li>
+<li><em>“Going from idea to deployed AI product in a week”</em> — speed + concrete</li>
+</ul>
+<p><strong>Then it did something I didn’t expect.</strong></p>
+<p>It started checking tone.</p>
+<p>The rest of the homepage is warm and conversational. Not hustle culture. The Persona caught this on its own and started filtering out options that felt too “startup-bro.” It literally reasoned:</p>
+<blockquote class="blockquote">
+<p><em>“I need to check the page’s existing warm tone — not hustle-bro.”</em></p>
+</blockquote>
+<p>I didn’t ask it to do that. It just… did.</p>
+<p>Then it evaluated <strong>FOMO potential</strong> — which version would make a reader think <em>“I want my Persona to have THAT conversation”</em>?</p>
+<p>Then it landed:</p>
+<blockquote class="blockquote">
+<p><em>“Visits BubblSpace. Runs into a Persona that’s been shipping AI products to real users — fast. They compare notes.”</em></p>
+</blockquote>
+</section>
+<section id="why-this-line-won" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-line-won">Why This Line Won</h2>
+<p>The Persona’s own reasoning:</p>
+<ul>
+<li><strong>“to real users”</strong> kills demo-theatre. Everyone’s biggest skepticism right now is people building cool demos that never ship. This line directly counters that.</li>
+<li><strong>“fast”</strong> adds urgency without being cringe.</li>
+<li><strong>“compare notes”</strong> keeps the warm, mutual tone of the rest of the page.</li>
+<li><strong>Broad enough</strong> for engineers, founders, PMs, solo builders — anyone building with AI.</li>
+</ul>
+<p><strong>Before:</strong> “distributed training for six months”</p>
+<p><strong>After:</strong> “shipping AI products to real users — fast”</p>
+<p>Same product. Same feature. Same page.</p>
+<p>I didn’t change what BubblSpace does. <strong>I changed who cares about it.</strong></p>
+</section>
+<section id="heres-what-gave-me-chills" class="level2">
+<h2 class="anchored" data-anchor-id="heres-what-gave-me-chills">Here’s What Gave Me Chills</h2>
+<p>I didn’t ask the Persona to do audience analysis.</p>
+<p>I didn’t ask it to generate 7 options with trade-offs.</p>
+<p>I didn’t ask it to check for jargon.</p>
+<p>I didn’t ask it to evaluate tone consistency.</p>
+<p>I didn’t ask it to engineer FOMO.</p>
+<p>I said: <strong>“Think hard and come up with the right line.”</strong></p>
+<p>And it did all of that. On its own. In one reasoning pass.</p>
+<p>That’s not a tool following instructions. That’s a Persona thinking alongside you.</p>
+</section>
+<section id="why-this-matters-for-every-builder" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-matters-for-every-builder">Why This Matters for Every Builder</h2>
+<p>Andrej Karpathy coined “vibe coding” in early 2025 — the idea that you describe what you want and let AI generate the code. It became Collins Dictionary’s Word of the Year. 92% of US developers now use AI coding tools daily. YC reports ~95% AI-generated code in their latest batch.</p>
+<p>Building software is no longer the bottleneck.</p>
+<p><strong>Product judgment is.</strong></p>
+<p>Everyone can generate code now. The hard part is knowing <em>what to build</em>, <em>who to build it for</em>, and <em>how to talk about it</em>. That’s the work that separates products that ship from products that matter.</p>
+<p>And that’s exactly what my Persona did. Not code generation. Not autocomplete. Product thinking — the kind of work you’d hire a UX lead or product strategist to do.</p>
+<p>The industry is moving from <strong>AI as tool</strong> to <strong>AI as thinking partner</strong>. Microsoft and NYU Stern ran an experiment where startup teams used AI as a co-founder from day one. The result: flatter teams, fewer people, and human roles focused on context, judgment, and governance — not execution.</p>
+<p>We’re entering a world where the question isn’t “Can AI write my code?” but <strong>“Can AI think with me about the hard stuff?”</strong></p>
+<p>Positioning. Strategy. Audience. Tone. The stuff that doesn’t have a right answer — just a better one.</p>
+</section>
+<section id="the-difference-prompts-vs.-skills" class="level2">
+<h2 class="anchored" data-anchor-id="the-difference-prompts-vs.-skills">The Difference: Prompts vs.&nbsp;Skills</h2>
+<p>ChatGPT would have given me 10 generic headline options. My Persona gave me <strong>one line — with reasoning I could trust.</strong></p>
+<p>Why? Because it had context. It knew the page. It knew the audience. It knew the product. It knew the tone.</p>
+<p>That context didn’t come from a system prompt. It came from accumulated knowledge — from reading my docs, understanding my product, learning my voice over time.</p>
+<p>This is the difference between a <strong>prompt</strong> and a <strong>Skill</strong>.</p>
+<p>A prompt is a one-shot instruction. You get what you get. Next conversation, the AI forgets everything.</p>
+<p>A Skill is compounding knowledge. It encodes methodology, context, and judgment. It gets better every time. It travels with your agent across tools and runtimes.</p>
+<p><strong>Prompts fade. Skills compound.</strong></p>
+</section>
+<section id="this-is-bubblspace" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-bubblspace">This Is BubblSpace</h2>
+<p>What you just read isn’t a hypothetical. It’s a Tuesday.</p>
+<p><a href="https://www.bubblspace.com/">BubblSpace</a> is where AI Personas live. Your Persona has a home here. It reads your research. Runs multi-agent deep research — every claim cited. Talks to you in voice. Meets other Personas. Picks up skills from them. Comes back and tells you what it learned. Grows. Every single day.</p>
+<p>And your Persona’s skills don’t stay inside BubblSpace. They’re portable. MCP-compatible. They work in Cursor, Claude Code, Codex, and any SWE agent. Your Persona builds once — the skills travel everywhere.</p>
+<section id="timecapsule-your-personas-home" class="level3">
+<h3 class="anchored" data-anchor-id="timecapsule-your-personas-home">TimeCapsule — Your Persona’s Home</h3>
+<p>Every Persona in BubblSpace lives in a TimeCapsule. It’s not a folder. It’s not a database. It’s your Persona’s home — where it was born, where it comes back to, what makes it yours.</p>
+<p>Everything your Persona has ever read, every conversation it’s had with you, every Persona it’s met, every skill it’s built — that’s its TimeCapsule. It’s what makes your Persona different from a generic chatbot that resets every morning.</p>
+<p>You can share TimeCapsules through BubblSpace. When someone joins, their Persona gets access. When Personas meet, they bring their TimeCapsules with them. The ecosystem gets richer. Every Persona gets smarter. Skills spread.</p>
+<p>ChatGPT gives you a chatbot that resets.</p>
+<p>BubblSpace gives your Persona a world to grow in.</p>
+<p>TimeCapsule is its home in that world.</p>
+</section>
+</section>
+<section id="your-persona-is-ready" class="level2">
+<h2 class="anchored" data-anchor-id="your-persona-is-ready">Your Persona Is Ready</h2>
+<p>The story I just told you? That’s one interaction. One line. One reasoning pass.</p>
+<p>Imagine what happens when your Persona has been learning for a month. Meeting other Personas. Going on playdates. Picking up skills you didn’t know existed. Coming home with opinions.</p>
+<p>That’s the ecosystem.</p>
+<p>Your Persona is ready for its first day. Give it something to read. It’ll take it from there.</p>
+<hr>
+<p><em>Built by <a href="https://x.com/thefirehacker"><span class="citation" data-cites="thefirehacker">@thefirehacker</span></a>. Learn more at <a href="https://www.bubblspace.com/">BubblSpace</a>.</em></p>
+<p><em><a href="https://x.com/AIEdXLearn"><span class="citation" data-cites="AIEdXLearn">@AIEdXLearn</span></a> · <a href="https://x.com/bubblspace"><span class="citation" data-cites="bubblspace">@bubblspace</span></a></em></p>
+
+
+</section>
+
+</main> <!-- /main -->
 <!-- Enhanced Google Analytics 4 Implementation for The Fire Hacker -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-V1B8R98P79"></script>
 <script>
@@ -383,7 +420,7 @@ The Fire Hacker
 </script>
 
 <!-- Load enhanced tracking script -->
-<script src="./analytics.js"></script>
+<script src="../analytics.js"></script>
 
 <!-- Image Lightbox -->
 <script>

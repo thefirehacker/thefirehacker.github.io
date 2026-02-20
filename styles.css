@@ -749,27 +749,37 @@ button[title="Search"]:hover path {
   font-weight: 400;
   letter-spacing: 0.01em;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.post-card a {
-  color: var(--text-primary);
+.post-card h3 a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.post-card h3 a:hover {
+  color: var(--primary-color);
+}
+
+.post-card .read-more-link {
+  color: var(--primary-color);
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  margin-top: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+  text-decoration: none;
 }
 
-.post-card a::after {
+.post-card .read-more-link::after {
   content: '→';
   margin-left: 0.5rem;
   transition: transform 0.3s ease;
 }
 
-.post-card:hover a::after {
+.post-card:hover .read-more-link::after {
   transform: translateX(5px);
 }
 
@@ -1893,6 +1903,13 @@ h6 code {
 
 .content img:not(.logo-image):not(.navbar-brand-logo img):hover {
   opacity: 0.85;
+}
+
+.quarto-listing img,
+.listing img,
+.post-card img,
+.thumbnail img {
+  cursor: pointer !important;
 }
 
 .img-zoom-hint {

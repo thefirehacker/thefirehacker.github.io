@@ -194,9 +194,17 @@ gtag('config', 'G-V1B8R98P79', { 'anonymize_ip': true});
 <section id="recent-posts" class="level2 section-title">
 <h2 class="section-title" data-anchor-id="recent-posts">Recent Posts</h2>
 <div class="recent-posts">
+<section id="i-watched-my-ai-agent-do-a-product-leads-job" class="level3 post-card">
+<h3 data-anchor-id="i-watched-my-ai-agent-do-a-product-leads-job"><a href="./blog/ai-agent-product-lead.html">I Watched My AI Agent Do a Product Lead’s Job</a></h3>
+<p><em>February 2026</em></p>
+<p>- Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – like a product lead.</p>
+<p><a href="./blog/ai-agent-product-lead.html" class="read-more-link">Read more →</a></p>
+</section>
 <section id="solving-the-hidden-pain-of-ai-coding-agents" class="level3 post-card">
-<h3 data-anchor-id="solving-the-hidden-pain-of-ai-coding-agents">Solving the Hidden Pain of AI Coding Agents</h3>
-<p><em>February 2026</em> - How to prevent AI coding agents from silently breaking your code – a Skills-based approach to regression testing with golden testing and structured test management. <a href="./blog/regression-testing-ai-agents.html">Read more →</a></p>
+<h3 data-anchor-id="solving-the-hidden-pain-of-ai-coding-agents"><a href="./blog/regression-testing-ai-agents.html">Solving the Hidden Pain of AI Coding Agents</a></h3>
+<p><em>February 2026</em></p>
+<p>- How to prevent AI coding agents from silently breaking your code – a Skills-based approach to regression testing with golden testing and structured test management.</p>
+<p><a href="./blog/regression-testing-ai-agents.html" class="read-more-link">Read more →</a></p>
 </section>
 </div>
 </section>
@@ -331,6 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var zoomSvg = '<svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="22" y2="22"/><line x1="7.5" y1="10.5" x2="13.5" y2="10.5"/><line x1="10.5" y1="7.5" x2="10.5" y2="13.5"/></svg>';
 
   document.querySelectorAll('.content img:not(.logo-image)').forEach(function (img) {
+    if (img.closest('a') || img.closest('.quarto-listing') || img.closest('.listing') || img.closest('.post-card') || img.closest('.thumbnail')) return;
     var parent = img.closest('figure') || img.parentElement;
     if (parent && !parent.querySelector('.img-zoom-hint')) {
       if (getComputedStyle(parent).position === 'static') parent.style.position = 'relative';

@@ -45,9 +45,23 @@ Small Language Models designed for preserving and sharing memories through time 
 
 :::: {.recent-posts}
 :::: {.post-card}
-### Solving the Hidden Pain of AI Coding Agents
-*February 2026* - How to prevent AI coding agents from silently breaking your code -- a Skills-based approach to regression testing with golden testing and structured test management.
-[Read more →](blog/regression-testing-ai-agents.qmd)
+### [I Watched My AI Agent Do a Product Lead's Job](blog/ai-agent-product-lead.qmd)
+
+*February 2026*
+
+\- Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy -- like a product lead.
+
+[Read more →](blog/ai-agent-product-lead.qmd){.read-more-link}
+::::
+
+:::: {.post-card}
+### [Solving the Hidden Pain of AI Coding Agents](blog/regression-testing-ai-agents.qmd)
+
+*February 2026*
+
+\- How to prevent AI coding agents from silently breaking your code -- a Skills-based approach to regression testing with golden testing and structured test management.
+
+[Read more →](blog/regression-testing-ai-agents.qmd){.read-more-link}
 ::::
 ::::
 
