@@ -5,12 +5,12 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>The Fire Hacker</title>
+<title>FireHacker</title>
 <link>https://thefirehacker.github.io/blog.html</link>
 <atom:link href="https://thefirehacker.github.io/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Founder &amp; AI Researcher at AIEDX | Building the future with AI</description>
 <generator>quarto-1.8.24</generator>
-<lastBuildDate>Wed, 18 Feb 2026 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 19 Feb 2026 18:30:00 GMT</lastBuildDate>
 <item>
   <title>I Watched My AI Agent Do a Product Lead’s Job</title>
   <dc:creator>The Fire Hacker</dc:creator>
@@ -161,7 +161,7 @@
   <category>BubblSpace</category>
   <category>Vibe Coding</category>
   <guid>https://thefirehacker.github.io/blog/ai-agent-product-lead.html</guid>
-  <pubDate>Wed, 18 Feb 2026 18:30:00 GMT</pubDate>
+  <pubDate>Thu, 19 Feb 2026 18:30:00 GMT</pubDate>
   <media:content url="https://thefirehacker.github.io/assets/I Watched My AI Agent Do a Product Lead&#39;s Job.png" medium="image" type="image/png" height="58" width="144"/>
 </item>
 <item>

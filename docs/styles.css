@@ -1,57 +1,52 @@
-/* Professional Clean Theme */
+/* Dark Professional Theme */
 
 :root {
   /* Color Palette */
-  --sky-blue: #87CEEB;
-  --sky-blue-light: #B0E0E6;
-  --sky-blue-dark: #4682B4;
-  --forest-green: #4682B4;
-  --forest-green-light: #93b8d7;
-  --forest-green-dark: #2c5f8a;
-  --castle-stone: #C0C0C0;
-  --castle-stone-dark: #808080;
+  --sky-blue: #7cb3d4;
+  --sky-blue-light: #93c5e0;
+  --sky-blue-dark: #5a9bc0;
+  --forest-green: #7cb3d4;
+  --forest-green-light: #93c5e0;
+  --forest-green-dark: #5a9bc0;
+  --castle-stone: #555;
+  --castle-stone-dark: #333;
   --earth-brown: #8B4513;
   --earth-brown-light: #D2691E;
-  --magic-purple: #9370DB;
+  --magic-purple: #b39ddb;
   --magic-gold: #e5a100;
   --magic-orange: #FF8C00;
   
   /* Primary Colors */
-  --primary-color: #4682B4;
-  --primary-dark: #2c5f8a;
-  --secondary-color: #2563eb;
+  --primary-color: #7cb3d4;
+  --primary-dark: #5a9bc0;
+  --secondary-color: #60a5fa;
   --accent-color: #e5a100;
-  --text-primary: #1a1a2e;
-  --text-secondary: #2d3748;
-  --text-muted: #64748b;
-  --bg-primary: #fafbfc;
-  --bg-secondary: #f1f5f9;
-  --bg-tertiary: #e2e8f0;
-  --bg-content: #ffffff;
-  --border-color: #e2e8f0;
-  --border-light: #f1f5f9;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --text-primary: #e8e6e3;
+  --text-secondary: #c9c5c0;
+  --text-muted: #8b8680;
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #252525;
+  --bg-content: #141414;
+  --border-color: #2a2a2a;
+  --border-light: #1f1f1f;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
   
   /* Code Colors */
-  --code-bg: #f8fafc;
-  --code-border: #e2e8f0;
-  --code-text: #1e293b;
-  --code-keyword: #dc2626;
-  --code-string: #059669;
-  --code-comment: #64748b;
-  --code-number: #7c3aed;
+  --code-bg: #1e1e1e;
+  --code-border: #333;
+  --code-text: #d4d4d4;
+  --code-keyword: #569cd6;
+  --code-string: #ce9178;
+  --code-comment: #6a9955;
+  --code-number: #b5cea8;
   
-  /* Typography - Professional & Readable */
+  /* Typography */
   --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
   --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  
-  /* Text Colors - Better Contrast */
-  --text-primary: #1a1a2e;
-  --text-secondary: #2d3748;
-  --text-muted: #4a5568;
   
   /* Spacing */
   --spacing-sm: 0.5rem;
@@ -150,10 +145,10 @@ a:hover {
 
 /* Navigation Bar */
 .navbar {
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: rgba(15, 15, 15, 0.95) !important;
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   padding: 1rem 0;
   position: sticky;
   top: 0;
@@ -161,13 +156,13 @@ a:hover {
 }
 
 .navbar-brand {
-  color: var(--primary-color) !important;
+  color: var(--text-primary) !important;
   font-weight: 700;
   font-size: 1.5rem;
 }
 
 .navbar-nav .nav-link {
-  color: var(--text-primary) !important;
+  color: var(--text-secondary) !important;
   font-weight: 500;
   transition: color 0.2s ease;
 }
@@ -178,7 +173,7 @@ a:hover {
 
 /* Ensure About Me link is always visible */
 .navbar-nav .nav-link:last-child {
-  color: var(--text-primary) !important;
+  color: var(--text-secondary) !important;
   font-weight: 600;
 }
 
@@ -206,7 +201,7 @@ main {
 }
 
 .navbar-brand {
-  color: var(--primary-color) !important;
+  color: var(--text-primary) !important;
   font-weight: 700;
   font-size: 1.5rem;
   font-family: var(--font-heading);
@@ -214,7 +209,7 @@ main {
 }
 
 .navbar-nav .nav-link {
-  color: var(--text-primary) !important;
+  color: var(--text-secondary) !important;
   margin: 0 1rem;
   padding: 0.5rem 1rem !important;
   transition: all 0.3s ease;
@@ -245,12 +240,12 @@ main {
   width: 80%;
 }
 
-/* Search Button - Black Icon */
+/* Search Button */
 #quarto-search,
 .quarto-search-button,
 button[title="Search"],
 .navbar button[title="Search"] {
-  color: var(--text-primary) !important;
+  color: var(--text-secondary) !important;
 }
 
 #quarto-search svg,
@@ -261,16 +256,16 @@ button[title="Search"] svg,
 button[title="Search"] .bi-search,
 .navbar button[title="Search"] svg,
 .navbar button[title="Search"] .bi-search {
-  color: var(--text-primary) !important;
-  fill: var(--text-primary) !important;
-  stroke: var(--text-primary) !important;
+  color: var(--text-secondary) !important;
+  fill: var(--text-secondary) !important;
+  stroke: var(--text-secondary) !important;
 }
 
 #quarto-search path,
 .quarto-search-button path,
 button[title="Search"] path {
-  fill: var(--text-primary) !important;
-  stroke: var(--text-primary) !important;
+  fill: var(--text-secondary) !important;
+  stroke: var(--text-secondary) !important;
 }
 
 #quarto-search:hover,
@@ -300,7 +295,7 @@ button[title="Search"]:hover path {
 /* Hero Section */
 .hero-section {
   padding: var(--spacing-2xl) 0;
-  background: linear-gradient(180deg, #f0f7ff 0%, var(--bg-primary) 100%);
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
@@ -379,7 +374,7 @@ button[title="Search"]:hover path {
   max-width: 450px;
   height: auto;
   border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.3);
   animation: gentleFloat 6s ease-in-out infinite;
   border: 1px solid var(--border-color);
 }
@@ -387,11 +382,11 @@ button[title="Search"]:hover path {
 @keyframes gentleFloat {
   0%, 100% { 
     transform: translateY(0px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.3);
   }
   50% { 
     transform: translateY(-8px);
-    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.5), 0 12px 24px rgba(0, 0, 0, 0.35);
   }
 }
 
@@ -428,7 +423,7 @@ button[title="Search"]:hover path {
 
 .project-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   border-color: var(--primary-color);
 }
 
@@ -499,11 +494,11 @@ button[title="Search"]:hover path {
 }
 
 .btn-secondary:hover {
-  background: var(--bg-secondary);
+  background: var(--bg-tertiary);
   color: var(--primary-color);
   border-color: var(--primary-color);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   text-decoration: none;
 }
 
@@ -571,7 +566,7 @@ button[title="Search"]:hover path {
 .post-card:hover {
   transform: translateY(-2px);
   border-color: var(--primary-color);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .post-card h3 {
@@ -674,7 +669,7 @@ button[title="Search"]:hover path {
 
 .til-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   border-color: var(--primary-color);
 }
 
@@ -731,9 +726,9 @@ button[title="Search"]:hover path {
 
 .social-link:hover {
   background: var(--primary-color);
-  color: white !important;
+  color: #0f0f0f !important;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(70, 130, 180, 0.3);
+  box-shadow: 0 4px 12px rgba(124, 179, 212, 0.3);
   border-color: var(--primary-color);
   text-decoration: none;
 }
@@ -751,7 +746,7 @@ button[title="Search"]:hover path {
   width: 100%;
   max-width: 350px;
   border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--border-color);
 }
 
@@ -839,21 +834,21 @@ button[title="Search"]:hover path {
   letter-spacing: 0.01em;
 }
 
-/* Professional Clean Code Blocks */
+/* Dark Code Blocks */
 pre, div.sourceCode {
-  background: #ffffff !important;
-  border: 1px solid #e1e4e8 !important;
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
   border-radius: 6px !important;
   padding: 16px !important;
   overflow-x: auto !important;
   margin: 16px 0 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
   font-size: 14px !important;
   line-height: 1.45 !important;
   position: relative;
 }
 
-/* Make copy button ALWAYS visible - override Quarto defaults */
+/* Make copy button ALWAYS visible */
 .code-with-copy .code-copy-button,
 .code-copy-button,
 div.sourceCode .code-copy-button,
@@ -864,12 +859,12 @@ pre .code-copy-button {
   position: absolute !important;
   top: 8px !important;
   right: 8px !important;
-  background: #f6f8fa !important;
-  border: 1px solid #d0d7de !important;
+  background: #2a2a2a !important;
+  border: 1px solid #444 !important;
   border-radius: 6px !important;
   padding: 5px 8px !important;
   font-size: 12px !important;
-  color: #24292f !important;
+  color: #c9c5c0 !important;
   cursor: pointer !important;
   transition: background 0.2s ease !important;
   z-index: 10 !important;
@@ -880,8 +875,8 @@ pre .code-copy-button {
 .code-copy-button:hover,
 div.sourceCode .code-copy-button:hover,
 pre .code-copy-button:hover {
-  background: #eaeef2 !important;
-  border-color: #afb8c1 !important;
+  background: #3a3a3a !important;
+  border-color: #555 !important;
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
@@ -907,7 +902,7 @@ code {
 }
 
 pre code, div.sourceCode code {
-  color: #24292e !important;
+  color: #d4d4d4 !important;
   display: block !important;
   line-height: 1.45 !important;
   font-size: 14px !important;
@@ -917,19 +912,19 @@ pre code, div.sourceCode code {
 /* Ensure base text is visible */
 pre code span:not([class]), 
 div.sourceCode span:not([class]) {
-  color: #24292e !important;
+  color: #d4d4d4 !important;
 }
 
-/* GitHub-style syntax colors on light background */
-.sourceCode .kw, .sourceCode .cf { color: #d73a49 !important; } /* keywords */
-.sourceCode .dt { color: #005cc5 !important; } /* types */
-.sourceCode .dv, .sourceCode .bn, .sourceCode .fl { color: #005cc5 !important; } /* numbers */
-.sourceCode .ch, .sourceCode .st { color: #032f62 !important; } /* strings */
-.sourceCode .co { color: #6a737d !important; font-style: italic; } /* comments */
-.sourceCode .ot, .sourceCode .bu { color: #6f42c1 !important; } /* built-in */
-.sourceCode .fu { color: #6f42c1 !important; } /* functions */
-.sourceCode .va { color: #e36209 !important; } /* variables */
-.sourceCode .op { color: #24292e !important; } /* operators */
+/* VS Code Dark+ style syntax colors */
+.sourceCode .kw, .sourceCode .cf { color: #569cd6 !important; } /* keywords */
+.sourceCode .dt { color: #4ec9b0 !important; } /* types */
+.sourceCode .dv, .sourceCode .bn, .sourceCode .fl { color: #b5cea8 !important; } /* numbers */
+.sourceCode .ch, .sourceCode .st { color: #ce9178 !important; } /* strings */
+.sourceCode .co { color: #6a9955 !important; font-style: italic; } /* comments */
+.sourceCode .ot, .sourceCode .bu { color: #dcdcaa !important; } /* built-in */
+.sourceCode .fu { color: #dcdcaa !important; } /* functions */
+.sourceCode .va { color: #9cdcfe !important; } /* variables */
+.sourceCode .op { color: #d4d4d4 !important; } /* operators */
 
 /* Professional Inline Code */
 p code, li code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
@@ -943,22 +938,22 @@ p code, li code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   border: 1px solid var(--border-light);
 }
 
-/* Professional inline code highlighting - DISABLE ALL SYNTAX HIGHLIGHTING */
+/* Inline code -- dark mode */
 p code, li code, td code, h1 code, h2 code, h3 code, h4 code,
 mark, .highlight,
 code:not(pre code) {
-  background: #e8eaed !important;
-  color: #24292e !important;
+  background: #252525 !important;
+  color: #e8e6e3 !important;
   padding: 0.15em 0.4em !important;
   border-radius: 4px !important;
   font-weight: 500 !important;
-  border: 1px solid #d1d5db !important;
+  border: 1px solid #3a3a3a !important;
   font-size: 0.9em !important;
 }
 
 /* Override ALL syntax highlighting classes in inline code */
 p code *, li code *, td code *, code:not(pre code) * {
-  color: #24292e !important;
+  color: #e8e6e3 !important;
   background: transparent !important;
 }
 
@@ -973,12 +968,12 @@ span[style*="background: #00FF41"],
 *[style*="background-color: #00FF41"],
 *[style*="background: #4CAF50"],
 *[style*="background: #00FF41"] {
-  background: #e8eaed !important;
-  color: #1f2937 !important;
+  background: #252525 !important;
+  color: #e8e6e3 !important;
   padding: 0.15em 0.4em !important;
   border-radius: 4px !important;
   font-weight: 500 !important;
-  border: 1px solid #d1d5db !important;
+  border: 1px solid #3a3a3a !important;
 }
 
 /* Tables */
@@ -1005,12 +1000,12 @@ table th {
 
 table td {
   padding: var(--spacing-md);
-  border-bottom: 1px solid rgba(70, 130, 180, 0.1);
+  border-bottom: 1px solid var(--border-color);
   color: var(--text-primary);
 }
 
 table tr:hover {
-  background: rgba(70, 130, 180, 0.1);
+  background: rgba(124, 179, 212, 0.08);
 }
 
 table tr:last-child td {
@@ -1035,7 +1030,7 @@ table tr:last-child td {
 .quarto-listing .quarto-grid-item:hover {
   transform: translateY(-2px);
   border-color: var(--primary-color);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .quarto-listing .quarto-grid-item .thumbnail {
@@ -1158,12 +1153,12 @@ footer {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c8d0;
+  background: #3a3a3a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a0a8b4;
+  background: #555;
 }
 
 /* Page transitions */
@@ -1248,19 +1243,19 @@ main, article, #quarto-content {
 
 /* Highlighted URLs and important text */
 .highlight, mark {
-  background: rgba(70, 130, 180, 0.1) !important;
+  background: rgba(124, 179, 212, 0.15) !important;
   color: var(--text-primary) !important;
   padding: 0.1rem 0.3rem;
   border-radius: 4px;
   font-weight: 600;
-  border: 1px solid rgba(70, 130, 180, 0.2);
+  border: 1px solid rgba(124, 179, 212, 0.25);
   transition: all 0.2s ease;
 }
 
 .highlight:hover, mark:hover {
-  background: rgba(70, 130, 180, 0.2) !important;
+  background: rgba(124, 179, 212, 0.25) !important;
   border-color: var(--primary-color) !important;
-  color: var(--primary-dark) !important;
+  color: var(--primary-color) !important;
 }
 
 /* URL highlighting specifically */
@@ -1279,51 +1274,51 @@ code:contains("localhost") {
 .shell code,
 code.bash,
 code.shell {
-  background: rgba(70, 130, 180, 0.15) !important;
-  color: #4682B4 !important;
-  border: 1px solid rgba(70, 130, 180, 0.4) !important;
+  background: rgba(124, 179, 212, 0.1) !important;
+  color: var(--primary-color) !important;
+  border: 1px solid rgba(124, 179, 212, 0.25) !important;
 }
 
 /* File path highlighting */
 .path,
 code.path,
 .filename {
-  background: rgba(70, 130, 180, 0.1) !important;
+  background: rgba(124, 179, 212, 0.1) !important;
   color: var(--primary-color) !important;
-  border: 1px solid rgba(70, 130, 180, 0.3) !important;
+  border: 1px solid rgba(124, 179, 212, 0.2) !important;
 }
 
 
-/* Better contrast for code blocks */
+/* Highlight.js dark theme colors */
 pre code .hljs-string,
 pre code .hljs-attr,
 pre code .hljs-built_in {
-  color: #66D9EF !important;
+  color: #ce9178 !important;
 }
 
 pre code .hljs-keyword,
 pre code .hljs-selector-tag {
-  color: #F92672 !important;
+  color: #569cd6 !important;
 }
 
 pre code .hljs-number,
 pre code .hljs-literal {
-  color: #AE81FF !important;
+  color: #b5cea8 !important;
 }
 
 pre code .hljs-comment {
-  color: #75715E !important;
+  color: #6a9955 !important;
   font-style: italic;
 }
 
-/* Ensure good contrast for all inline code */
+/* Inline code in headings */
 h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
-  background: var(--bg-tertiary) !important;
+  background: #252525 !important;
   color: var(--text-primary) !important;
   font-size: 0.9em !important;
   padding: 0.2rem 0.4rem !important;
   border-radius: 4px !important;
-  border: 1px solid var(--border-color) !important;
+  border: 1px solid #3a3a3a !important;
 }
 
 /* Fix specific layout issues for blog posts and TIL pages */
@@ -1352,11 +1347,11 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   top: 2rem;
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
-  background: var(--bg-content);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 2rem 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   margin-left: 1rem;
 }
 
@@ -1549,9 +1544,9 @@ h3 code,
 h4 code,
 h5 code,
 h6 code {
-  background: var(--bg-tertiary) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-color) !important;
+  background: #252525 !important;
+  color: #e8e6e3 !important;
+  border: 1px solid #3a3a3a !important;
   border-radius: 4px !important;
   padding: 0.2em 0.4em !important;
   font-weight: 500 !important;

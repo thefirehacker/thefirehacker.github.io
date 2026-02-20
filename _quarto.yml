@@ -6,15 +6,15 @@ project:
     - "!temp/**"
 
 website:
-  title: "The Fire Hacker"
+  title: "FireHacker"
   # Set site URL to enable feed generation
   site-url: https://thefirehacker.github.io
   description: "Founder & AI Researcher at AIEDX | Building the future with AI"
   favicon: "assets/favicon.ico"
   google-analytics: "G-V1B8R98P79"
   navbar:
-    background: "#1a1a2e"
-    foreground: "#ffffff"
+    background: "#0f0f0f"
+    foreground: "#e8e6e3"
     left:
       - href: index.qmd
         text: Home
@@ -34,9 +34,9 @@ website:
 
 format:
   html:
-    theme: journal
+    theme: darkly
     css: styles.css
-    highlight-style: github
+    highlight-style: github-dark
     code-copy: true
     toc: true
     link-external-icon: true

@@ -1,5 +1,5 @@
 ---
-title: "The Fire Hacker"
+title: "FireHacker"
 page-layout: custom
 toc: false
 ---
@@ -7,7 +7,7 @@ toc: false
 :::: {.hero-section}
 :::: {.container}
 :::: {.hero-content}
-# Welcome to The Fire Hacker {.hero-title}
+# Hi, I'm FireHacker {.hero-title}
 
 ::::: {.hero-intro}
 I'm a **Founder & AI Researcher at AIEDX**, passionate about building the future with artificial intelligence. Currently developing innovative solutions that bridge the gap between cutting-edge AI research and practical applications.

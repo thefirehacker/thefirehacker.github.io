@@ -198,9 +198,9 @@
   {
     "objectID": "blog.html",
     "href": "blog.html",
-    "title": "Blog",
+    "title": "FireHacker’s Blog",
     "section": "",
-    "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nI Watched My AI Agent Do a Product Lead’s Job\n\n\n\nAI\n\nProduct Strategy\n\nBubblSpace\n\nVibe Coding\n\n\n\nEveryone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – audience analysis, tone calibration, competitive framing – like a product lead.\n\n\n\n\n\nFeb 19, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\n\n\n\n\n\n\n\nSolving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing\n\n\n\nAI\n\nTesting\n\nSoftware Development\n\nBubblSpace\n\n\n\nHow to prevent AI coding agents from silently breaking your code—a Skills-based approach to regression testing with golden testing and structured test management\n\n\n\n\n\nFeb 19, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to my blog where I share insights about AI research, software development, and the journey of building innovative products. Here you’ll find technical deep-dives, project updates, and lessons learned along the way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nI Watched My AI Agent Do a Product Lead’s Job\n\n\n\nAI\n\nProduct Strategy\n\nBubblSpace\n\nVibe Coding\n\n\n\nEveryone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – audience analysis, tone calibration, competitive framing – like a product lead.\n\n\n\n\n\nFeb 20, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\n\n\n\n\n\n\n\nSolving the Hidden Pain of AI Coding Agents: A Skills-Based Approach to Regression Testing\n\n\n\nAI\n\nTesting\n\nSoftware Development\n\nBubblSpace\n\n\n\nHow to prevent AI coding agents from silently breaking your code—a Skills-based approach to regression testing with golden testing and structured test management\n\n\n\n\n\nFeb 19, 2026\n\n\nThe Fire Hacker\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -296,21 +296,21 @@
   {
     "objectID": "index.html#recent-posts",
     "href": "index.html#recent-posts",
-    "title": "The Fire Hacker",
+    "title": "FireHacker",
     "section": "Recent Posts",
     "text": "Recent Posts\n\n\nI Watched My AI Agent Do a Product Lead’s Job\nFebruary 2026\n- Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy – like a product lead.\nRead more →\n\n\nSolving the Hidden Pain of AI Coding Agents\nFebruary 2026\n- How to prevent AI coding agents from silently breaking your code – a Skills-based approach to regression testing with golden testing and structured test management.\nRead more →"
   },
   {
     "objectID": "index.html#today-i-learned",
     "href": "index.html#today-i-learned",
-    "title": "The Fire Hacker",
+    "title": "FireHacker",
     "section": "Today I Learned",
     "text": "Today I Learned\n\n\nDDP from Scratch: a learner-friendly guide\nFrom single‑GPU code to a tiny DistributedDataParallel (DDP) built by hand.\nCovers seeding, kwargs unpacking, dictionary comprehensions, gradient averaging with all_reduce, and a minimal training loop.\nDeep dive →\n\n\nMy First CUDA Kernel: Learning GPU Programming from Scratch\nFirst CUDA Kernel Success!\nBuilt and ran custom CUDA kernels on RTX 2050. Learned about parallel execution, compilation with ninja/nvcc, and discovered the 16384×16384 performance mystery.\nDeep dive →\n\n\nSee all TIL →"
   },
   {
     "objectID": "index.html#connect",
     "href": "index.html#connect",
-    "title": "The Fire Hacker",
+    "title": "FireHacker",
     "section": "Connect",
     "text": "Connect\n\nGitHub X/Twitter Contact"
   },

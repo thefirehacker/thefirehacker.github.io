@@ -1,7 +1,7 @@
 ---
 title: "I Watched My AI Agent Do a Product Lead's Job"
 author: "The Fire Hacker"
-date: "2026-02-19"
+date: "2026-02-20"
 categories: [AI, Product Strategy, BubblSpace, Vibe Coding]
 description: "Everyone talks about AI writing code. This is about the moment I watched an AI Persona reason through positioning strategy -- audience analysis, tone calibration, competitive framing -- like a product lead."
 image: "../assets/I Watched My AI Agent Do a Product Lead's Job.png"

@@ -5,7 +5,7 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>The Fire Hacker</title>
+<title>FireHacker</title>
 <link>https://thefirehacker.github.io/til.html</link>
 <atom:link href="https://thefirehacker.github.io/til.xml" rel="self" type="application/rss+xml"/>
 <description>Founder &amp; AI Researcher at AIEDX | Building the future with AI</description>
