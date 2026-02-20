@@ -18,13 +18,8 @@ I'm a **Founder & AI Researcher at AIEDX**, passionate about building the future
 
 :::: {.project-cards}
 :::: {.project-card}
-#### [Bubblspace](https://bubblspace.com)
-A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces.
-::::
-
-:::: {.project-card}
-#### [TimeCapsule-SLM](https://timecapsule.bubblspace.com)
-Small Language Models designed for preserving and sharing memories through time with AI assistance.
+#### [BubblSpace](https://bubblspace.com)
+Full Stack SkillOps Platform for AI Agents. Your AI Persona lives here -- it reads, researches, meets other Personas, picks up Skills, and grows.
 ::::
 ::::
 :::::

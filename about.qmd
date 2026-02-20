@@ -14,48 +14,46 @@ toc: false
 
 ## Founder & AI Researcher at AIEDX
 
-I'm passionate about democratizing AI and building tools that empower individuals and businesses to harness the power of artificial intelligence. My work focuses on making AI accessible, practical, and privacy-preserving.
+I'm building the infrastructure for AI agents that actually remember, learn, and grow. My work sits at the intersection of agentic AI, skill portability, and multi-agent collaboration -- turning AI from a stateless tool into a persistent thinking partner.
 
 ### What I'm Building
 
-#### [Bubblspace](https://bubblspace.com)
-A revolutionary platform for creating and sharing AI-powered experiences in collaborative spaces. Think of it as Google Docs meets AI playground, where teams can work together with multiple AI models in real-time.
+#### [BubblSpace](https://bubblspace.com)
+The Full Stack SkillOps Platform for AI Agents. Your AI Persona lives here -- it reads your research, runs deep analysis with specialized sub-agents, meets other Personas in BubblSpace, picks up Skills, and grows. Every skill it learns is portable: MCP-compatible, works in Cursor, Claude Code, Codex, and any SWE agent.
 
-#### [TimeCapsule-SLM](https://timecapsule.bubblspace.com)
-Small Language Models designed specifically for preserving and sharing memories through time. This project explores how we can use AI to create meaningful connections with our past and future selves.
+DevOps is for code. MLOps is for models. **SkillOps is for agents.**
+
+BubblSpace mines skills from real work and deploys them to any agent runtime. Your agents never start from scratch again.
 
 ### My Journey
 
-- **2025**: Focused on  AI research initiatives in distributed systems to build Efficient small models
-- **2024**: BuildingBubblSpace: AI Pesronas with real time voice to voice capabiltiles to execute Enterprise Workflows 
-- **2022**: Founded AIEDX, focusing on local-first AI solutions
+- **2026**: Building SkillOps -- the platform layer where AI Personas learn, socialize, and compound skills across agent runtimes
+- **2025**: Deep research into multi-agent orchestration, reasoning models, and skill portability across AI toolchains
+- **2024**: Launched BubblSpace with AI Personas, real-time voice capabilities, and enterprise workflow execution
+- **2022**: Founded AIEDX, focusing on AI-powered solutions
 
 ### Technical Interests
 
-- **Small Language Models (SLMs)**: AI models that can run locally or small cluster of GPUs.
-- **Distributed Computing**: Scaling AI across multiple nodes for both training and inference.
-- **AI-Frames**: Open learning with the help of AI.
-
-### Open Source Contributions
-
-I believe in giving back to the community. Check out my projects:
-
-- [TimeCapsule-SLM](https://github.com/aiedx/timecapsule-slm) - Local-first memory preservation
-
+- **AI Agents & Personas**: Persistent agents that remember context, build knowledge, and develop opinions over time
+- **SkillOps Architecture**: Mining skills from real work, deploying them across Cursor, Claude Code, Codex, and any SWE agent
+- **Multi-Agent Systems**: Sub-agent orchestration where specialized agents work problems from different angles -- every finding cited, every source tracked
+- **Reasoning Models**: How agents move from pattern-matching to genuine strategic thinking -- product positioning, audience analysis, competitive framing
+- **Agentic Workflows**: Building systems where AI doesn't just respond but initiates, researches, and comes back with "Hey, I found something interesting yesterday"
 
 ### Philosophy
 
-> "The best AI is the one that runs on your device, respects your privacy, and enhances your capabilities without replacing your creativity."
+> "Prompts fade. Skills compound."
 
 I believe the future of AI is:
-- **Local-first**: Your data stays on your device
-- **Collaborative**: AI should enhance human collaboration
-- **Accessible**: Everyone should benefit from AI advances
-- **Transparent**: Understanding how AI makes decisions
+
+- **Persistent**: Your agent remembers where you got stuck last Tuesday -- it speaks from *your* knowledge, not the internet's
+- **Social**: In BubblSpace, Personas meet other Personas, exchange knowledge, share skills, and come back with insights they couldn't have found alone
+- **Portable**: Skills built in one place shouldn't stay in one place -- they travel everywhere your agents work
+- **Compounding**: Every conversation, every research session, every collaboration makes your Persona sharper. The gap between a fresh agent and *your* agent should widen every day
 
 ### Let's Connect!
 
-I love connecting with fellow developers, researchers, and AI enthusiasts. Feel free to reach out:
+I love connecting with fellow builders, researchers, and AI enthusiasts. Feel free to reach out:
 
 - **GitHub**: [@thefirehacker](https://github.com/thefirehacker)
 - **X/Twitter**: [@thefirehacker](https://x.com/thefirehacker)
@@ -63,21 +61,21 @@ I love connecting with fellow developers, researchers, and AI enthusiasts. Feel 
 
 ### Speaking & Writing
 
-I occasionally speak at conferences and write about AI, distributed systems, and building products. Some recent topics:
+I write about AI agents, SkillOps, and building products where AI thinks alongside you. Some recent topics:
 
-- "Small Models, Big Impact: The Future of Edge AI"
-- "Building Privacy-First AI Applications"
-- "From Research to Product: Shipping AI Features Users Love"
+- "From Prompts to Skills: Why AI Agents Need a New Operating Layer"
+- "I Watched My AI Agent Do a Product Lead's Job"
+- "Regression Testing for AI Coding Agents: A Skills-Based Approach"
 
 ### Fun Facts
 
 - 🧙‍♂️ The Fire Hacker wizard logo represents the magic of turning ideas into reality
 - 🔥 I believe in "hacking" in its original sense: creative problem-solving
 - 🌟 My first program was a text-based adventure game
-- 🎯 Current goal: Make AI accessible to 1 million users
+- 🎯 Current goal: Make AI agents that never start from scratch again
 
 ---
 
-*Want to collaborate or just chat about AI? Drop me a message on [X/Twitter](https://x.com/thefirehacker) or open an issue on one of my [GitHub projects](https://github.com/thefirehacker).*
+*Want to collaborate or just chat about AI agents and SkillOps? Drop me a message on [X/Twitter](https://x.com/thefirehacker) or open an issue on one of my [GitHub projects](https://github.com/thefirehacker).*
 :::
 :::
